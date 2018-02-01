@@ -14,7 +14,7 @@ namespace DigitalScores.Models
             {
                 return this.id;
             }
-            set { }
+            private set { this.id = value; }
         }
 
         public string Naziv { get; set; }        

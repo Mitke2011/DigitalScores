@@ -29,11 +29,13 @@ namespace DigitalScores.Models
         #region DbLookup fields
         private int sportId;
         #endregion
-        public Sport sport { get; set; }
+        public Sport Sport { get; set; }
 
         public Klub()
         {
 
         }
+        #region hghgh
+        #endregion
     }
 }
