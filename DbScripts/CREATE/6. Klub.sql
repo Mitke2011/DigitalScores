@@ -1,7 +1,7 @@
 USE [digitalscores]
 GO
 
-/****** Object:  Table [dbo].[Klub]    Script Date: 31-Jan-18 8:36:47 PM ******/
+/****** Object:  Table [dbo].[Klub]    Script Date: 01-Feb-18 11:44:47 AM ******/
 SET ANSI_NULLS ON
 GO
 

@@ -21,7 +21,7 @@ CREATE TABLE [dbo].[Kolo](
 GO
 
 ALTER TABLE [dbo].[Kolo]  WITH CHECK ADD  CONSTRAINT [FK_Kolo_Sezona] FOREIGN KEY([Sezona_Id])
-REFERENCES [dbo].[Sezona] ([Id])
+REFERENCES [dbo].[Sezone] ([Id])
 GO
 
 ALTER TABLE [dbo].[Kolo] CHECK CONSTRAINT [FK_Kolo_Sezona]

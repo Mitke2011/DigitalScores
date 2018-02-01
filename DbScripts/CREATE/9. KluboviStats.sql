@@ -1,7 +1,7 @@
 USE [digitalscores]
 GO
 
-/****** Object:  Table [dbo].[KluboviStatistika]    Script Date: 31-Jan-18 8:36:52 PM ******/
+/****** Object:  Table [dbo].[KluboviStats]    Script Date: 01-Feb-18 11:49:31 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -26,18 +26,18 @@ CREATE TABLE [dbo].[KluboviStats](
 
 GO
 
-ALTER TABLE [dbo].[KluboviStatistika]  WITH CHECK ADD  CONSTRAINT [FK_KluboviStatistika_Klub] FOREIGN KEY([Klub_Id])
+ALTER TABLE [dbo].[KluboviStats]  WITH CHECK ADD  CONSTRAINT [FK_KluboviStatistika_Klub] FOREIGN KEY([Klub_Id])
 REFERENCES [dbo].[Klub] ([Id])
 GO
 
-ALTER TABLE [dbo].[KluboviStatistika] CHECK CONSTRAINT [FK_KluboviStatistika_Klub]
+ALTER TABLE [dbo].[KluboviStats] CHECK CONSTRAINT [FK_KluboviStatistika_Klub]
 GO
 
-ALTER TABLE [dbo].[KluboviStatistika]  WITH CHECK ADD  CONSTRAINT [FK_KluboviStatistika_Sezona] FOREIGN KEY([Sezona_Id])
-REFERENCES [dbo].[Sezona] ([Id])
+ALTER TABLE [dbo].[KluboviStats]  WITH CHECK ADD  CONSTRAINT [FK_KluboviStatistika_Sezona] FOREIGN KEY([Sezona_Id])
+REFERENCES [dbo].[Sezone] ([Id])
 GO
 
-ALTER TABLE [dbo].[KluboviStatistika] CHECK CONSTRAINT [FK_KluboviStatistika_Sezona]
+ALTER TABLE [dbo].[KluboviStats] CHECK CONSTRAINT [FK_KluboviStatistika_Sezona]
 GO
 
 

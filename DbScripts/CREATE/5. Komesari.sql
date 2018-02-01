@@ -1,7 +1,7 @@
 USE [digitalscores]
 GO
 
-/****** Object:  Table [dbo].[Komesari]    Script Date: 31-Jan-18 8:37:03 PM ******/
+/****** Object:  Table [dbo].[Komesari]    Script Date: 01-Feb-18 11:49:44 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -24,7 +24,7 @@ CREATE TABLE [dbo].[Komesari](
 GO
 
 ALTER TABLE [dbo].[Komesari]  WITH CHECK ADD  CONSTRAINT [FK_Komesari_Liga] FOREIGN KEY([Liga_Id])
-REFERENCES [dbo].[Liga] ([Id])
+REFERENCES [dbo].[Lige] ([Id])
 GO
 
 ALTER TABLE [dbo].[Komesari] CHECK CONSTRAINT [FK_Komesari_Liga]

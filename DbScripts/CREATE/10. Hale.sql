@@ -1,0 +1,23 @@
+USE [digitalscores]
+GO
+
+/****** Object:  Table [dbo].[Hala]    Script Date: 01-Feb-18 11:47:50 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Hala](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Naziv] [nvarchar](50) NULL,
+	[Grad] [nvarchar](50) NULL,
+ CONSTRAINT [PK_Hala] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+

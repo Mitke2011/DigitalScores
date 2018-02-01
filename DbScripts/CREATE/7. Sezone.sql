@@ -1,7 +1,7 @@
 USE [digitalscores]
 GO
 
-/****** Object:  Table [dbo].[Sezona]    Script Date: 31-Jan-18 8:37:21 PM ******/
+/****** Object:  Table [dbo].[Sezone]    Script Date: 01-Feb-18 11:49:53 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -20,11 +20,11 @@ CREATE TABLE [dbo].[Sezone](
 
 GO
 
-ALTER TABLE [dbo].[Sezona]  WITH CHECK ADD  CONSTRAINT [FK_Sezona_Sezona1] FOREIGN KEY([Liga_Id])
-REFERENCES [dbo].[Liga] ([Id])
+ALTER TABLE [dbo].[Sezone]  WITH CHECK ADD  CONSTRAINT [FK_Sezona_Sezona1] FOREIGN KEY([Liga_Id])
+REFERENCES [dbo].[Lige] ([Id])
 GO
 
-ALTER TABLE [dbo].[Sezona] CHECK CONSTRAINT [FK_Sezona_Sezona1]
+ALTER TABLE [dbo].[Sezone] CHECK CONSTRAINT [FK_Sezona_Sezona1]
 GO
 
 
