@@ -38,7 +38,7 @@ CREATE TABLE [dbo].[Rezultati](
 GO
 
 ALTER TABLE [dbo].[Rezultati]  WITH CHECK ADD  CONSTRAINT [FK_Rezultati_Utakmica] FOREIGN KEY([Utakmica_Id])
-REFERENCES [dbo].[Utakmica] ([Id])
+REFERENCES [dbo].[Utakmice] ([Id])
 GO
 
 ALTER TABLE [dbo].[Rezultati] CHECK CONSTRAINT [FK_Rezultati_Utakmica]
