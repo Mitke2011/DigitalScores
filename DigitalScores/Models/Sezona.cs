@@ -19,6 +19,11 @@
 
         public string Naziv { get; set; }
 
+        #region DbLookup fields
+        private int ligaId;
+        #endregion
+        public Liga Liga { get; set; }
+
         public Sezona()
         {
 

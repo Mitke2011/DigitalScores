@@ -24,6 +24,11 @@ namespace DigitalScores.Models
 
         public string Naziv { get; set; }
 
+        #region
+        private int sezonaId;
+        #endregion
+        public Liga Liga { get; set; }
+
         public Kolo()
         {
 
