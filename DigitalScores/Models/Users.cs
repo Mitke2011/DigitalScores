@@ -19,7 +19,7 @@
     
         public string Username { get; set; }
         public string Password { get; set; }
-        public int Privilege { get; set; }
+        public Privilege Privilege { get; set; }
         public string Ime { get; set; }
         public string Prezime { get; set; }
         public string Email { get; set; }
@@ -32,5 +32,18 @@
 
         }
 
+        public Users(int id)
+        {
+            this.id = id;
+        }
+                
+    }
+
+    public enum Privilege
+    {
+        SuperAdmin,
+        Admin,
+        Delegate,
+        Invalid
     }
 }

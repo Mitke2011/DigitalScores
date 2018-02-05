@@ -23,5 +23,9 @@
         {
 
         }
+        public Liga(int id)
+        {
+            this.id = id;
+        }
     }
 }

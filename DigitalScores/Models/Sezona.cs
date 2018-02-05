@@ -28,5 +28,9 @@
         {
 
         }
+        public Sezona(int id)
+        {
+            this.id = id;
+        }
     }
 }

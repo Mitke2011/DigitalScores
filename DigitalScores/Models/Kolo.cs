@@ -33,5 +33,9 @@ namespace DigitalScores.Models
         {
 
         }
+        public Kolo(int id)
+        {
+            this.id = id;
+        }
     }
 }

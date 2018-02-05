@@ -39,5 +39,10 @@ namespace DigitalScores.Models
 
         }
 
+        public KluboviStats(int id)
+        {
+            this.id = id;
+        }
+
     }
 }

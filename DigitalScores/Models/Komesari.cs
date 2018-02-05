@@ -35,6 +35,10 @@ namespace DigitalScores.Models
         {
                 
         }
+        public Komesari(int id)
+        {
+            this.id = id;
+        }
 
     }
 }

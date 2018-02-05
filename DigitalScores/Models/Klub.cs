@@ -35,7 +35,9 @@ namespace DigitalScores.Models
         {
 
         }
-        #region hghgh
-        #endregion
+        public Klub(int id)
+        {
+            this.id = id;
+        }
     }
 }

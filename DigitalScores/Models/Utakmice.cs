@@ -48,6 +48,10 @@ namespace DigitalScores.Models
         {
 
         }
+        public Utakmice(int id)
+        {
+            this.id = id;
+        }
 
     }
 }

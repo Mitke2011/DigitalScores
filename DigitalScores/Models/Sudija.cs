@@ -24,7 +24,9 @@
         {
 
         }
-
-
+        public Sudija(int id)
+        {
+            this.id = id;
+        }
     }
 }

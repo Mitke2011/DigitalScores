@@ -23,5 +23,9 @@ namespace DigitalScores.Models
         {
 
         }
+        public Sport(int id)
+        {
+            this.id = id;
+        }
     }
 }

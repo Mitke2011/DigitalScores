@@ -23,5 +23,9 @@
         {
         
         }
+        public Hala(int id)
+        {
+            this.id = id;
+        }
     }
 }

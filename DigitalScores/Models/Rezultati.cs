@@ -46,6 +46,10 @@ namespace DigitalScores.Models
         {
 
         }
+        public Rezultati(int id)
+        {
+            this.id = id;
+        }
 
     }
 }
