@@ -10,18 +10,19 @@ namespace DigitalScores.Controllers
 {
     public class UserController : Controller
     {
-        // GET: User
+        // GET: User Ovde ce view da bude Index.cshtml
         public ActionResult Index()
         {
             return View();
         }
 
-        // POST: User Login
+        // POST: User Login //nisam siguran koji view da koristim.
         [HttpPost]
-        public ActionResult Login(Models.Users user)
+        public ActionResult Login(Users user)
         {
-            //kako da ovde verifikujem usera
-            //Users u = UsersDbManager.
+            // dodao sam ovo polje current koje cuva objekat DB manager koji koristim da pristupim metodi VerifyUserByPassword
+            //dodao sam metodu VerifyuUserbyPassword u DB manager. Ne znam jel to dobra ideja.
+            Users u = UsersDbManager.Current.VerifyUserByPassword(user.Username, user.Password);
             
             if (u != null)
             {
@@ -29,8 +30,8 @@ namespace DigitalScores.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.LoginValidation = "Login is not successful, please try later";
-            return View();
+            ViewBag.LoginValidation = "Login is not successful, please try again";
+            return View("Index");
         }
 
         // GET: User/Details/5

@@ -8,6 +8,18 @@ namespace DigitalScores.DbManagers
 {
     public class UsersDbManager : DbManagerABS
     {
+        static UsersDbManager instance;
+        public static UsersDbManager Current
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new UsersDbManager();
+                }
+                return instance;
+            }
+        }
         public UsersDbManager() : base()
         {
 
@@ -105,6 +117,16 @@ namespace DigitalScores.DbManagers
         public Users GetUserByUsername(string username)
         {
             string sql = "select * from users where username = @username";
+            return null;
+        }
+
+        public Users VerifyUserByPassword(string username, string password)
+        {
+            Users u = GetUserByUsername(username);
+            if (u!=null && string.Equals(u.Password, password))
+            {
+                return u;
+            }
             return null;
         }
     }
