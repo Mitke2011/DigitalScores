@@ -117,12 +117,23 @@ namespace DigitalScores.DbManagers
         public Users GetUserByUsername(string username)
         {
             string sql = "select * from users where username = @username";
-            return null;
+
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+
+                using (command = new SqlCommand(sql, connection))
+                {
+
+                }
+            }
+
+                return null;
         }
 
         public Users VerifyUserByPassword(string username, string password)
         {
-            Users u = GetUserByUsername(username);
+            Users u = (Users)GetSingle(1);
             if (u!=null && string.Equals(u.Password, password))
             {
                 return u;

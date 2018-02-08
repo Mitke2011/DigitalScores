@@ -10,18 +10,16 @@ namespace DigitalScores.Controllers
 {
     public class UserController : Controller
     {
-        // GET: User Ovde ce view da bude Index.cshtml
+        // GET: User 
         public ActionResult Index()
         {
             return View("Login");
         }
 
-        // POST: User Login //nisam siguran koji view da koristim.
+        // POST: User Login
         [HttpPost]
         public ActionResult Login(Users user)
         {
-            // dodao sam ovo polje current koje cuva objekat DB manager koji koristim da pristupim metodi VerifyUserByPassword
-            //dodao sam metodu VerifyuUserbyPassword u DB manager. Ne znam jel to dobra ideja.
             Users u = UsersDbManager.Current.VerifyUserByPassword(user.Username, user.Password);
             
             if (u != null)
