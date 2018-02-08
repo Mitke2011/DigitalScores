@@ -241,6 +241,7 @@
     <Content Include="Content\herc-media.css" />
     <Content Include="Content\herc-style.css" />
     <Content Include="Content\Images\breadcrumb.png" />
+    <Content Include="Content\Images\logoclear.png" />
     <Content Include="Content\Images\glyphicons-halflings-white.png" />
     <Content Include="Content\Images\gritter.png" />
     <Content Include="Content\Images\hue.png" />
@@ -346,6 +347,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_DefaultLayout.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

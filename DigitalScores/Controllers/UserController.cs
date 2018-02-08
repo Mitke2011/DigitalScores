@@ -13,7 +13,7 @@ namespace DigitalScores.Controllers
         // GET: User Ovde ce view da bude Index.cshtml
         public ActionResult Index()
         {
-            return View();
+            return View("Login");
         }
 
         // POST: User Login //nisam siguran koji view da koristim.
@@ -27,11 +27,11 @@ namespace DigitalScores.Controllers
             if (u != null)
             {
                 Session["currentUser"] = u;
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Admin");
             }
 
             ViewBag.LoginValidation = "Login is not successful, please try again";
-            return View("Index");
+            return View("Login");
         }
 
         // GET: User/Details/5
