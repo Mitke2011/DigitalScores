@@ -103,7 +103,5 @@ namespace DigitalScores.Controllers
                 return View();
             }
         }
-
-       
     }
 }
