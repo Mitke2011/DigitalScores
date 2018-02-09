@@ -116,6 +116,7 @@ namespace DigitalScores.DbManagers
 
         public Users GetUserByUsername(string username)
         {
+            Users user = null;
             string sql = "select * from users where username = @username";
 
             using (connection = new SqlConnection(this.ConnectionString))
@@ -124,16 +125,42 @@ namespace DigitalScores.DbManagers
 
                 using (command = new SqlCommand(sql, connection))
                 {
+                    command.Parameters.Add(new SqlParameter() { ParameterName = "@username", SqlDbType = System.Data.SqlDbType.NVarChar, Value = username });
 
+                    try
+                    {
+                        SqlDataReader reader = command.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            user = new Users(username)
+
+                            {
+                                Username = reader.GetString(reader.GetOrdinal("username")),
+                                Password = reader.GetString(reader.GetOrdinal("password")),
+                                Privilege = GetPrivilege(reader.GetInt32(reader.GetOrdinal("privilege_id"))),
+                                Ime = reader.GetString(reader.GetOrdinal("ime")),
+                                Prezime = reader.GetString(reader.GetOrdinal("prezime")),
+                                Email = reader.GetString(reader.GetOrdinal("email")),
+                                Grad = reader.GetString(reader.GetOrdinal("grad")),
+                                Telefon = reader.GetString(reader.GetOrdinal("telefon")),
+                                Region = reader.GetString(reader.GetOrdinal("region"))
+                            };
+                        }
+                    }
+
+                    catch (Exception)
+                    {
+                        throw;
+                    }
                 }
             }
 
-                return null;
+            return user;
         }
 
         public Users VerifyUserByPassword(string username, string password)
         {
-            Users u = (Users)GetSingle(1);
+            Users u = GetUserByUsername(username);
             if (u!=null && string.Equals(u.Password, password))
             {
                 return u;
