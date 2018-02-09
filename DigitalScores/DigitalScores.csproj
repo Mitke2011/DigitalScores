@@ -205,7 +205,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\DelegatesController.cs" />
+    <Compile Include="Controllers\RefereeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DbManagers\KlubDbManager.cs" />
     <Compile Include="DbManagers\UsersDbManager.cs" />
@@ -351,7 +351,8 @@
     <Content Include="Views\Shared\_DefaultLayout.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
-    <Content Include="Views\User\Delegates.cshtml" />
+    <Content Include="Views\Admin\RefereesEntry.cshtml" />
+    <Content Include="Views\Referee\Referees.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

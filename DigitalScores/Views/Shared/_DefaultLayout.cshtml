@@ -50,9 +50,9 @@
     <div id="sidebar">
         <a href="#" class="visible-phone"><i class="icon icon-home"></i> Početna</a>
         <ul>
-            <li class="active"><a href="index.html"><i class="icon icon-home"></i> <span>Početna</span></a> </li>
+            <li class="active"><a href="~/Admin/Index"><i class="icon icon-home"></i> <span>Početna</span></a> </li>
             <li> <a href="delegati.html"><i class="icon icon-th-list"></i> <span>Delegati</span></a> </li>
-            <li> <a href="sudije.html"><i class="icon icon-th-list"></i> <span>Sudije</span></a> </li>
+            <li> <a href="~/Referee/Create"><i class="icon icon-th-list"></i> <span>Sudije</span></a> </li>
             <li><a href="unosrezultata.html"><i class="icon icon-th-list"></i> <span>Unos rezultata</span></a></li>
             <li><a href="unosutakmica.html"><i class="icon icon-th-list"></i> <span>unosutakmica</span></a></li>
             <li>
@@ -96,8 +96,8 @@
                 <ul class="quick-actions">
                     @*Ovde idu HTML helperi za Redirect Actions
                         Postoji nekoliko verzija, zavisi da li je potrebno da se proslede vrednosti sa forme ili ne.*@
-                    @Html.ActionLink("LinkText", "action_name", "controller_name");
-                    <li class="bg_lb"> <a href="index.html"> <i class="icon-dashboard"></i>  Početna </a> </li>
+                    @Html.ActionLink("Lik", "Index", "Admin");
+                    <li class="bg_lb">@Html.ActionLink("Pocetna", "Index", "Admin")</li>
                     <li class="bg_lg span3"> <a href="tabele.html"> <i class="icon-signal"></i> Tabele</a> </li>
                     <li class="bg_ly"> <a href="widgets.html"> <i class="icon-inbox"></i>Licence </a> </li>
                     <li class="bg_lo"> <a href="raspored.html"> <i class="icon-th"></i> Raspored</a> </li>
