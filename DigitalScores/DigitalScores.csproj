@@ -205,6 +205,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\RefereeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DbManagers\KlubDbManager.cs" />
     <Compile Include="DbManagers\UsersDbManager.cs" />
@@ -323,7 +324,9 @@
     <Content Include="Scripts\masked.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\wysihtml5-0.3.0.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -348,10 +351,11 @@
     <Content Include="Views\Shared\_DefaultLayout.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\Admin\RefereesEntry.cshtml" />
+    <Content Include="Views\Referee\Referees.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-	<Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\DefaultFont\glyphicons-halflings-regular.woff" />
