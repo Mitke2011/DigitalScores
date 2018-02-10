@@ -36,6 +36,11 @@
         {
             this.id = id;
         }
+
+        public Users(string username)
+        {
+            this.Username = username;
+        }
                 
     }
 

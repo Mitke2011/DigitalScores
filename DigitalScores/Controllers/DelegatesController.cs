@@ -3,48 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using DigitalScores.Models;
-using DigitalScores.DbManagers;
 
 namespace DigitalScores.Controllers
 {
-    public class UserController : Controller
+    public class DelegatesController : Controller
     {
-        // GET: User 
+        // GET: Delegates
         public ActionResult Index()
         {
-            return View("Login");
+            return View();
         }
 
-        // POST: User Login
-        [HttpPost]
-        public ActionResult Login(Users user)
-        {
-            Users u = UsersDbManager.Current.VerifyUserByPassword(user.Username, user.Password);
-            
-            if (u != null)
-            {
-                Session["currentUser"] = u;
-                return RedirectToAction("Index", "Admin");
-            }
-
-            ViewBag.LoginValidation = "Login is not successful, please try again";
-            return View("Login");
-        }
-
-        // GET: User/Details/5
+        // GET: Delegates/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: User/Create
+        // GET: Delegates/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: User/Create
+        // POST: Delegates/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -60,13 +42,13 @@ namespace DigitalScores.Controllers
             }
         }
 
-        // GET: User/Edit/5
+        // GET: Delegates/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: User/Edit/5
+        // POST: Delegates/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -82,13 +64,13 @@ namespace DigitalScores.Controllers
             }
         }
 
-        // GET: User/Delete/5
+        // GET: Delegates/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: User/Delete/5
+        // POST: Delegates/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
