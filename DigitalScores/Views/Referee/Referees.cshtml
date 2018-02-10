@@ -1,4 +1,4 @@
-﻿
+﻿@model DigitalScores.Models.Sudija
 @{
     ViewBag.Title = "Referee";
     Layout = "~/Views/Shared/_DefaultLayout.cshtml";
@@ -15,11 +15,15 @@
                             <h5>Unos sudije</h5>
                         </div>
                         <div class="widget-content nopadding">
-                            <form class="form-horizontal" method="post" action="#" name="basic_validate" id="basic_validate" novalidate>
+                            <section id="RefereeEntryForm">
+                            
+                            @using (Html.BeginForm("Create", "Referee", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
                                 <div class="control-group">
                                     <label class="control-label">Ime</label>
                                     <div class="controls">
-                                        <input type="text" name="required" id="required">
+                                        @Html.TextBoxFor(m => m.Ime, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.Ime)
                                     </div>
                                 </div>
                                 <div class="control-group">
@@ -43,7 +47,8 @@
                                 <div class="form-actions">
                                     <input type="submit" value="Snimi" class="btn btn-success">
                                 </div>
-                            </form>
+                            }
+                            </section>
                         </div>
                     </div>
                 </div>
