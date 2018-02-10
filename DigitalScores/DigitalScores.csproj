@@ -205,6 +205,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\DelegatesController.cs" />
     <Compile Include="Controllers\RefereeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DbManagers\RefereeDbManager.cs" />
