@@ -11,7 +11,7 @@ namespace DigitalScores.Controllers
         // GET: Delegates
         public ActionResult Index()
         {
-            return View();
+            return View("DelegatesEntry");
         }
 
         // GET: Delegates/Details/5

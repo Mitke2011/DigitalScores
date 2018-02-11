@@ -3,6 +3,8 @@
     Layout = null;
 }
 
+@RenderSection("scripts", required: false)
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,7 +53,7 @@
         <a href="#" class="visible-phone"><i class="icon icon-home"></i> Početna</a>
         <ul>
             <li class="active"><a href="~/Admin/Index"><i class="icon icon-home"></i> <span>Početna</span></a> </li>
-            <li> <a href="delegati.html"><i class="icon icon-th-list"></i> <span>Delegati</span></a> </li>
+            <li> <a href="@Url.Action("Index", "Delegates")"><i class="icon icon-th-list"></i> <span>Delegati</span></a> </li>
             <li> <a href="~/Referee/Create"><i class="icon icon-th-list"></i> <span>Sudije</span></a> </li>
             <li><a href="unosrezultata.html"><i class="icon icon-th-list"></i> <span>Unos rezultata</span></a></li>
             <li><a href="unosutakmica.html"><i class="icon icon-th-list"></i> <span>unosutakmica</span></a></li>
