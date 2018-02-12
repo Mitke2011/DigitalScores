@@ -358,10 +358,10 @@
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\Referee\Referees.cshtml" />
     <Content Include="Views\Delegates\DelegatesEntry.cshtml" />
-    <Content Include="Views\Utakmica\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Utakmica\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\DefaultFont\glyphicons-halflings-regular.woff" />
