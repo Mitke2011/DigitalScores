@@ -94,7 +94,7 @@ namespace DigitalScores.DbManagers
         public override void Insert(object referee)
         {
             Sudija s = referee as Sudija;
-            string sql = "insert into Sudija (Ime, Prezime, Email, Telefon, Grad) values (@ime, @prezime, @email, telefon, @grad)";
+            string sql = "insert into Sudije (Ime, Prezime, Email, Telefon, Grad) values (@ime, @prezime, @email, @telefon, @grad)";
 
             using (connection = new SqlConnection(this.ConnectionString))
             {
@@ -104,21 +104,20 @@ namespace DigitalScores.DbManagers
                 {
                     command.Parameters.AddRange(
                 new SqlParameter[] {
-                    new SqlParameter(){ ParameterName = "ime", Value = s.Ime, SqlDbType = System.Data.SqlDbType.NVarChar},
-                    new SqlParameter(){ ParameterName = "prezime", Value = s.Prezime, SqlDbType = System.Data.SqlDbType.NVarChar},
-                    new SqlParameter(){ ParameterName = "email", Value = s.Email, SqlDbType =System.Data.SqlDbType.NVarChar },
-                    new SqlParameter(){ ParameterName = "telegon", Value = s.Telefon, SqlDbType = System.Data.SqlDbType.NVarChar},
-                    new SqlParameter(){ ParameterName = "grad", Value = s.Grad, SqlDbType = System.Data.SqlDbType.NVarChar}
+                    new SqlParameter(){ ParameterName = "@ime", Value = s.Ime, SqlDbType = System.Data.SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@prezime", Value = s.Prezime, SqlDbType = System.Data.SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@email", Value = s.Email, SqlDbType =System.Data.SqlDbType.NVarChar },
+                    new SqlParameter(){ ParameterName = "@telefon", Value = s.Telefon, SqlDbType = System.Data.SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@grad", Value = s.Grad, SqlDbType = System.Data.SqlDbType.NVarChar}
             });
 
                     try
                     {
                         command.ExecuteNonQuery();
                     }
-                    catch (Exception)
+                    catch (SqlException se)
                     {
-
-                        throw;
+                                                
                     }
 
                 }

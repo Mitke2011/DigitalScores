@@ -208,6 +208,7 @@
     <Compile Include="Controllers\DelegatesController.cs" />
     <Compile Include="Controllers\RefereeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\UtakmicaController.cs" />
     <Compile Include="DbManagers\RefereeDbManager.cs" />
     <Compile Include="DbManagers\KlubDbManager.cs" />
     <Compile Include="DbManagers\UsersDbManager.cs" />
@@ -357,6 +358,7 @@
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\Referee\Referees.cshtml" />
     <Content Include="Views\Delegates\DelegatesEntry.cshtml" />
+    <Content Include="Views\Utakmica\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -383,7 +385,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49901</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
