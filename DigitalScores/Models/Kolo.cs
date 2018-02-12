@@ -24,6 +24,8 @@ namespace DigitalScores.Models
 
         public string Naziv { get; set; }
 
+        public int Tekuce { get; set; }
+
         #region
         private int sezonaId;
         #endregion
