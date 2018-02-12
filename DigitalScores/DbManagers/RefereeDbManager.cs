@@ -117,7 +117,7 @@ namespace DigitalScores.DbManagers
                     }
                     catch (SqlException se)
                     {
-                                                
+                        throw se;
                     }
 
                 }

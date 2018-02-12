@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DigitalScores.Models;
+using DigitalScores.DbManagers;
 
 namespace DigitalScores.Controllers
 {
@@ -28,11 +30,23 @@ namespace DigitalScores.Controllers
 
         // POST: Delegates/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Users delegat)
         {
             try
             {
-                // TODO: Add insert logic here
+                // check if user exists in DB
+                bool user = UsersDbManager.Current.CheckIfUserExists(delegat);
+
+                if (user)
+                {
+                    return RedirectToAction("Index", "Delegates");
+                }
+                //else, insert the row to user table
+                else
+                {
+                    UsersDbManager.Current.Insert(delegat);
+                    RedirectToAction("Index", "Delegates");
+                }
 
                 return RedirectToAction("Index");
             }
