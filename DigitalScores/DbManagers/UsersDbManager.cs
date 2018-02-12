@@ -30,12 +30,12 @@ namespace DigitalScores.DbManagers
 
         }
 
-        public override void DeleteRange()
+        public override void DeleteRange(List<object> collection)
         {
             throw new NotImplementedException();
         }
 
-        public override void DeleteSingle()
+        public override void DeleteSingle(object carrier)
         {
             throw new NotImplementedException();
         }
@@ -104,11 +104,6 @@ namespace DigitalScores.DbManagers
             return Privilege.Invalid;
         }
 
-        public override void Insert()
-        {
-            throw new NotImplementedException();
-        }
-
         public override void Update(object carrier)
         {
             throw new NotImplementedException();
@@ -166,6 +161,11 @@ namespace DigitalScores.DbManagers
                 return u;
             }
             return null;
+        }
+
+        public override void Insert(object carrier)
+        {
+            throw new NotImplementedException();
         }
     }
 }

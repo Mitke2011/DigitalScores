@@ -32,12 +32,12 @@ namespace DigitalScores.DbManagers
 
         }
 
-        public override void DeleteRange()
+        public override void DeleteRange(List<object> collection)
         {
             throw new NotImplementedException();
         }
 
-        public override void DeleteSingle()
+        public override void DeleteSingle(object Sudija)
         {
             throw new NotImplementedException();
         }
@@ -86,15 +86,35 @@ namespace DigitalScores.DbManagers
 
             return s;
         }
-
-        public override void Insert()
-        {
-
-        }
-
         public override void Update(object carrier)
         {
             throw new NotImplementedException();
+        }
+//      Dodavanje novog sudije u bazu
+        public override void Insert(object referee)
+        {
+            Sudija s = referee as Sudija;
+            string sql = "insert into Sudija (Ime, Prezime, Email, Telefon, Grad) values (@s.Ime, @s.Prezime, @s.Email, @s.Telefon, @s.Grad)";
+
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+
+                using (command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.Add(new SqlParameter() { ParameterName = "@id", SqlDbType = System.Data.SqlDbType.Int, Value = 2 });
+                    try
+                    {
+                       
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+
+                }
+            }
         }
     }
 }

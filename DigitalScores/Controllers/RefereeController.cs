@@ -34,8 +34,10 @@ namespace DigitalScores.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
-
+                Sudija s = referee;
+                // Implement verification if the Referee already exists in the system
+                RefereeDbManager rdb = new RefereeDbManager();
+                rdb.Insert(s);
                 return RedirectToAction("Create");
             }
             catch

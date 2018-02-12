@@ -8,12 +8,12 @@ namespace DigitalScores.DbManagers
 {
     public class KlubDbManager : DbManagerABS
     {
-        public override void DeleteRange()
+        public override void DeleteRange(List<object> collection)
         {
             throw new NotImplementedException();
         }
 
-        public override void DeleteSingle()
+        public override void DeleteSingle(object carrier)
         {
             throw new NotImplementedException();
         }
@@ -28,7 +28,7 @@ namespace DigitalScores.DbManagers
             throw new NotImplementedException();
         }
 
-        public override void Insert()
+        public override void Insert(object carrier)
         {
             throw new NotImplementedException();
         }

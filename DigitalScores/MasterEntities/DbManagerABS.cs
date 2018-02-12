@@ -19,12 +19,12 @@ namespace DigitalScores.MasterEntities
         }
 
 
-        public abstract void Insert();
-        public abstract void DeleteSingle();
-        public abstract void DeleteRange();
+        public abstract void DeleteSingle(object carrier);
+        public abstract void DeleteRange(List<object> list);
         public abstract List<object> GetAll();
         public abstract object GetSingle(int id);
         public abstract void Update(object carrier);
+        public abstract void Insert(object carrier);
 
         public DbManagerABS()
         {
