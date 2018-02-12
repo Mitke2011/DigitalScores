@@ -1,0 +1,4 @@
+﻿insert into users (Username,[Password],Ime,Prezime,Email,Telefon,Privilege_Id,Region,Grad) values ('smitic','Password123','Stefan','Mitic','mitic.z.stefan@gmail.com','33232323',1,'Central','Begrad')
+insert into users (Username,[Password],Ime,Prezime,Email,Telefon,Privilege_Id,Region,Grad) values ('srasevic','Password123','Stefan','Rasevic','mitic.z.stefan@gmail.com','33232323',1,'Central','Begrad')
+insert into users (Username,[Password],Ime,Prezime,Email,Telefon,Privilege_Id,Region,Grad) values ('mstefano','Password123','Milos','Stefanovic','mitic.z.stefan@gmail.com','33232323',1,'Central','Begrad')
+insert into users (Username,[Password],Ime,Prezime,Email,Telefon,Privilege_Id,Region,Grad) values ('mladjo','Password123','Mladen','Rakic','mitic.z.stefan@gmail.com','33232323',1,'Central','Begrad')
