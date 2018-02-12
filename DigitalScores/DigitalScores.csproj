@@ -206,6 +206,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\DelegatesController.cs" />
+    <Compile Include="Controllers\KlubController.cs" />
     <Compile Include="Controllers\RefereeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UtakmicaController.cs" />
@@ -361,6 +362,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Hala\" />
+    <Folder Include="Views\Klub\" />
     <Folder Include="Views\Utakmica\" />
   </ItemGroup>
   <ItemGroup>

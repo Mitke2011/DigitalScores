@@ -1,0 +1,1 @@
+alter table klub add ligaId int
