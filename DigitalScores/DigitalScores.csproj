@@ -217,6 +217,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Models\Kategorija.cs" />
     <Compile Include="Models\KluboviStats.cs" />
     <Compile Include="Models\Komesari.cs" />
     <Compile Include="Models\Rezultati.cs" />
@@ -361,6 +363,8 @@
     <Content Include="Views\Delegates\DelegatesEntry.cshtml" />
     <Content Include="Views\Klub\KlubCreate.cshtml" />
     <Content Include="Views\Klub\KlubListing.cshtml" />
+    <Content Include="Views\Category\CategoryCreate.cshtml" />
+    <Content Include="Views\Category\CategoryList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
