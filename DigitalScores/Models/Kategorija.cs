@@ -14,5 +14,10 @@ namespace DigitalScores.Models
         {
 
         }
+
+        public Kategorija(int id)
+        {
+            Id = id;
+        }
     }
 }

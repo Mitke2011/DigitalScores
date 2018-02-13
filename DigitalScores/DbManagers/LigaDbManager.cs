@@ -7,30 +7,31 @@ using System.Data;
 
 namespace DigitalScores.DbManagers
 {
-    public class KlubDbManager : DbManagerABS
+    public class LigaDbManager : DbManagerABS
     {
-        static KlubDbManager instance;
-        public static KlubDbManager Current
+        static LigaDbManager instance;
+
+        public static LigaDbManager Current
         {
             get
             {
                 if (instance == null)
                 {
-                    instance = new KlubDbManager();
+                    instance = new LigaDbManager();
                 }
                 return instance;
             }
         }
-
-        private KlubDbManager() : base()
+        private LigaDbManager() : base()
         {
 
         }
-        private KlubDbManager(string connectionString) : base(connectionString)
+
+        private LigaDbManager(string connectionString) : base(connectionString)
         {
 
         }
-        public override void DeleteRange(List<object> collection)
+        public override void DeleteRange(List<object> list)
         {
             throw new NotImplementedException();
         }
@@ -47,8 +48,8 @@ namespace DigitalScores.DbManagers
 
         public override object GetSingle(int id)
         {
-            string sql = "select * from klub where id = @id";
-            Klub result = null;
+            string sql = "select * from Lige where id = @id";
+            Liga result = null;
             using (connection = new SqlConnection())
             {
                 connection.Open();
@@ -56,15 +57,13 @@ namespace DigitalScores.DbManagers
                 {
                     command.Parameters.Add(new SqlParameter() { ParameterName = "@id", Value = id, SqlDbType = SqlDbType.Int });
                     SqlDataReader reader = command.ExecuteReader();
-                    
+
                     if (reader.HasRows)
                     {
-                        result = new Klub(id)
+                        result = new Liga(id)
                         {
                             Naziv = reader.GetString(reader.GetOrdinal("Naziv")),
-                            Trener = reader.GetString(reader.GetOrdinal("Trener")),
-                            KlubSport =(Sport) SportDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("sport_id"))),
-                            LigaKlub = (Liga)LigaDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("ligaId")))
+                            LigaKategorija = (Kategorija)KategorijaDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Kategorija")))
                         };
                     }
                 }

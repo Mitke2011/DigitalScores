@@ -30,7 +30,7 @@
         }
         public Sezona(int id)
         {
-            this.id = id;
+            this.Id = id;
         }
     }
 }

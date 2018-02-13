@@ -25,7 +25,9 @@
         }
         public Liga(int id)
         {
-            this.id = id;
+            this.Id = id;
         }
+
+        public Kategorija LigaKategorija { get; set; }
     }
 }
