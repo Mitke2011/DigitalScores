@@ -22,12 +22,12 @@ namespace DigitalScores.DbManagers
                 return instance;
             }
         }
-        public RefereeDbManager() : base()
+        private RefereeDbManager() : base()
         {
 
         }
 
-        public RefereeDbManager(string connectionString) : base(connectionString)
+        private RefereeDbManager(string connectionString) : base(connectionString)
         {
 
         }

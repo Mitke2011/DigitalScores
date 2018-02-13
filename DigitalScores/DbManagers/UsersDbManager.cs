@@ -20,12 +20,12 @@ namespace DigitalScores.DbManagers
                 return instance;
             }
         }
-        public UsersDbManager() : base()
+        private UsersDbManager() : base()
         {
 
         }
 
-        public UsersDbManager(string connectionString) : base(connectionString)
+        private UsersDbManager(string connectionString) : base(connectionString)
         {
 
         }

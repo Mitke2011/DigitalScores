@@ -14,7 +14,7 @@ namespace DigitalScores.Models
             {
                 return this.id;
             }
-            private set
+            set
             {
                 this.id = value;
             }
@@ -29,7 +29,7 @@ namespace DigitalScores.Models
         #region DbLookup fields
         private int sportId;
         #endregion
-        public Sport Sport { get; set; }
+        public Sport KlubSport { get; set; }
 
         public Klub()
         {
@@ -37,7 +37,7 @@ namespace DigitalScores.Models
         }
         public Klub(int id)
         {
-            this.id = id;
+            this.Id = id;
         }
     }
 }
