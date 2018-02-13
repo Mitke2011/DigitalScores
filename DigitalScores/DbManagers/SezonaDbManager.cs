@@ -49,7 +49,7 @@ namespace DigitalScores.DbManagers
 
         public override object GetSingle(int id)
         {
-            string sql = "select * from Lige where id = @id";
+            string sql = "select * from Sezone where id = @id";
             Sezona result = null;
             using (connection = new SqlConnection())
             {
