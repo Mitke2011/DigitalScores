@@ -22,7 +22,7 @@ namespace DigitalScores.Models
         public string Naziv { get; set; }
         public string Grad { get; set; }
         public string Trener { get; set; }
-
+        public Liga LigaKlub{get;set;}
         //LicencaPDF je lokacija PDF datoteke na sistemu 
         public string LicencaPDF { get; set; }
 

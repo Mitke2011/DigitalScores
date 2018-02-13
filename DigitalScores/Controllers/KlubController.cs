@@ -3,50 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using DigitalScores.Models;
-using DigitalScores.DbManagers;
 
 namespace DigitalScores.Controllers
 {
-    public class DelegatesController : Controller
+    public class KlubController : Controller
     {
-        // GET: Delegates
+        // GET: Klub
         public ActionResult Index()
         {
-            return View("DelegatesEntry");
+            return View();
         }
 
-        // GET: Delegates/Details/5
+        // GET: Klub/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Delegates/Create
+        // GET: Klub/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Delegates/Create
+        // POST: Klub/Create
         [HttpPost]
-        public ActionResult Create(Users delegat)
+        public ActionResult Create(FormCollection collection)
         {
             try
             {
-                // check if user exists in DB
-                bool user = UsersDbManager.Current.CheckIfUserExists(delegat);
-
-                if (user)
-                {
-                    return RedirectToAction("Index", "Delegates");
-                }
-                //else, insert the row to user table
-                else
-                {
-                    UsersDbManager.Current.Insert(delegat);
-                    RedirectToAction("Index", "Delegates");
-                }
+                // TODO: Add insert logic here
 
                 return RedirectToAction("Index");
             }
@@ -56,13 +42,13 @@ namespace DigitalScores.Controllers
             }
         }
 
-        // GET: Delegates/Edit/5
+        // GET: Klub/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Delegates/Edit/5
+        // POST: Klub/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -78,13 +64,13 @@ namespace DigitalScores.Controllers
             }
         }
 
-        // GET: Delegates/Delete/5
+        // GET: Klub/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Delegates/Delete/5
+        // POST: Klub/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

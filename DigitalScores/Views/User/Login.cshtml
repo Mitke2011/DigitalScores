@@ -27,28 +27,26 @@
                     <div class="control-group normal_text"> <h3><img src="~/Content/Images/logoclear.png" alt="Logo" /></h3> </div>
                     <div class="control-group">
                         <div class="controls">
-                            @Html.LabelFor(m => m.Username, new { @class = "col-md-2 control-label" })
                             <div class="main_input_box">
-                                <!-- <span class="add-on bg_lg"><i class="icon-user"> </i></span><input type="text" placeholder="Username" /> -->
-                                @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+                                <span class="add-on bg_lg"><i class="icon-user"> </i></span>@*<input type="text" placeholder="Username" />*@
+                                @Html.TextBoxFor(m => m.Username, new { @class = "form-control", @placeholder = "Username" })
                                 @Html.ValidationMessageFor(m => m.Username)
                             </div>
                         </div>
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
                             <div class="main_input_box">
-                                @Html.PasswordFor(m => m.Password, new { @class = "form-control"})
+                                <span class="add-on bg_ly"><i class="icon-lock"></i></span>
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password"})
                                 @Html.ValidationMessageFor(m => m.Password)
-                                @*<span class="add-on bg_ly"><i class="icon-lock"></i></span><input type="password" placeholder="Password" />*@
                             </div>
                         </div>
                     </div>
 
                     <div class="form-actions">
                         <span class="pull-left"><a href="#" class="flip-link btn btn-info" id="to-recover">Zaboravljen password?</a></span>
-                        <span class="pull-right"><input type="submit" class="btn btn-success" value="Log in" /> </span>
+                        <span class="pull-right"><input type="submit" class="btn btn-success" value="Ulaz" /> </span>
                     </div>
                 }
             </section>
