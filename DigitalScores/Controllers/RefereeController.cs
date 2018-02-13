@@ -36,8 +36,7 @@ namespace DigitalScores.Controllers
             {
                 Sudija s = referee;
                 // Implement verification if the Referee already exists in the system
-                RefereeDbManager rdb = new RefereeDbManager();
-                rdb.Insert(s);
+                RefereeDbManager.Current.Insert(s);
                 return RedirectToAction("Create");
             }
             catch

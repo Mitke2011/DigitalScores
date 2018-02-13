@@ -11,7 +11,7 @@ namespace DigitalScores.Controllers
         // GET: Utakmica
         public ActionResult Index()
         {
-            return View();
+            return View("GamesPreview");
         }
 
         // GET: Utakmica/Details/5

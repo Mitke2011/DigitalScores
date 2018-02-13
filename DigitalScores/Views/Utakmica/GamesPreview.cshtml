@@ -1,0 +1,23 @@
+﻿@model IEnumerable<DigitalScores.Models.Utakmice>
+
+@{
+    ViewBag.Title = "GamesPreview";
+    Layout = "~/Views/Shared/_DefaultLayout.cshtml";
+}
+
+<h2>GamesPreview</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NapomenaDelegata)
+        </th>
+        <th></th>
+    </tr>
+
+
+
+</table>
