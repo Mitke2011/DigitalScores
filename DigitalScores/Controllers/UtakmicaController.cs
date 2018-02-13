@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DigitalScores.DbManagers;
 
 namespace DigitalScores.Controllers
 {
@@ -11,8 +12,10 @@ namespace DigitalScores.Controllers
         // GET: Utakmica
         public ActionResult Index()
         {
-            return View("GamesPreview");
+            UtakmicaDbManager udb = new UtakmicaDbManager();
+            return View("GamePreview", udb.GetGames());
         }
+
 
         // GET: Utakmica/Details/5
         public ActionResult Details(int id)

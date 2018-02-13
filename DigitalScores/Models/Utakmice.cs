@@ -33,9 +33,9 @@ namespace DigitalScores.Models
         private int sezonaId;
         #endregion
 
-        public Kolo KoloUtakmice { get; set; }
-        public Klub KlubDomacin { get; set; }
-        public Klub KlubGost { get; set; }
+        public int KoloUtakmice { get; set; }
+        public string KlubDomacin { get; set; }
+        public string KlubGost { get; set; }
         public Sudija Sudija1 { get; set; }
         public Sudija Sudija2 { get; set; }
         public Users DelegatUtakmice { get; set; }
