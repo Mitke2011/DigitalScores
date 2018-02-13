@@ -52,7 +52,7 @@ namespace DigitalScores.DbManagers
         {
             string sql = "select * from Kolo where id = @id";
             Kolo result = null;
-            using (connection = new SqlConnection())
+            using (connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
                 using (command = new SqlCommand(sql, connection))

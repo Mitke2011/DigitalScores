@@ -57,13 +57,13 @@ namespace DigitalScores.DbManagers
                     command.Parameters.Add(new SqlParameter() { ParameterName = "@id", Value = id, SqlDbType = SqlDbType.Int });
                     SqlDataReader reader = command.ExecuteReader();
                     
-                    if (reader.HasRows)
+                    if (reader.Read())
                     {
                         result = new Klub(id)
                         {
-                            Naziv = reader.GetString(reader.GetOrdinal("Naziv")),
-                            Trener = reader.GetString(reader.GetOrdinal("Trener")),
-                            KlubSport =(Sport) SportDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("sport_id")))
+                            Naziv = reader.GetString(reader.GetOrdinal("Naziv"))
+                           // Trener = reader.GetString(reader.GetOrdinal("Trener")),
+                            //KlubSport =(Sport) SportDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("sport_id")))
                             //LigaKlub = (Liga)LigaDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("ligaId")))
                         };
                     }
