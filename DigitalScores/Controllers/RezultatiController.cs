@@ -8,27 +8,27 @@ using DigitalScores.DbManagers;
 
 namespace DigitalScores.Controllers
 {
-    public class KlubController : Controller
+    public class RezultatiController : Controller
     {
-        // GET: Klub
+        // GET: Rezultati
         public ActionResult Index()
         {
-            return View();
+            return View("UnosRezultata");
         }
 
-        // GET: Klub/Details/5
+        // GET: Rezultati/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Klub/Create
+        // GET: Rezultati/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Klub/Create
+        // POST: Rezultati/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -44,13 +44,13 @@ namespace DigitalScores.Controllers
             }
         }
 
-        // GET: Klub/Edit/5
+        // GET: Rezultati/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Klub/Edit/5
+        // POST: Rezultati/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -66,13 +66,13 @@ namespace DigitalScores.Controllers
             }
         }
 
-        // GET: Klub/Delete/5
+        // GET: Rezultati/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Klub/Delete/5
+        // POST: Rezultati/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

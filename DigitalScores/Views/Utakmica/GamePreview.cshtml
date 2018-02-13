@@ -22,7 +22,8 @@
             @Html.DisplayFor(modelItem => item.KlubGost.Naziv)
         </td>
         <td>
-            @Html.ActionLink("Edit","Edit", new { id=item.Id }) 
+            @*@Html.ActionLink("Edit","Edit", new { id=item.Id })*@
+            @Html.ActionLink("Edit", "Index", "Rezultati")
         </td>
     </tr>
 }
