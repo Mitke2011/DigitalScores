@@ -212,6 +212,7 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UtakmicaController.cs" />
     <Compile Include="DbManagers\KategorijaDbManager.cs" />
+    <Compile Include="DbManagers\KoloDbManager.cs" />
     <Compile Include="DbManagers\LigaDbManager.cs" />
     <Compile Include="DbManagers\RefereeDbManager.cs" />
     <Compile Include="DbManagers\KlubDbManager.cs" />

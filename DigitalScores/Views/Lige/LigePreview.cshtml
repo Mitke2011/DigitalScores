@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_DefaultLayout.cshtml";
 }
 
-<h2>Pregled liga @Model.First().LigaKategorija</h2>
+<h2>Pregled liga -  @Model.First().LigaKategorija.Naziv</h2>
 
 
 <table class="table">
@@ -16,7 +16,7 @@
             @Html.DisplayFor(modelItem => item.Naziv)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) 
         </td>
     </tr>
 }
