@@ -125,11 +125,12 @@ namespace DigitalScores.DbManagers
                          while (reader.Read())
                          {
                              KlubDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Klub_domacin_id")));
-                             Utakmice u = new Utakmice()
+
+                            Utakmice u = new Utakmice()
                              {
                                  KlubDomacin = (Klub)KlubDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Klub_domacin_id"))),
                                  KlubGost = (Klub)KlubDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Klub_gost_id"))),
-                                 KoloUtakmice = (Kolo)KoloDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Klub_domacin_id"))),
+                                 KoloUtakmice = (Kolo)KoloDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Kolo_Id")))
                                  //KoloUtakmice = reader.GetInt32(reader.GetOrdinal("Kolo")),
                                  //KlubDomacin = reader.GetString(reader.GetOrdinal("KlubDomacin")),
                                  //KlubGost = reader.GetString(reader.GetOrdinal("KlubGost")),

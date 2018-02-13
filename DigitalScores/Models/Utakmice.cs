@@ -43,6 +43,8 @@ namespace DigitalScores.Models
         public Hala SportskaHala { get; set; }
         public Sezona Sezona { get; set; }
         public string NapomenaDelegata { get; set; }
+        public string KlDomacin { get; set; }
+        public string KlGost { get; set; }
 
         public Utakmice()
         {

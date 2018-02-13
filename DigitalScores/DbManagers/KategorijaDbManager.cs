@@ -61,7 +61,7 @@ namespace DigitalScores.DbManagers
                     command.Parameters.Add(new SqlParameter() { ParameterName = "@id", Value = id, SqlDbType = SqlDbType.Int });
                     SqlDataReader reader = command.ExecuteReader();
 
-                    if (reader.HasRows)
+                    if (reader.Read())
                     {
                         result = new Kategorija(id)
                         {

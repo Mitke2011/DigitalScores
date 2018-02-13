@@ -52,7 +52,7 @@ namespace DigitalScores.DbManagers
         {
             string sql = "select * from Kolo where id = @id";
             Kolo result = null;
-            using (connection = new SqlConnection(ConnectionString))
+            using (connection = new SqlConnection(this.ConnectionString))
             {
                 connection.Open();
                 using (command = new SqlCommand(sql, connection))
@@ -60,14 +60,15 @@ namespace DigitalScores.DbManagers
                     command.Parameters.Add(new SqlParameter() { ParameterName = "@id", Value = id, SqlDbType = SqlDbType.Int });
                     SqlDataReader reader = command.ExecuteReader();
 
-                    if (reader.HasRows)
+                    if (reader.Read())
                     {
                         result = new Kolo(id)
                         {
-                            Naziv = reader.GetString(reader.GetOrdinal("Naziv")),
-                            Tekuce = reader.GetInt32(reader.GetOrdinal("Tekuce")),
-                            KoloSezona = (Sezona)SezonaDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("sezona_id"))),
-                            KoloLiga = (Liga)LigaDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Liga_id")))
+                           
+                           Naziv = reader.GetString(reader.GetOrdinal("Naziv")),
+                           Tekuce = reader.GetInt32(reader.GetOrdinal("Tekuce")),
+                           KoloSezona = (Sezona)SezonaDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Sezona_id"))),
+                           KoloLiga = (Liga)LigaDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Liga_id")))
                         };
                     }
                 }
