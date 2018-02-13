@@ -1,0 +1,1 @@
+﻿alter table Lige add Kategorija int
