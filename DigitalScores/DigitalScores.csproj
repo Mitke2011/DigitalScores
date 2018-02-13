@@ -209,6 +209,7 @@
     <Compile Include="Controllers\KlubController.cs" />
     <Compile Include="Controllers\LigeController.cs" />
     <Compile Include="Controllers\RefereeController.cs" />
+    <Compile Include="Controllers\RezultatiController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UtakmicaController.cs" />
     <Compile Include="DbManagers\KategorijaDbManager.cs" />
@@ -375,6 +376,7 @@
     <Content Include="Views\Shared\_DefaultLayoutWithLeagues.cshtml" />
     <Content Include="Views\Utakmica\GamePreview.cshtml" />
     <Content Include="Views\Lige\LigePreview.cshtml" />
+    <Content Include="Views\Rezultati\UnosRezultata.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
