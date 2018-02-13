@@ -49,7 +49,7 @@ namespace DigitalScores.DbManagers
         {
             string sql = "select * from klub where id = @id";
             Klub result = null;
-            using (connection = new SqlConnection())
+            using (connection = new SqlConnection(this.ConnectionString))
             {
                 connection.Open();
                 using (command = new SqlCommand(sql, connection))
@@ -63,8 +63,8 @@ namespace DigitalScores.DbManagers
                         {
                             Naziv = reader.GetString(reader.GetOrdinal("Naziv")),
                             Trener = reader.GetString(reader.GetOrdinal("Trener")),
-                            KlubSport =(Sport) SportDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("sport_id"))),
-                            LigaKlub = (Liga)LigaDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("ligaId")))
+                            KlubSport =(Sport) SportDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("sport_id")))
+                            //LigaKlub = (Liga)LigaDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("ligaId")))
                         };
                     }
                 }

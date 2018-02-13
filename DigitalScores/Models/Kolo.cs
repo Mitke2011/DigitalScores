@@ -29,7 +29,9 @@ namespace DigitalScores.Models
         #region
         private int sezonaId;
         #endregion
-        public Liga Liga { get; set; }
+        public Liga KoloLiga { get; set; }
+
+        public Sezona KoloSezona { get; set; }
 
         public Kolo()
         {

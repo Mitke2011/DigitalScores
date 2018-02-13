@@ -2,42 +2,43 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using DigitalScores.MasterEntities;
 using System.Data.SqlClient;
+using DigitalScores.MasterEntities;
 using DigitalScores.Models;
 using System.Data;
 
 namespace DigitalScores.DbManagers
 {
-    public class SezonaDbManager : DbManagerABS
+    public class KoloDbManager : DbManagerABS
     {
-        static SezonaDbManager instance;
-
-        public static SezonaDbManager Current {
-
+        static KoloDbManager instance;
+        public static KoloDbManager Current
+        {
             get
             {
-                if (instance==null)
+                if (instance == null)
                 {
-                    instance = new SezonaDbManager();
+                    instance = new KoloDbManager();
                 }
                 return instance;
             }
         }
-        public SezonaDbManager():base()
+
+        public KoloDbManager() : base()
         {
 
         }
-        public SezonaDbManager(string connectionString):base(connectionString)
+        public KoloDbManager(string connectionString) : base(connectionString)
         {
 
         }
-        public override void DeleteRange(List<object> list)
+
+        public override void DeleteSingle(object carrier)
         {
             throw new NotImplementedException();
         }
 
-        public override void DeleteSingle(object carrier)
+        public override void DeleteRange(List<object> list)
         {
             throw new NotImplementedException();
         }
@@ -49,8 +50,8 @@ namespace DigitalScores.DbManagers
 
         public override object GetSingle(int id)
         {
-            string sql = "select * from Sezone where id = @id";
-            Sezona result = null;
+            string sql = "select * from Kolo where id = @id";
+            Kolo result = null;
             using (connection = new SqlConnection())
             {
                 connection.Open();
@@ -61,10 +62,12 @@ namespace DigitalScores.DbManagers
 
                     if (reader.HasRows)
                     {
-                        result = new Sezona(id)
+                        result = new Kolo(id)
                         {
                             Naziv = reader.GetString(reader.GetOrdinal("Naziv")),
-                            Liga = (Liga)LigaDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Liga_Id")))
+                            Tekuce = reader.GetInt32(reader.GetOrdinal("Tekuce")),
+                            KoloSezona = (Sezona)SezonaDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("sezona_id"))),
+                            KoloLiga = (Liga)LigaDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Liga_id")))
                         };
                     }
                 }
@@ -74,12 +77,12 @@ namespace DigitalScores.DbManagers
             return result;
         }
 
-        public override void Insert(object carrier)
+        public override void Update(object carrier)
         {
             throw new NotImplementedException();
         }
 
-        public override void Update(object carrier)
+        public override void Insert(object carrier)
         {
             throw new NotImplementedException();
         }

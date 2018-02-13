@@ -211,12 +211,14 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UtakmicaController.cs" />
     <Compile Include="DbManagers\KategorijaDbManager.cs" />
+    <Compile Include="DbManagers\KoloDbManager.cs" />
     <Compile Include="DbManagers\LigaDbManager.cs" />
     <Compile Include="DbManagers\RefereeDbManager.cs" />
     <Compile Include="DbManagers\KlubDbManager.cs" />
     <Compile Include="DbManagers\SezonaDbManager.cs" />
     <Compile Include="DbManagers\SportDbManager.cs" />
     <Compile Include="DbManagers\UsersDbManager.cs" />
+    <Compile Include="DbManagers\UtakmicaDbManager.cs" />
     <Compile Include="MasterEntities\DbManagerABS.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -370,11 +372,11 @@
     <Content Include="Views\Category\CategoryCreate.cshtml" />
     <Content Include="Views\Category\CategoryList.cshtml" />
     <Content Include="Views\Shared\_DefaultLayoutWithLeagues.cshtml" />
+    <Content Include="Views\Utakmica\GamePreview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Hala\" />
-    <Folder Include="Views\Utakmica\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\DefaultFont\glyphicons-halflings-regular.woff" />
