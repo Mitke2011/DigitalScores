@@ -53,7 +53,7 @@ namespace DigitalScores.DbManagers
         {
             string sql = "select * from Kategorije where id = @id";
             Kategorija result = null;
-            using (connection = new SqlConnection())
+            using (connection = new SqlConnection(this.ConnectionString))
             {
                 connection.Open();
                 using (command = new SqlCommand(sql, connection))

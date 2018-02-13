@@ -53,7 +53,7 @@ namespace DigitalScores.DbManagers
         {
             string sql = "select * from Sport where id = @id";
             Sport result = null;
-            using (connection = new SqlConnection())
+            using (connection = new SqlConnection(this.ConnectionString))
             {
                 connection.Open();
                 using (command = new SqlCommand(sql, connection))
