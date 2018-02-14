@@ -40,7 +40,7 @@ namespace DigitalScores.Models
         #region DbLookup Fields
         public int utakmicaId;
         #endregion
-        public Utakmice Utakmica { get; set; }
+        public Utakmice RezultatUtakmica { get; set; }
 
         public Rezultati()
         {

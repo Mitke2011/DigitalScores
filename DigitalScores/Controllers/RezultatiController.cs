@@ -17,9 +17,10 @@ namespace DigitalScores.Controllers
         }
 
         [ActionName("IndexId")]
-        public ActionResult Index(int utakmicaId)
+        public ActionResult UnosRezultata(int utakmicaId)
         {
-            return View("UnosRezultata", utakmicaId);
+            Rezultati re = new Rezultati() { RezultatUtakmica = (Utakmice)UtakmicaDbManager.Current.GetSingle(utakmicaId)};
+            return View("UnosRezultata", re);
         }
 
         // GET: Rezultati/Details/5
