@@ -219,6 +219,7 @@
     <Compile Include="DbManagers\KlubDbManager.cs" />
     <Compile Include="DbManagers\SezonaDbManager.cs" />
     <Compile Include="DbManagers\SportDbManager.cs" />
+    <Compile Include="DbManagers\RezultatiDbManager.cs" />
     <Compile Include="DbManagers\UsersDbManager.cs" />
     <Compile Include="DbManagers\UtakmicaDbManager.cs" />
     <Compile Include="MasterEntities\DbManagerABS.cs" />

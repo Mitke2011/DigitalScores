@@ -16,6 +16,12 @@ namespace DigitalScores.Controllers
             return View("UnosRezultata");
         }
 
+        [ActionName("IndexId")]
+        public ActionResult Index(int utakmicaId)
+        {
+            return View("UnosRezultata", utakmicaId);
+        }
+
         // GET: Rezultati/Details/5
         public ActionResult Details(int id)
         {
@@ -30,12 +36,12 @@ namespace DigitalScores.Controllers
 
         // POST: Rezultati/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Rezultati rezultat)
         {
             try
             {
                 // TODO: Add insert logic here
-
+                RezultatiDbManager.Current.Insert(rezultat);
                 return RedirectToAction("Index");
             }
             catch
