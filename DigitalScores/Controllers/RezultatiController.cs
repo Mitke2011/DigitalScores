@@ -16,7 +16,6 @@ namespace DigitalScores.Controllers
             return View("UnosRezultata");
         }
 
-        [ActionName("IndexId")]
         public ActionResult UnosRezultata(int utakmicaId)
         {
             Rezultati re = new Rezultati() { RezultatUtakmica = (Utakmice)UtakmicaDbManager.Current.GetSingle(utakmicaId)};

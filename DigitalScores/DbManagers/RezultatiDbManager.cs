@@ -54,11 +54,11 @@ namespace DigitalScores.DbManagers
         {
             Rezultati r = rez as Rezultati;
 
-            string sql = "insert into rezultati" +
-                " (rezultat_Q1_D, rezultat_Q2_D, rezultat_Q3_D, rezultat_Q4_D, rezultat_OT1_D, rezultat_OT2_D, rezultat_H1_D, rezultat_H2_D," +
-                " rezultat_Q1_G, rezultat_Q2_G, rezultat_Q3_G, rezultat_Q4_G, rezultat_OT1_G, rezultat_OT2_G, rezultat_H1_G, rezultat_H2_G) " +
-                "values (@rezultat_Q1_D, @rezultat_Q2_D, @rezultat_Q3_D, @rezultat_Q4_D, @rezultat_OT1_D, @rezultat_OT2_D, @rezultat_H1_D, @rezultat_H2_D, " +
-                "@rezultat_Q1_G, @rezultat_Q2_G, @rezultat_Q3_G, @rezultat_Q4_G, @rezultat_OT1_G, @rezultat_OT2_G, @rezultat_H1_G, @rezultat_H2_G)";
+            string sql = @"insert into rezultati
+                (rezultat_Q1_D, rezultat_Q2_D, rezultat_Q3_D, rezultat_Q4_D, rezultat_OT1_D, rezultat_OT2_D, rezultat_H1_D, rezultat_H2_D,
+                rezultat_Q1_G, rezultat_Q2_G, rezultat_Q3_G, rezultat_Q4_G, rezultat_OT1_G, rezultat_OT2_G, rezultat_H1_G, rezultat_H2_G) 
+                values (@rezultat_Q1_D, @rezultat_Q2_D, @rezultat_Q3_D, @rezultat_Q4_D, @rezultat_OT1_D, @rezultat_OT2_D, @rezultat_H1_D, @rezultat_H2_D, 
+                @rezultat_Q1_G, @rezultat_Q2_G, @rezultat_Q3_G, @rezultat_Q4_G, @rezultat_OT1_G, @rezultat_OT2_G, @rezultat_H1_G, @rezultat_H2_G)";
 
             using (connection = new SqlConnection(this.ConnectionString))
             {
