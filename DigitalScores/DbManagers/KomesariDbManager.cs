@@ -8,26 +8,26 @@ using DigitalScores.Models;
 
 namespace DigitalScores.DbManagers
 {
-    public class RefereeDbManager : DbManagerABS
+    public class KomesariDbManager : DbManagerABS
     {
-        static RefereeDbManager instance;
-        public static RefereeDbManager Current
+        static KomesariDbManager instance;
+        public static KomesariDbManager Current
         {
             get
             {
                 if (instance == null)
                 {
-                    instance = new RefereeDbManager();
+                    instance = new KomesariDbManager();
                 }
                 return instance;
             }
         }
-        private RefereeDbManager() : base()
+        private KomesariDbManager() : base()
         {
 
         }
 
-        private RefereeDbManager(string connectionString) : base(connectionString)
+        private KomesariDbManager(string connectionString) : base(connectionString)
         {
 
         }
@@ -49,8 +49,8 @@ namespace DigitalScores.DbManagers
 
         public override object GetSingle(int id)
         {
-            Sudija s = null;
-            string sql = "select * from sudija where id = @id";
+            Komesari s = null;
+            string sql = "select * from komesari where id = @id";
 
             using (connection = new SqlConnection(this.ConnectionString))
             {
@@ -64,14 +64,14 @@ namespace DigitalScores.DbManagers
                         SqlDataReader reader = command.ExecuteReader();
                         if (reader.Read())
                         {
-                            s = new Sudija(id)
+                            s = new Komesari(id)
                             {
-                                
+
                                 Ime = reader.GetString(reader.GetOrdinal("ime")),
                                 Prezime = reader.GetString(reader.GetOrdinal("prezime")),
                                 Email = reader.GetString(reader.GetOrdinal("email")),
-                                Grad = reader.GetString(reader.GetOrdinal("grad")),
-                                Telefon = reader.GetString(reader.GetOrdinal("telefon"))
+                                Telefon = reader.GetString(reader.GetOrdinal("telefon")),
+                                Liga = (Liga)KomesariDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Liga_Id")))
                             };
                         }
                     }
@@ -90,11 +90,11 @@ namespace DigitalScores.DbManagers
         {
             throw new NotImplementedException();
         }
-//      Dodavanje novog sudije u bazu
-        public override void Insert(object referee)
+        //      Dodavanje novog Komesara u bazu
+        public override void Insert(object komesar)
         {
-            Sudija s = referee as Sudija;
-            string sql = "insert into Sudije (Ime, Prezime, Email, Telefon, Grad) values (@ime, @prezime, @email, @telefon, @grad)";
+            Komesari k = komesar as Komesari;
+            string sql = "insert into Komesari (Ime, Prezime, Email, Telefon, Liga_Id) values (@ime, @prezime, @email, @telefon, @liga_id)";
 
             using (connection = new SqlConnection(this.ConnectionString))
             {
@@ -104,11 +104,11 @@ namespace DigitalScores.DbManagers
                 {
                     command.Parameters.AddRange(
                 new SqlParameter[] {
-                    new SqlParameter(){ ParameterName = "@ime", Value = s.Ime, SqlDbType = System.Data.SqlDbType.NVarChar},
-                    new SqlParameter(){ ParameterName = "@prezime", Value = s.Prezime, SqlDbType = System.Data.SqlDbType.NVarChar},
-                    new SqlParameter(){ ParameterName = "@email", Value = s.Email, SqlDbType =System.Data.SqlDbType.NVarChar },
-                    new SqlParameter(){ ParameterName = "@telefon", Value = s.Telefon, SqlDbType = System.Data.SqlDbType.NVarChar},
-                    new SqlParameter(){ ParameterName = "@grad", Value = s.Grad, SqlDbType = System.Data.SqlDbType.NVarChar}
+                    new SqlParameter(){ ParameterName = "@ime", Value = k.Ime, SqlDbType = System.Data.SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@prezime", Value = k.Prezime, SqlDbType = System.Data.SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@email", Value = k.Email, SqlDbType =System.Data.SqlDbType.NVarChar },
+                    new SqlParameter(){ ParameterName = "@telefon", Value = k.Telefon, SqlDbType = System.Data.SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@liga_id", Value = k.LigaId, SqlDbType = System.Data.SqlDbType.Int}
             });
 
                     try
@@ -124,9 +124,10 @@ namespace DigitalScores.DbManagers
             }
         }
 
-        public List<Sudija> GetAllReferee() {
-            List<Sudija> listaSudija = new List<Sudija>();
-            string sql = @"select * from Sudije";
+        public List<DigitalScores.Models.Komesari> GetAllKomesari()
+        {
+            List<DigitalScores.Models.Komesari> listaKomesara = new List<DigitalScores.Models.Komesari>();
+            string sql = @"select * from Komesari";
 
             using (connection = new SqlConnection(this.ConnectionString))
             {
@@ -141,16 +142,16 @@ namespace DigitalScores.DbManagers
                         {
 
 
-                            Sudija s = new Sudija(reader.GetInt32(0))
+                            Komesari k = new Komesari(reader.GetInt32(0))
                             {
                                 Ime = reader.GetString(reader.GetOrdinal("Ime")),
                                 Prezime = reader.GetString(reader.GetOrdinal("Prezime")),
                                 Email = reader.GetString(reader.GetOrdinal("Email")),
                                 Telefon = reader.GetString(reader.GetOrdinal("Telefon")),
-                                Grad = reader.GetString(reader.GetOrdinal("Grad")),
+                                Liga = (Liga)LigaDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Liga_Id"))),
                                 //KlubGost = reader.GetString(reader.GetOrdinal("KlubGost")),
                             };
-                            listaSudija.Add(s);
+                            listaKomesara.Add(k);
                         }
                     }
                     catch (Exception ee)
@@ -162,7 +163,47 @@ namespace DigitalScores.DbManagers
                 }
             }
 
-            return listaSudija;
+            return listaKomesara;
+        }
+
+        public bool CheckIfKomesarExists(Komesari komesar)
+        {
+            bool result = false;
+            string sql = "select COUNT([Email]) from Komesari where Email = @email";
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+
+                using (command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.AddRange(new SqlParameter[] {
+                    new SqlParameter(){ ParameterName = "Email", Value = komesar.Email, SqlDbType = System.Data.SqlDbType.NVarChar},
+
+                    });
+                }
+
+
+                try
+                {
+                    int counter = 0;
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        counter = reader.GetInt32(0);
+                    }
+                    if (counter > 0)
+                    {
+                        result = true;
+                        return result;
+                    }
+                }
+                catch (Exception se)
+                {
+
+                    throw se;
+                }
+                return result;
+            }
         }
     }
 }

@@ -8,36 +8,44 @@ using DigitalScores.DbManagers;
 
 namespace DigitalScores.Controllers
 {
-    public class RefereeController : Controller
+    public class KomesariController : Controller
     {
-        // GET: Referee
+        // GET: Komesari
         public ActionResult Index()
         {
-            return View("RefereeListing", RefereeDbManager.Current.GetAllReferee());
+
+            return View("KomesariListing", KomesariDbManager.Current.GetAllKomesari());
         }
 
-        // GET: Referee/Details/5
+        // GET: Komesari/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Referee/Create
+        // GET: Komesari/Create
         public ActionResult Create()
         {
-            return View("Referees");
+            return View("KomesariEntry");
         }
 
-        // POST: Referee/Create
+        // POST: Komesari/Create
         [HttpPost]
-        public ActionResult Create(Sudija referee)
+        public ActionResult Create(Komesari komesar)
         {
             try
             {
-                Sudija s = referee;
-                // Implement verification if the Referee already exists in the system
-                RefereeDbManager.Current.Insert(s);
-                return RedirectToAction("Create");
+                bool postoji = KomesariDbManager.Current.CheckIfKomesarExists(komesar);
+                if (postoji)
+                {
+                    return RedirectToAction("Create");
+                }
+                else
+                {
+                    KomesariDbManager.Current.Insert(komesar);
+                    return RedirectToAction("Index");
+                }
+
             }
             catch
             {
@@ -45,13 +53,13 @@ namespace DigitalScores.Controllers
             }
         }
 
-        // GET: Referee/Edit/5
+        // GET: Komesari/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Referee/Edit/5
+        // POST: Komesari/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -67,13 +75,13 @@ namespace DigitalScores.Controllers
             }
         }
 
-        // GET: Referee/Delete/5
+        // GET: Komesari/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Referee/Delete/5
+        // POST: Komesari/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

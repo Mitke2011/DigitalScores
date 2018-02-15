@@ -16,7 +16,7 @@
             @Html.DisplayFor(modelItem => item.Naziv)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) 
+            @Html.ActionLink("Edit", "Index", "Utakmica", new { ligaId=item.Id }, null) 
         </td>
     </tr>
 }

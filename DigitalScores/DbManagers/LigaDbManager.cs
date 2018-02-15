@@ -99,12 +99,12 @@ namespace DigitalScores.DbManagers
                             SqlDataReader reader = command.ExecuteReader();
                             while (reader.Read())
                             {
-                               
 
-                                Liga l = new Liga()
+
+                                Liga l = new Liga(reader.GetInt32(0))
                                 {
                                     Naziv = reader.GetString(reader.GetOrdinal("Naziv")),    
-                                   LigaKategorija = (Kategorija)KategorijaDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Kategorija")))
+                                    LigaKategorija = (Kategorija)KategorijaDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Kategorija")))
 
                                 };
                                 listaUtakmica.Add(l);
@@ -123,4 +123,6 @@ namespace DigitalScores.DbManagers
             }
         }
     }
+
+
 }

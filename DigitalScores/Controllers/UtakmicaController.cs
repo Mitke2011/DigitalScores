@@ -5,17 +5,18 @@ using System.Web;
 using System.Web.Mvc;
 using DigitalScores.DbManagers;
 
+
 namespace DigitalScores.Controllers
 {
     public class UtakmicaController : Controller
     {
-        // GET: Utakmica
-        public ActionResult Index()
+        // GET: Utakmice
+
+        public ActionResult Index(int ligaId)
         {
             UtakmicaDbManager udb = new UtakmicaDbManager();
-            return View("GamePreview", udb.GetGames());
+            return View("GamePreview", udb.GetGamesByLeague(ligaId));
         }
-
 
         // GET: Utakmica/Details/5
         public ActionResult Details(int id)
