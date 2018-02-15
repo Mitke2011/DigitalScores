@@ -42,13 +42,54 @@ namespace DigitalScores.DbManagers
             throw new NotImplementedException();
         }
 
-       /* public  List<DigitalScores.Models.Utakmice> GetGames()
+        /* public  List<DigitalScores.Models.Utakmice> GetGames()
+         {
+             List<DigitalScores.Models.Utakmice> listaUtakmica = new List<DigitalScores.Models.Utakmice>();
+             string sql = "select kolo.Id as Kolo, u.Id as Id, kd.Naziv as KlubDomacin, kg.Naziv as KlubGost from Utakmice u join Klub kd on (u.Klub_Domacin_Id = kd.Id)" + 
+                 "join Klub kg on (u.Klub_Gost_Id = kg.Id)" +
+                 "join Kolo kolo on (u.Kolo_Id = kolo.Id)"+
+                 "where kolo.Tekuce = 1";
+
+             using (connection = new SqlConnection(this.ConnectionString))
+             {
+                 connection.Open();
+
+                 using (command = new SqlCommand(sql, connection))
+                 {
+                     try
+                     {
+
+                         SqlDataReader reader = command.ExecuteReader();
+                         while (reader.Read())
+
+                         {
+                             KlubDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("")))
+                             Utakmice u = new Utakmice()
+                             {
+
+                                 KoloUtakmice = reader.GetInt32(reader.GetOrdinal("Kolo")),
+                                 KlubDomacin= reader.GetString(reader.GetOrdinal("KlubDomacin")),
+                                 KlubGost = reader.GetString(reader.GetOrdinal("KlubGost")),
+                             };
+                             listaUtakmica.Add(u);
+                         }
+                     }
+                     catch (Exception ee)
+                     {
+
+                         throw ee;
+                     }
+
+                 }
+             }
+
+             return listaUtakmica;
+         }*/
+
+        public override object GetSingle(int id)
         {
-            List<DigitalScores.Models.Utakmice> listaUtakmica = new List<DigitalScores.Models.Utakmice>();
-            string sql = "select kolo.Id as Kolo, u.Id as Id, kd.Naziv as KlubDomacin, kg.Naziv as KlubGost from Utakmice u join Klub kd on (u.Klub_Domacin_Id = kd.Id)" + 
-                "join Klub kg on (u.Klub_Gost_Id = kg.Id)" +
-                "join Kolo kolo on (u.Kolo_Id = kolo.Id)"+
-                "where kolo.Tekuce = 1";
+            Utakmice result = null;
+            string sql = "select * from utakmice where id = @id";
 
             using (connection = new SqlConnection(this.ConnectionString))
             {
@@ -56,39 +97,30 @@ namespace DigitalScores.DbManagers
 
                 using (command = new SqlCommand(sql, connection))
                 {
+                    command.Parameters.Add(new SqlParameter() { ParameterName = "@id", SqlDbType = System.Data.SqlDbType.Int, Value = id });
                     try
                     {
-                        
                         SqlDataReader reader = command.ExecuteReader();
-                        while (reader.Read())
-
+                        if (reader.Read())
                         {
-                            KlubDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("")))
-                            Utakmice u = new Utakmice()
+                            result = new Utakmice(id)
                             {
-                                
-                                KoloUtakmice = reader.GetInt32(reader.GetOrdinal("Kolo")),
-                                KlubDomacin= reader.GetString(reader.GetOrdinal("KlubDomacin")),
-                                KlubGost = reader.GetString(reader.GetOrdinal("KlubGost")),
+                                KlubDomacin = (Klub)KlubDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Klub_domacin_id"))),
+                                KlubGost = (Klub)KlubDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Klub_gost_id"))),
+                                KoloUtakmice = (Kolo)KoloDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Kolo_Id")))                                
                             };
-                            listaUtakmica.Add(u);
                         }
                     }
-                    catch (Exception ee)
+                    catch (Exception)
                     {
 
-                        throw ee;
+                        throw;
                     }
 
                 }
             }
 
-            return listaUtakmica;
-        }*/
-
-        public override object GetSingle(int id)
-        {
-            throw new NotImplementedException();
+            return result;
         }
 
         public override void Insert(object carrier)
@@ -106,49 +138,49 @@ namespace DigitalScores.DbManagers
             throw new NotImplementedException();
         }
 
-     public  List<DigitalScores.Models.Utakmice> GetGames()
-         {
-             List<DigitalScores.Models.Utakmice> listaUtakmica = new List<DigitalScores.Models.Utakmice>();
-             string sql = "select * from Utakmice u" +
-                 " join Kolo kolo on (u.Kolo_Id = kolo.Id)" +
-                 " where kolo.Tekuce = 1";
+        public List<DigitalScores.Models.Utakmice> GetGames()
+        {
+            List<DigitalScores.Models.Utakmice> listaUtakmica = new List<DigitalScores.Models.Utakmice>();
+            string sql = @"select * from Utakmice u
+                join Kolo kolo on (u.Kolo_Id = kolo.Id)
+                where kolo.Tekuce = 1";
 
-             using (connection = new SqlConnection(this.ConnectionString))
-             {
-                 connection.Open();
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
 
-                 using (command = new SqlCommand(sql, connection))
-                 {
-                     try
-                     {                         
-                         SqlDataReader reader = command.ExecuteReader();
-                         while (reader.Read())
-                         {
-                             KlubDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Klub_domacin_id")));
+                using (command = new SqlCommand(sql, connection))
+                {
+                    try
+                    {
+                        SqlDataReader reader = command.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            KlubDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Klub_domacin_id")));
 
-                            Utakmice u = new Utakmice()
-                             {
-                                 KlubDomacin = (Klub)KlubDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Klub_domacin_id"))),
-                                 KlubGost = (Klub)KlubDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Klub_gost_id"))),
-                                 KoloUtakmice = (Kolo)KoloDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Kolo_Id")))
-                                 //KoloUtakmice = reader.GetInt32(reader.GetOrdinal("Kolo")),
-                                 //KlubDomacin = reader.GetString(reader.GetOrdinal("KlubDomacin")),
-                                 //KlubGost = reader.GetString(reader.GetOrdinal("KlubGost")),
-                             };
-                             listaUtakmica.Add(u);
-                         }
-                     }
-                     catch (Exception ee)
-                     {
+                            Utakmice u = new Utakmice(reader.GetInt32(0))
+                            {
+                                KlubDomacin = (Klub)KlubDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Klub_domacin_id"))),
+                                KlubGost = (Klub)KlubDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Klub_gost_id"))),
+                                KoloUtakmice = (Kolo)KoloDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Kolo_Id")))
+                                //KoloUtakmice = reader.GetInt32(reader.GetOrdinal("Kolo")),
+                                //KlubDomacin = reader.GetString(reader.GetOrdinal("KlubDomacin")),
+                                //KlubGost = reader.GetString(reader.GetOrdinal("KlubGost")),
+                            };
+                            listaUtakmica.Add(u);
+                        }
+                    }
+                    catch (Exception ee)
+                    {
 
-                         throw ee;
-                     }
+                        throw ee;
+                    }
 
-                 }
-             }
+                }
+            }
 
-             return listaUtakmica;
-         }
+            return listaUtakmica;
+        }
     }
 
 }

@@ -53,10 +53,11 @@
                                 <div class="control-group">
                                     <label class="control-label">Liga</label>
                                     <div class="controls">
-                                        @Html.DropDownListFor(m => m.Liga.Id,
-                                                new SelectList(LigaDbManager.Current.GetLeagues()),
-                                                "Naziv")
-                                        @Html.ValidationMessageFor(m => m.Liga)
+                                        
+                                        @Html.DropDownListFor(m => m.LigaId,
+                                               new SelectList(LigaDbManager.Current.GetLeagues(), "Id", "Naziv"),
+                                                "Liga")
+                                        @Html.ValidationMessageFor(m => m.LigaId)
                                     </div>
                                 </div>
 

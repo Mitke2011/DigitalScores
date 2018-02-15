@@ -108,7 +108,7 @@ namespace DigitalScores.DbManagers
                     new SqlParameter(){ ParameterName = "@prezime", Value = k.Prezime, SqlDbType = System.Data.SqlDbType.NVarChar},
                     new SqlParameter(){ ParameterName = "@email", Value = k.Email, SqlDbType =System.Data.SqlDbType.NVarChar },
                     new SqlParameter(){ ParameterName = "@telefon", Value = k.Telefon, SqlDbType = System.Data.SqlDbType.NVarChar},
-                    new SqlParameter(){ ParameterName = "@liga_id", Value = k.Liga.Id, SqlDbType = System.Data.SqlDbType.Int}
+                    new SqlParameter(){ ParameterName = "@liga_id", Value = k.LigaId, SqlDbType = System.Data.SqlDbType.Int}
             });
 
                     try

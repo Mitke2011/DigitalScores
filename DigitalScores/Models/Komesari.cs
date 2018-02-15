@@ -24,9 +24,9 @@ namespace DigitalScores.Models
         public string Prezime { get; set; }
         public string Email { get; set; }
         public string Telefon { get; set; }
-
+    
         #region DBLookUp Fields
-        public int LigaId;
+        public int LigaId { get; set; }
         #endregion
 
         public Liga Liga { get; set; }
