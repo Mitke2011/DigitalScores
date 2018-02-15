@@ -150,4 +150,5 @@ namespace DigitalScores.DbManagers
              return listaUtakmica;
          }
     }
+
 }

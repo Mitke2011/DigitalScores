@@ -3,42 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DigitalScores.Models;
 using DigitalScores.DbManagers;
-
 
 namespace DigitalScores.Controllers
 {
-    public class UtakmicaController : Controller
+    public class KomesariController : Controller
     {
-        // GET: Utakmica
+        // GET: Komesari
         public ActionResult Index()
         {
-            UtakmicaDbManager udb = new UtakmicaDbManager();
-            return View("GamePreview", udb.GetGames());
+            return View();
         }
 
-
-        // GET: Utakmica/Details/5
+        // GET: Komesari/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Utakmica/Create
+        // GET: Komesari/Create
         public ActionResult Create()
         {
-            return View();
+            return View("KomesariEntry");
         }
 
-        // POST: Utakmica/Create
+        // POST: Komesari/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Komesari komesar)
         {
             try
             {
-                // TODO: Add insert logic here
+                Komesari k = komesar;
+                // Implement verification if the Referee already exists in the system
+                KomesariDbManager.Current.Insert(k);
+                return RedirectToAction("Create");
 
-                return RedirectToAction("Index");
             }
             catch
             {
@@ -46,13 +46,13 @@ namespace DigitalScores.Controllers
             }
         }
 
-        // GET: Utakmica/Edit/5
+        // GET: Komesari/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Utakmica/Edit/5
+        // POST: Komesari/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -68,13 +68,13 @@ namespace DigitalScores.Controllers
             }
         }
 
-        // GET: Utakmica/Delete/5
+        // GET: Komesari/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Utakmica/Delete/5
+        // POST: Komesari/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

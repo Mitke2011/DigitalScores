@@ -1,0 +1,89 @@
+﻿@using DigitalScores.Models
+@using DigitalScores.DbManagers
+@model DigitalScores.Models.Komesari
+
+@{
+    ViewBag.Title = "KomesariEntry";
+    Layout = "~/Views/Shared/_DefaultLayout.cshtml";
+}
+
+<body>
+    <div class="container-fluid">
+        <hr>
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget-box">
+                    <div class="widget-title">
+                        <span class="icon"> <i class="icon-info-sign"></i> </span>
+                        <h5>Unos komesara</h5>
+                    </div>
+                    <div class="widget-content nopadding">
+                        <section id="RefereeEntryForm">
+
+                            @using (Html.BeginForm("Create", "Komesari", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                <div class="control-group">
+                                    <label class="control-label">Ime</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.Ime, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.Ime)
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Prezime</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.Prezime, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.Prezime)
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Email</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.Email)
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Telefon</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.Telefon, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.Telefon)
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Liga</label>
+                                    <div class="controls">
+                                        @Html.DropDownListFor(m => m.Liga.Id,
+                                                new SelectList(LigaDbManager.Current.GetLeagues()),
+                                                "Naziv")
+                                        @Html.ValidationMessageFor(m => m.Liga)
+                                    </div>
+                                </div>
+
+                                <div class="form-actions">
+                                    <input type="submit" value="Snimi" class="btn btn-success" />
+                                </div>
+                            }
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--Footer-part-->
+    <div class="row-fluid">
+        <div id="footer" class="span12"> 2018 &copy; Digital Score. Power by DScore <a href="http://www.digitalscore.org"></a> </div>
+    </div>
+    <!--end-Footer-part-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.ui.custom.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.uniform.js"></script>
+    <script src="js/select2.min.js"></script>
+    <script src="js/jquery.validate.js"></script>
+    <script src="js/herc.js"></script>
+    <script src="js/herc.form_validation.js"></script>
+</body>
+
