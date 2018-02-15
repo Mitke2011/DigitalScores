@@ -80,9 +80,71 @@ namespace DigitalScores.DbManagers
             throw new NotImplementedException();
         }
 
-        public override void Insert(object carrier)
+        public override void Insert(object kategorija)
         {
-            throw new NotImplementedException();
+            Kategorija k = kategorija as Kategorija;
+            string sql = "insert into Kategorije (Naziv)values (@naziv)";
+
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+
+                using (command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.AddRange(
+                new SqlParameter[] {
+                    new SqlParameter(){ ParameterName = "@naziv", Value = k.Naziv, SqlDbType = System.Data.SqlDbType.NVarChar},
+                   
+            });
+
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                    catch (SqlException se)
+                    {
+                        throw se;
+                    }
+
+                }
+            }
+        }
+
+        public List<Kategorija> GetKategorije() {
+            List<DigitalScores.Models.Kategorija> listaKategorija = new List<DigitalScores.Models.Kategorija>();
+            string sql = @"select * from Kategorije";
+
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+
+                using (command = new SqlCommand(sql, connection))
+                {
+                    try
+                    {
+                        SqlDataReader reader = command.ExecuteReader();
+                        while (reader.Read())
+                        {
+
+
+                            Kategorija k = new Kategorija(reader.GetInt32(0))
+                            {
+                                Naziv = reader.GetString(reader.GetOrdinal("Naziv"))
+                               
+                            };
+                            listaKategorija.Add(k);
+                        }
+                    }
+                    catch (Exception ee)
+                    {
+
+                        throw ee;
+                    }
+
+                }
+            }
+
+            return listaKategorija;
         }
     }
 }

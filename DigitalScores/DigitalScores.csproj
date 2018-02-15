@@ -207,6 +207,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\DelegatesController.cs" />
     <Compile Include="Controllers\HalaController.cs" />
+    <Compile Include="Controllers\KategorijaController.cs" />
     <Compile Include="Controllers\KlubController.cs" />
     <Compile Include="Controllers\KomesariController.cs" />
     <Compile Include="Controllers\LigeController.cs" />
@@ -387,6 +388,8 @@
     <Content Include="Views\Referee\RefereeListing.cshtml" />
     <Content Include="Views\Hala\HalaEntry.cshtml" />
     <Content Include="Views\Hala\HalaListing.cshtml" />
+    <Content Include="Views\Kategorija\KategorijeListing.cshtml" />
+    <Content Include="Views\Kategorija\KategorijaEntry.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
