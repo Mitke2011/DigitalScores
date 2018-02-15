@@ -7,9 +7,9 @@
 
 <h2>Unos Rezultata</h2>
 
-<div id="breadcrumb"> <a href="@Url.Action("Index", "Admin")" title="Glavna strana" class="tip-bottom"><i class="icon-home"></i> Glavna strana</a> <a class="tip-bottom">@Model.RezultatUtakmica.Sezona.Naziv</a> <a class="current">@Model.RezultatUtakmica.LigaUtakmice.Naziv</a> <a class="current">@Model.RezultatUtakmica.KoloUtakmice.Naziv</a> </div>
+<div id="breadcrumb"> <a href="@Url.Action("Index", "Admin")" title="Glavna strana" class="tip-bottom"><i class="icon-home"></i> Glavna strana</a> <a class="tip-bottom">@Model.RezultatUtakmica.Sezona.Naziv</a><a class="current">@Model.RezultatUtakmica.LigaUtakmice.Naziv</a> <a class="current">@Model.RezultatUtakmica.KoloUtakmice.Naziv</a> </div>
 <section id="rezultatiForma">
-    @using (Html.BeginForm("Create", "Rezultati", FormMethod.Post, new { @class = "form-horizontal", role = "form" })) 
+    @using (Html.BeginForm("Create", "Rezultati", new { utakmicaId = Model.RezultatUtakmica.Id }, FormMethod.Post))
     {
         @Html.AntiForgeryToken()
     
@@ -21,7 +21,7 @@
                         <div class="text-center">@Model.RezultatUtakmica.KlubDomacin.Naziv</div>
                     </td>
                     <td>
-                        <div class="text-center">vs</div>
+                        <div class="text-center"> vs </div>
                     </td>
                     <td>
                         <div class="text-center">@Model.RezultatUtakmica.KlubGost.Naziv</div>
