@@ -56,9 +56,9 @@ namespace DigitalScores.DbManagers
 
             string sql = @"insert into rezultati
                 (rezultat_Q1_D, rezultat_Q2_D, rezultat_Q3_D, rezultat_Q4_D, rezultat_OT1_D, rezultat_OT2_D, rezultat_H1_D, rezultat_H2_D,
-                rezultat_Q1_G, rezultat_Q2_G, rezultat_Q3_G, rezultat_Q4_G, rezultat_OT1_G, rezultat_OT2_G, rezultat_H1_G, rezultat_H2_G) 
+                rezultat_Q1_G, rezultat_Q2_G, rezultat_Q3_G, rezultat_Q4_G, rezultat_OT1_G, rezultat_OT2_G, rezultat_H1_G, rezultat_H2_G, Rezultat_Konacni_D, Rezultat_Konacni_G, Utakmica_Id) 
                 values (@rezultat_Q1_D, @rezultat_Q2_D, @rezultat_Q3_D, @rezultat_Q4_D, @rezultat_OT1_D, @rezultat_OT2_D, @rezultat_H1_D, @rezultat_H2_D, 
-                @rezultat_Q1_G, @rezultat_Q2_G, @rezultat_Q3_G, @rezultat_Q4_G, @rezultat_OT1_G, @rezultat_OT2_G, @rezultat_H1_G, @rezultat_H2_G)";
+                @rezultat_Q1_G, @rezultat_Q2_G, @rezultat_Q3_G, @rezultat_Q4_G, @rezultat_OT1_G, @rezultat_OT2_G, @rezultat_H1_G, @rezultat_H2_G, @Rezultat_Konacni_G, @Rezultat_Konacni_D, @Utakmica_Id)";
 
             using (connection = new SqlConnection(this.ConnectionString))
             {
@@ -81,7 +81,10 @@ namespace DigitalScores.DbManagers
                     new SqlParameter(){ ParameterName = "rezultat_OT1_G", Value = r.RezultatOT1D, SqlDbType = System.Data.SqlDbType.Int},
                     new SqlParameter(){ ParameterName = "rezultat_OT2_G", Value = r.RezultatOT2D, SqlDbType = System.Data.SqlDbType.Int},
                     new SqlParameter(){ ParameterName = "rezultat_H1_G", Value = r.RezultatH1D, SqlDbType = System.Data.SqlDbType.Int},
-                    new SqlParameter(){ ParameterName = "rezultat_H2_G", Value = r.RezultatH2D, SqlDbType = System.Data.SqlDbType.Int}
+                    new SqlParameter(){ ParameterName = "rezultat_H2_G", Value = r.RezultatH2D, SqlDbType = System.Data.SqlDbType.Int},
+                    new SqlParameter(){ ParameterName = "Rezultat_Konacni_D", Value = r.RezultatH2D, SqlDbType = System.Data.SqlDbType.Int},
+                    new SqlParameter(){ ParameterName = "Rezultat_Konacni_G", Value = r.RezultatH2D, SqlDbType = System.Data.SqlDbType.Int},
+                    new SqlParameter(){ ParameterName = "Utakmica_Id", Value = r.UtakmicaId, SqlDbType = System.Data.SqlDbType.Int}
                     });
 
                     try

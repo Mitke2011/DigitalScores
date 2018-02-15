@@ -36,13 +36,14 @@ namespace DigitalScores.Controllers
 
         // POST: Rezultati/Create
         [HttpPost]
-        public ActionResult Create(Rezultati rezultat)
+        public ActionResult Create(Rezultati rezultat, int utakmicaId)
         {
             try
             {
-                // TODO: Add insert logic here
+                rezultat.UtakmicaId = utakmicaId;
                 RezultatiDbManager.Current.Insert(rezultat);
-                return RedirectToAction("Index");
+                Utakmice u = (Utakmice)UtakmicaDbManager.Current.GetSingle(utakmicaId);
+                return RedirectToAction("Index", "Utakmica", new { ligaid = u.LigaUtakmice.Id});
             }
             catch
             {
