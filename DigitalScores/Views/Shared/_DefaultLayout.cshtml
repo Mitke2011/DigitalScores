@@ -54,9 +54,9 @@
         <ul>
             <li class="active"><a href="~/Admin/Index"><i class="icon icon-home"></i> <span>Početna</span></a> </li>
             <li> <a href="@Url.Action("Index", "Delegates")"><i class="icon icon-th-list"></i> <span>Delegati</span></a> </li>
-            <li> <a href="~/Referee/Create"><i class="icon icon-th-list"></i> <span>Sudije</span></a> </li>
-            <li><a href="unosrezultata.html"><i class="icon icon-th-list"></i> <span>Unos rezultata</span></a></li>
-            <li><a href="unosutakmica.html"><i class="icon icon-th-list"></i> <span>unosutakmica</span></a></li>
+            <li> <a href="@Url.Action("Index", "Referee")"><i class="icon icon-th-list"></i> <span>Sudije</span></a> </li>
+            <li><a href="@Url.Action("Index", "Komesari")"><i class="icon icon-th-list"></i> <span>Komesari</span></a></li>
+            <li><a href="@Url.Action("Index", "Hala")"><i class="icon icon-th-list"></i> <span>Hale</span></a></li>
             <li>
                 <a href="unosliga"><i class="icon icon-th-list"></i> <span>Unos liga</span></a>
             </li>

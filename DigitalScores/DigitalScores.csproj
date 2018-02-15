@@ -206,6 +206,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\DelegatesController.cs" />
+    <Compile Include="Controllers\HalaController.cs" />
     <Compile Include="Controllers\KlubController.cs" />
     <Compile Include="Controllers\KomesariController.cs" />
     <Compile Include="Controllers\LigeController.cs" />
@@ -213,6 +214,7 @@
     <Compile Include="Controllers\RezultatiController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UtakmicaController.cs" />
+    <Compile Include="DbManagers\HalaDbManager.cs" />
     <Compile Include="DbManagers\KategorijaDbManager.cs" />
     <Compile Include="DbManagers\KoloDbManager.cs" />
     <Compile Include="DbManagers\KomesariDbManager.cs" />
@@ -383,10 +385,11 @@
     <Content Include="Views\Komesari\KomesariEntry.cshtml" />
     <Content Include="Views\Komesari\KomesariListing.cshtml" />
     <Content Include="Views\Referee\RefereeListing.cshtml" />
+    <Content Include="Views\Hala\HalaEntry.cshtml" />
+    <Content Include="Views\Hala\HalaListing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Hala\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\DefaultFont\glyphicons-halflings-regular.woff" />
