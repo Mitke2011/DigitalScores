@@ -10,10 +10,10 @@ namespace DigitalScores.Controllers
     public class LigeController : Controller
     {
         // GET: Lige
-        public ActionResult Index()
+        public ActionResult Index(int kategorijaId)
         {
             
-            return View("LigePreview", DbManagers.LigaDbManager.Current.GetLeagues());
+            return View("LigePreview", DbManagers.LigaDbManager.Current.GetLeaguesByCategory(kategorijaId));
         }
 
         // GET: Lige/Details/5
