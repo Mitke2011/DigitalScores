@@ -36,6 +36,8 @@ namespace DigitalScores.Models
         public int RezultatOT2G { get; set; }
         public int RezultatH1G { get; set; }
         public int RezultatH2G { get; set; }
+        public int RezultatKonacniD { get; set; }
+        public int RezultatKonacniG { get; set; }
 
         #region DbLookup Fields
         public int utakmicaId;

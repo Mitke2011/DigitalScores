@@ -7,238 +7,276 @@
 
 <h2>Unos Rezultata</h2>
 
-@Model.RezultatUtakmica.KoloUtakmice.Naziv
-@using (Html.BeginForm("Create", "Rezultati", FormMethod.Post, new { @class = "form-horizontal", role = "form" })) 
-{
-    @Html.AntiForgeryToken()
+<div id="breadcrumb"> <a href="@Url.Action("Index", "Admin")" title="Glavna strana" class="tip-bottom"><i class="icon-home"></i> Glavna strana</a> <a class="tip-bottom">@Model.RezultatUtakmica.Sezona.Naziv</a> <a class="current">@Model.RezultatUtakmica.LigaUtakmice.Naziv</a> <a class="current">@Model.RezultatUtakmica.KoloUtakmice.Naziv</a> </div>
+<section id="rezultatiForma">
+    @using (Html.BeginForm("Create", "Rezultati", FormMethod.Post, new { @class = "form-horizontal", role = "form" })) 
+    {
+        @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>Rezultati</h4>
-        <hr />
-        
-        <table class="table-responsive table-bordered">
-            <tr><td><h6>Q1</h6></td></tr>
-            <tr>
-                <td>
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-group">
-                        <div class="control-group">
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.RezultatQ1D, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.RezultatQ1D, "", new { @class = "text-danger" })
+        <div class="form-horizontal">
+            <hr />
+            <table id="klubovi" class="table-responsive">
+                <tr>
+                    <td>
+                        <div class="text-center">@Model.RezultatUtakmica.KlubDomacin.Naziv</div>
+                    </td>
+                    <td>
+                        <div class="text-center">vs</div>
+                    </td>
+                    <td>
+                        <div class="text-center">@Model.RezultatUtakmica.KlubGost.Naziv</div>
+                    </td>
+                </tr>
+            </table>
+            <hr />
+            <table id="rezPoCetvrtinama" class="table-responsive">
+                <tr><td></td><td><h6>Q1</h6></td><td></td></tr>
+                <tr>
+                    <td>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <div class="control-group">
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.RezultatQ1D, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.RezultatQ1D, "", new { @class = "text-danger" })
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </td>
-                <td>:</td>
-                <td>
-                    <div class="form-group">
-                        <div class="control-group">
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.RezultatQ1G, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.RezultatQ1G, "", new { @class = "text-danger" })
+                    </td>
+                    <td class="text-center">:</td>
+                    <td>
+                        <div class="form-group">
+                            <div class="control-group">
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.RezultatQ1G, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.RezultatQ1G, "", new { @class = "text-danger" })
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-            <tr><td><h6>Q2</h6></td></tr>
-            <tr>
-                <td>
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-group">
-                        <div class="control-group">
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.RezultatQ2D, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.RezultatQ2D, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr><td></td><td><h6>Q2</h6></td><td></td></tr>
+                <tr>
+                    <td>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <div class="control-group">
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.RezultatQ2D, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.RezultatQ2D, "", new { @class = "text-danger" })
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </td>
-                <td>:</td>
-                <td>
-                    <div class="form-group">
-                        <div class="control-group">
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.RezultatQ2G, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.RezultatQ2G, "", new { @class = "text-danger" })
+                    </td>
+                    <td class="text-center">:</td>
+                    <td>
+                        <div class="form-group">
+                            <div class="control-group">
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.RezultatQ2G, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.RezultatQ2G, "", new { @class = "text-danger" })
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-            <tr><td><h6>Q3</h6></td></tr>
-            <tr>
-                <td>
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-group">
-                        <div class="control-group">
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.RezultatQ3D, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.RezultatQ3D, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr><td></td><td><h6>Q3</h6></td><td></td></tr>
+                <tr>
+                    <td>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <div class="control-group">
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.RezultatQ3D, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.RezultatQ3D, "", new { @class = "text-danger" })
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </td>
-                <td>:</td>
-                <td>
-                    <div class="form-group">
-                        <div class="control-group">
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.RezultatQ3G, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.RezultatQ3G, "", new { @class = "text-danger" })
+                    </td>
+                    <td class="text-center">:</td>
+                    <td>
+                        <div class="form-group">
+                            <div class="control-group">
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.RezultatQ3G, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.RezultatQ3G, "", new { @class = "text-danger" })
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-            <tr><td><h6>Q4</h6></td></tr>
-            <tr>
-                <td>
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-group">
-                        <div class="control-group">
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.RezultatQ4D, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.RezultatQ4D, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr><td></td><td><h6>Q4</h6></td><td></td></tr>
+                <tr>
+                    <td>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <div class="control-group">
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.RezultatQ4D, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.RezultatQ4D, "", new { @class = "text-danger" })
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </td>
-                <td>:</td>
-                <td>
-                    <div class="form-group">
-                        <div class="control-group">
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.RezultatQ4G, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.RezultatQ4G, "", new { @class = "text-danger" })
+                    </td>
+                    <td class="text-center">:</td>
+                    <td>
+                        <div class="form-group">
+                            <div class="control-group">
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.RezultatQ4G, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.RezultatQ4G, "", new { @class = "text-danger" })
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
+                    </td>
+                </tr>
             
-        </table>
+            </table>
+            <hr />
+            <table id="produzeci" class="table-responsive">
 
-        <hr />
+                <tr><td></td><td><h6>OT1</h6></td><td></td></tr>
+                <tr>
+                    <td>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <div class="control-group">
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.RezultatOT1D, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.RezultatOT1D, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-center">:</td>
+                    <td>
+                        <div class="form-group">
+                            <div class="control-group">
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.RezultatOT1G, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.RezultatOT1G, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr><td></td><td><h6>OT2</h6></td><td></td></tr>
+                <tr>
+                    <td>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <div class="control-group">
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.RezultatOT2D, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.RezultatOT2D, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-center">:</td>
+                    <td>
+                        <div class="form-group">
+                            <div class="control-group">
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.RezultatOT2G, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.RezultatOT2G, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
 
-        <table class="table-responsive table-bordered">
-
-            <tr><td><h6>OT1</h6></td></tr>
-            <tr>
-                <td>
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-group">
-                        <div class="control-group">
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.RezultatOT1D, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.RezultatOT1D, "", new { @class = "text-danger" })
+            </table>
+            <hr />
+            <table id="rezPoluvreme" class="table-responsive">
+                <tr><td></td><td><h6>HT1</h6></td><td></td></tr>
+                <tr>
+                    <td>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <div class="control-group">
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.RezultatH1D, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.RezultatH1D, "", new { @class = "text-danger" })
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </td>
-                <td>:</td>
-                <td>
-                    <div class="form-group">
-                        <div class="control-group">
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.RezultatOT1G, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.RezultatOT1G, "", new { @class = "text-danger" })
+                    </td>
+                    <td class="text-center">:</td>
+                    <td>
+                        <div class="form-group">
+                            <div class="control-group">
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.RezultatH1G, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.RezultatH1G, "", new { @class = "text-danger" })
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-            <tr><td><h6>OT2</h6></td></tr>
-            <tr>
-                <td>
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-group">
-                        <div class="control-group">
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.RezultatOT2D, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.RezultatOT2D, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr><td></td><td><h6>HT2</h6></td><td></td></tr>
+                <tr>
+                    <td>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <div class="control-group">
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.RezultatH2D, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.RezultatH2D, "", new { @class = "text-danger" })
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </td>
-                <td>:</td>
-                <td>
-                    <div class="form-group">
-                        <div class="control-group">
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.RezultatOT2G, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.RezultatOT2G, "", new { @class = "text-danger" })
+                    </td>
+                    <td class="text-center">:</td>
+                    <td>
+                        <div class="form-group">
+                            <div class="control-group">
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.RezultatH2G, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.RezultatH2G, "", new { @class = "text-danger" })
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-
-        </table>
-
-        <hr />
-        <table class="table-responsive table-bordered">
-            <tr><td><h6>H1</h6></td></tr>
-            <tr>
-                <td>
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-group">
-                        <div class="control-group">
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.RezultatH1D, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.RezultatH1D, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+            </table>
+            <table id="konacanRez" class="table-responsive">
+                <tr><td></td><td><h6>FS </h6></td><td></td></tr>
+                <tr>
+                    <td>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <div class="control-group">
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.RezultatKonacniD, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.RezultatKonacniD, "", new { @class = "text-danger" })
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </td>
-                <td>:</td>
-                <td>
-                    <div class="form-group">
-                        <div class="control-group">
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.RezultatH1G, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.RezultatH1G, "", new { @class = "text-danger" })
+                    </td>
+                    <td class="text-center">:</td>
+                    <td>
+                        <div class="form-group">
+                            <div class="control-group">
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.RezultatKonacniG, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.RezultatKonacniG, "", new { @class = "text-danger" })
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-            <tr><td><h6>H2</h6></td></tr>
-            <tr>
-                <td>
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-group">
-                        <div class="control-group">
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.RezultatH2D, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.RezultatH2D, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                </td>
-                <td>:</td>
-                <td>
-                    <div class="form-group">
-                        <div class="control-group">
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.RezultatH2G, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.RezultatH2G, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <hr />
+                    </td>
+                </tr>
+            </table>
+            <hr />
             
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Sacuvaj" class="btn btn-default" />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Sacuvaj" class="btn btn-default" />
+                </div>
             </div>
         </div>
-    </div>
-}
+    }
+</section>
 
 <div>
     @Html.ActionLink("Back to List", "Index")
