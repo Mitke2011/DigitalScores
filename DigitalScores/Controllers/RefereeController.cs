@@ -13,7 +13,7 @@ namespace DigitalScores.Controllers
         // GET: Referee
         public ActionResult Index()
         {
-            return View();
+            return View("RefereeListing", RefereeDbManager.Current.GetAllReferee());
         }
 
         // GET: Referee/Details/5

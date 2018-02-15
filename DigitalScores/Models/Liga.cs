@@ -11,7 +11,7 @@
                 return this.id;
             }
 
-            set
+            private set
             {
                 this.id = value;
             }

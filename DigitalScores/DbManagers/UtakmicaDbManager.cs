@@ -181,6 +181,51 @@ namespace DigitalScores.DbManagers
 
             return listaUtakmica;
         }
+
+        public List<DigitalScores.Models.Utakmice> GetGamesByLeague(int ligaId) {
+            List<DigitalScores.Models.Utakmice> listaUtakmica = new List<DigitalScores.Models.Utakmice>();
+            string sql = @"select * from Utakmice u
+                join Kolo kolo on (u.Kolo_Id = kolo.Id)
+                where u.Liga_Id = @liga_id
+                and kolo.Tekuce = 1";
+
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+
+                using (command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.Add(new SqlParameter() { ParameterName = "@liga_id", SqlDbType = System.Data.SqlDbType.Int, Value = ligaId });
+                    try
+                    {
+                        SqlDataReader reader = command.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            KlubDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Klub_domacin_id")));
+
+                            Utakmice u = new Utakmice(reader.GetInt32(0))
+                            {
+                                KlubDomacin = (Klub)KlubDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Klub_domacin_id"))),
+                                KlubGost = (Klub)KlubDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Klub_gost_id"))),
+                                KoloUtakmice = (Kolo)KoloDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Kolo_Id")))
+                                //KoloUtakmice = reader.GetInt32(reader.GetOrdinal("Kolo")),
+                                //KlubDomacin = reader.GetString(reader.GetOrdinal("KlubDomacin")),
+                                //KlubGost = reader.GetString(reader.GetOrdinal("KlubGost")),
+                            };
+                            listaUtakmica.Add(u);
+                        }
+                    }
+                    catch (Exception ee)
+                    {
+
+                        throw ee;
+                    }
+
+                }
+            }
+
+            return listaUtakmica;
+        }
     }
 
 }

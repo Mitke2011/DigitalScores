@@ -381,6 +381,8 @@
     <Content Include="Views\Lige\LigePreview.cshtml" />
     <Content Include="Views\Rezultati\UnosRezultata.cshtml" />
     <Content Include="Views\Komesari\KomesariEntry.cshtml" />
+    <Content Include="Views\Komesari\KomesariListing.cshtml" />
+    <Content Include="Views\Referee\RefereeListing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

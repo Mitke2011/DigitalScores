@@ -71,7 +71,7 @@ namespace DigitalScores.DbManagers
                                 Prezime = reader.GetString(reader.GetOrdinal("prezime")),
                                 Email = reader.GetString(reader.GetOrdinal("email")),
                                 Telefon = reader.GetString(reader.GetOrdinal("telefon")),
-                                Liga = (Liga)KomesariDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Liga_Id")))   
+                                Liga = (Liga)KomesariDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Liga_Id")))
                             };
                         }
                     }
@@ -90,7 +90,7 @@ namespace DigitalScores.DbManagers
         {
             throw new NotImplementedException();
         }
-        //      Dodavanje novog sudije u bazu
+        //      Dodavanje novog Komesara u bazu
         public override void Insert(object komesar)
         {
             Komesari k = komesar as Komesari;
@@ -121,6 +121,88 @@ namespace DigitalScores.DbManagers
                     }
 
                 }
+            }
+        }
+
+        public List<DigitalScores.Models.Komesari> GetAllKomesari()
+        {
+            List<DigitalScores.Models.Komesari> listaKomesara = new List<DigitalScores.Models.Komesari>();
+            string sql = @"select * from Komesari";
+
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+
+                using (command = new SqlCommand(sql, connection))
+                {
+                    try
+                    {
+                        SqlDataReader reader = command.ExecuteReader();
+                        while (reader.Read())
+                        {
+
+
+                            Komesari k = new Komesari(reader.GetInt32(0))
+                            {
+                                Ime = reader.GetString(reader.GetOrdinal("Ime")),
+                                Prezime = reader.GetString(reader.GetOrdinal("Prezime")),
+                                Email = reader.GetString(reader.GetOrdinal("Email")),
+                                Telefon = reader.GetString(reader.GetOrdinal("Telefon")),
+                                Liga = (Liga)LigaDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Liga_Id"))),
+                                //KlubGost = reader.GetString(reader.GetOrdinal("KlubGost")),
+                            };
+                            listaKomesara.Add(k);
+                        }
+                    }
+                    catch (Exception ee)
+                    {
+
+                        throw ee;
+                    }
+
+                }
+            }
+
+            return listaKomesara;
+        }
+
+        public bool CheckIfKomesarExists(Komesari komesar)
+        {
+            bool result = false;
+            string sql = "select COUNT([Email]) from Komesari where Email = @email";
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+
+                using (command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.AddRange(new SqlParameter[] {
+                    new SqlParameter(){ ParameterName = "Email", Value = komesar.Email, SqlDbType = System.Data.SqlDbType.NVarChar},
+
+                    });
+                }
+
+
+                try
+                {
+                    int counter = 0;
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        counter = reader.GetInt32(0);
+                    }
+                    if (counter > 0)
+                    {
+                        result = true;
+                        return result;
+                    }
+                }
+                catch (Exception se)
+                {
+
+                    throw se;
+                }
+                return result;
             }
         }
     }

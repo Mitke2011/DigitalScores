@@ -101,9 +101,8 @@ namespace DigitalScores.DbManagers
                             {
 
 
-                                Liga l = new Liga()
+                                Liga l = new Liga(reader.GetInt32(0))
                                 {
-                                    Id = reader.GetInt32(reader.GetOrdinal("Id")),
                                     Naziv = reader.GetString(reader.GetOrdinal("Naziv")),    
                                     LigaKategorija = (Kategorija)KategorijaDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Kategorija")))
 

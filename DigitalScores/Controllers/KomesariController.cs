@@ -13,7 +13,8 @@ namespace DigitalScores.Controllers
         // GET: Komesari
         public ActionResult Index()
         {
-            return View();
+
+            return View("KomesariListing", KomesariDbManager.Current.GetAllKomesari());
         }
 
         // GET: Komesari/Details/5
@@ -34,10 +35,16 @@ namespace DigitalScores.Controllers
         {
             try
             {
-                Komesari k = komesar;
-                // Implement verification if the Referee already exists in the system
-                KomesariDbManager.Current.Insert(k);
-                return RedirectToAction("Create");
+                bool postoji = KomesariDbManager.Current.CheckIfKomesarExists(komesar);
+                if (postoji)
+                {
+                    return RedirectToAction("Create");
+                }
+                else
+                {
+                    KomesariDbManager.Current.Insert(komesar);
+                    return RedirectToAction("Index");
+                }
 
             }
             catch

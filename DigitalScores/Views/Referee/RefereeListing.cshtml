@@ -1,0 +1,50 @@
+﻿@model IEnumerable<DigitalScores.Models.Sudija>
+
+@{
+    ViewBag.Title = "RefereeListing";
+    Layout = "~/Views/Shared/_DefaultLayout.cshtml";
+}
+
+<h2>Sudije</h2>
+
+<p>
+    @Html.ActionLink("Dodaj novog sudiju", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Ime i Prezime
+        <th>
+            Email
+        </th>
+        <th>
+            Telefon
+        </th>
+        <th>
+            Grad
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ime) @Html.DisplayFor(modelItem => item.Prezime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Telefon)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Grad)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) 
+
+        </td>
+    </tr>
+}
+
+</table>

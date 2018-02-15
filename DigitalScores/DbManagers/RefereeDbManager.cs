@@ -123,5 +123,46 @@ namespace DigitalScores.DbManagers
                 }
             }
         }
+
+        public List<Sudija> GetAllReferee() {
+            List<Sudija> listaSudija = new List<Sudija>();
+            string sql = @"select * from Sudije";
+
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+
+                using (command = new SqlCommand(sql, connection))
+                {
+                    try
+                    {
+                        SqlDataReader reader = command.ExecuteReader();
+                        while (reader.Read())
+                        {
+
+
+                            Sudija s = new Sudija(reader.GetInt32(0))
+                            {
+                                Ime = reader.GetString(reader.GetOrdinal("Ime")),
+                                Prezime = reader.GetString(reader.GetOrdinal("Prezime")),
+                                Email = reader.GetString(reader.GetOrdinal("Email")),
+                                Telefon = reader.GetString(reader.GetOrdinal("Telefon")),
+                                Grad = reader.GetString(reader.GetOrdinal("Grad")),
+                                //KlubGost = reader.GetString(reader.GetOrdinal("KlubGost")),
+                            };
+                            listaSudija.Add(s);
+                        }
+                    }
+                    catch (Exception ee)
+                    {
+
+                        throw ee;
+                    }
+
+                }
+            }
+
+            return listaSudija;
+        }
     }
 }
