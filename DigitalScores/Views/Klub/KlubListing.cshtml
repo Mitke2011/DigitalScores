@@ -5,10 +5,11 @@
     Layout = "~/Views/Shared/_DefaultAdminLayout.cshtml";
 }
 
-<h2>KlubListing</h2>
+<h2>Prikaz svih klubova</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Dodaj Klub", "Create", "Klub")
+    
 </p>
 <table class="table">
     <tr>
@@ -51,5 +52,4 @@
         </td>
     </tr>
 }
-
 </table>
