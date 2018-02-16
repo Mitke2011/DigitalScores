@@ -83,10 +83,10 @@ namespace DigitalScores.DbManagers
             throw new NotImplementedException();
         }
 
-        public List<DigitalScores.Models.Liga> GetLeagues() {
+        public List<DigitalScores.Models.Liga> GetLeaguesByCategory(int kategorijaId) {
             {
                 List<DigitalScores.Models.Liga> listaUtakmica = new List<DigitalScores.Models.Liga>();
-                string sql = "select * from Lige";
+                string sql = "select * from Lige where Kategorija = @kategorijaId";
 
                 using (connection = new SqlConnection(this.ConnectionString))
                 {
@@ -96,6 +96,7 @@ namespace DigitalScores.DbManagers
                     {
                         try
                         {
+                            command.Parameters.Add(new SqlParameter() { ParameterName = "@kategorijaId", SqlDbType = System.Data.SqlDbType.Int, Value = kategorijaId });
                             SqlDataReader reader = command.ExecuteReader();
                             while (reader.Read())
                             {

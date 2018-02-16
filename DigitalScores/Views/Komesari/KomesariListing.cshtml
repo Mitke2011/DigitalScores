@@ -7,19 +7,17 @@
 
 <h3>Komesari</h3>
 
-<p>
-    @Html.ActionLink("Dodaj Novog", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
             Ime i Prezime
         </th>
         <th>
-           Email
+            Email
         </th>
         <th>
-          Telefon
+            Telefon
         </th>
         <th>
             Liga
@@ -27,25 +25,29 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ime) @Html.DisplayFor(modelItem => item.Prezime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Telefon)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Liga.Naziv)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) 
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ime) @Html.DisplayFor(modelItem => item.Prezime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Liga.Naziv)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id })
 
-        </td>
-    </tr>
-}
+            </td>
+        </tr>
+    }
 
 </table>
+<button>
+    @Html.ActionLink("Dodaj Komesara", "Create")
+</button>
