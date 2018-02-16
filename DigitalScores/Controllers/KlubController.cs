@@ -1,13 +1,15 @@
 ﻿using System.Web.Mvc;
+using DigitalScores.DbManagers;
+using System.Collections.Generic;
 
 namespace DigitalScores.Controllers
 {
     public class KlubController : Controller
     {
         // GET: Klub
-        public ActionResult Index()
+        public ActionResult KlubListing()
         {
-            return View();
+            return View("KlubListing", (List<Klub>)KlubDbManager.Current.GetAll());
         }
 
         // GET: Klub/Details/5
@@ -19,7 +21,7 @@ namespace DigitalScores.Controllers
         // GET: Klub/Create
         public ActionResult Create()
         {
-            return View();
+            return View("KlubEntries");
         }
 
         // POST: Klub/Create

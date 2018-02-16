@@ -41,6 +41,7 @@
         public string NapomenaDelegata { get; set; }
         public string KlDomacin { get; set; }
         public string KlGost { get; set; }
+        public StatusUtakmice Status { get; set; }
 
         public Utakmice()
         {
@@ -51,5 +52,12 @@
             this.id = id;
         }
 
+    }
+
+    public enum StatusUtakmice
+    {
+        Neodigrana,
+        U_Toku,
+        Odigrana
     }
 }
