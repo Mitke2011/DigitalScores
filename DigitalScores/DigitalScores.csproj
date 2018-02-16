@@ -396,6 +396,9 @@
     <Content Include="Views\Lige\LigePreviewAdmin.cshtml" />
     <Content Include="Views\Utakmica\GamePreviewAdmin.cshtml" />
     <Content Include="Views\Utakmica\GameEntry.cshtml" />
+    <Content Include="Views\Klub\DetailsKlub.cshtml" />
+    <Content Include="Views\Klub\EditKlub.cshtml" />
+    <Content Include="Views\Klub\DeleteKlub.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

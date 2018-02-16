@@ -1,4 +1,6 @@
-﻿namespace DigitalScores.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DigitalScores.Models
 {
     public class Klub
     {
@@ -17,8 +19,10 @@
         public string Naziv { get; set; }
         public string Grad { get; set; }
         public string Trener { get; set; }
-        public Liga LigaKlub{get;set;}
+        [Display(Name = "Liga")]
+        public Liga LigaKlub { get; set; }
         //LicencaPDF je lokacija PDF datoteke na sistemu 
+        [Display(Name ="Licenca Kluba")]
         public string LicencaPDF { get; set; }
 
         #region DbLookup fields
