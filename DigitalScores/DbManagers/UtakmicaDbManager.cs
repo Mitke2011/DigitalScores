@@ -123,9 +123,42 @@ namespace DigitalScores.DbManagers
             return result;
         }
 
-        public override void Insert(object carrier)
+        public override void Insert(object utakmica)
         {
-            throw new NotImplementedException();
+            Utakmice u = utakmica as Utakmice;
+            string sql = "insert into Utakmice (Kolo_Id, Klub_Domacin_Id, Klub_Gost_Id, Sudija1_Id, Sudija2_Id, Delegat_Id, Liga_Id, Hala_Id, Sezona_Id, Napomena_Delegata) values (@kolo_id, @klDomacin_id, @klGost_Id, @sudija1_Id, @sudija2_Id, @delegat_Id, @liga_Id, @hala_Id, @sezona_Id, @napomena_delegata)";
+
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+
+                using (command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.AddRange(
+                new SqlParameter[] {
+                    new SqlParameter(){ ParameterName = "@kolo_id", Value = u.koloID, SqlDbType = System.Data.SqlDbType.Int},
+                    new SqlParameter(){ ParameterName = "@klDomacin_id", Value = u.klubDomacinId, SqlDbType = System.Data.SqlDbType.Int},
+                    new SqlParameter(){ ParameterName = "@klGost_Id", Value = u.klubGostId, SqlDbType =System.Data.SqlDbType.Int },
+                    new SqlParameter(){ ParameterName = "@sudija1_Id", Value = u.sudija1Id, SqlDbType = System.Data.SqlDbType.Int},
+                    new SqlParameter(){ ParameterName = "@sudija2_Id", Value = u.sudija2Id, SqlDbType = System.Data.SqlDbType.Int},
+                    new SqlParameter(){ ParameterName = "@delegat_Id", Value = u.delegatId, SqlDbType =System.Data.SqlDbType.Int },
+                    new SqlParameter(){ ParameterName = "@liga_Id", Value =  u.ligaId, SqlDbType = System.Data.SqlDbType.Int},
+                    new SqlParameter(){ ParameterName = "@hala_Id", Value = u.halaId, SqlDbType = System.Data.SqlDbType.Int},
+                    new SqlParameter(){ ParameterName = "@sezona_Id", Value = u.sezonaId, SqlDbType = System.Data.SqlDbType.Int},
+                    new SqlParameter(){ ParameterName = "@napomena_delegata", Value = u.NapomenaDelegata, SqlDbType = System.Data.SqlDbType.NVarChar}
+            });
+
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                    catch (SqlException se)
+                    {
+                        throw se;
+                    }
+
+                }
+            }
         }
 
         public override void Update(object carrier)
@@ -189,6 +222,50 @@ namespace DigitalScores.DbManagers
                 join Kolo kolo on (u.Kolo_Id = kolo.Id)
                 where u.Liga_Id = @liga_id
                 and kolo.Tekuce = 1";
+
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+
+                using (command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.Add(new SqlParameter() { ParameterName = "@liga_id", SqlDbType = System.Data.SqlDbType.Int, Value = ligaId });
+                    try
+                    {
+                        SqlDataReader reader = command.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            KlubDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Klub_domacin_id")));
+
+                            Utakmice u = new Utakmice(reader.GetInt32(0))
+                            {
+                                KlubDomacin = (Klub)KlubDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Klub_domacin_id"))),
+                                KlubGost = (Klub)KlubDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Klub_gost_id"))),
+                                KoloUtakmice = (Kolo)KoloDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Kolo_Id")))
+                                //KoloUtakmice = reader.GetInt32(reader.GetOrdinal("Kolo")),
+                                //KlubDomacin = reader.GetString(reader.GetOrdinal("KlubDomacin")),
+                                //KlubGost = reader.GetString(reader.GetOrdinal("KlubGost")),
+                            };
+                            listaUtakmica.Add(u);
+                        }
+                    }
+                    catch (Exception ee)
+                    {
+
+                        throw ee;
+                    }
+
+                }
+            }
+            return listaUtakmica;
+        }
+
+
+        public List<Utakmice> GetGamesByLeagueAdmin(int ligaId)
+        {
+            List<Utakmice> listaUtakmica = new List<Utakmice>();
+            string sql = @"select * from Utakmice 
+                where Liga_Id = @liga_id";
 
             using (connection = new SqlConnection(this.ConnectionString))
             {

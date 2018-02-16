@@ -246,5 +246,46 @@ namespace DigitalScores.DbManagers
                 }
             }
         }
+
+        public List<Users> GetAllDelegates() {
+            List<Users> listaDelegata = new List<Users>();
+            string sql = @"select * from Users where Privilege_id = 2";
+
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+
+                using (command = new SqlCommand(sql, connection))
+                {
+                    try
+                    {
+                        SqlDataReader reader = command.ExecuteReader();
+                        while (reader.Read())
+                        {
+
+
+                            Users u = new Users(reader.GetInt32(0))
+                            {
+                                Ime = reader.GetString(reader.GetOrdinal("Ime")),
+                                Prezime = reader.GetString(reader.GetOrdinal("Prezime")),
+                                Email = reader.GetString(reader.GetOrdinal("Email")),
+                                Telefon = reader.GetString(reader.GetOrdinal("Telefon")),
+                                Grad = reader.GetString(reader.GetOrdinal("Grad")),
+                                //KlubGost = reader.GetString(reader.GetOrdinal("KlubGost")),
+                            };
+                            listaDelegata.Add(u);
+                        }
+                    }
+                    catch (Exception ee)
+                    {
+
+                        throw ee;
+                    }
+
+                }
+            }
+
+            return listaDelegata;
+        }
     }
 }

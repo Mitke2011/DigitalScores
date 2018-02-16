@@ -1,0 +1,24 @@
+﻿@model List<DigitalScores.Models.Liga>
+
+@{
+    ViewBag.Title = "LigePreviewAdmin";
+    Layout = "~/Views/Shared/_DefaultAdminLayout.cshtml";
+}
+
+@*@<h2>Pregled liga -  @Model.First().LigaKategorija.Naziv</h2*@
+
+
+<table class="table">
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Naziv)
+        </td>
+        <td>
+            @Html.ActionLink("Prikaz svih utakmica Lige", "ShowGamesAllRounds", "Utakmica", new { ligaId=item.Id }, null) 
+        </td>
+    </tr>
+}
+
+</table>

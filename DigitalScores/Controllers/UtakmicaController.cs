@@ -26,6 +26,22 @@ namespace DigitalScores.Controllers
             return View("logoff", "user");
         }
 
+        public ActionResult ShowGamesAllRounds(int ligaId)
+        {
+            Users current = (Users)Session["currentUser"];
+            if (current != null)
+            {
+                if (current.Privilege == Privilege.Admin)
+                {
+                    ViewBag.LigaId = ligaId;
+                    ViewBag.AdminIme = current.Ime;
+                    ViewBag.AdminPrezime = current.Prezime;
+                    return View("GamePreviewAdmin", UtakmicaDbManager.Current.GetGamesByLeagueAdmin(ligaId));
+                }
+            }
+            return View("logoff", "user");
+        }
+
         // GET: Utakmica/Details/5
         public ActionResult Details(int id)
         {
@@ -33,20 +49,30 @@ namespace DigitalScores.Controllers
         }
 
         // GET: Utakmica/Create
-        public ActionResult Create()
+        public ActionResult Create(int ligaId)
         {
-            return View();
+            Users current = (Users)Session["currentUser"];
+            if (current != null)
+            {
+                if (current.Privilege == Privilege.Admin)
+                {
+                    ViewBag.LigaId = ligaId;
+                    return View("GameEntry");
+                }
+            }
+            return View("logoff", "user");
         }
 
         // POST: Utakmica/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Utakmice utakmica, int ligaId)
         {
             try
             {
-                // TODO: Add insert logic here
+                utakmica.ligaId = ligaId;
+                UtakmicaDbManager.Current.Insert(utakmica);
+                return RedirectToAction("ShowGamesAllRounds", "Utakmica", new { ligaId = ligaId });
 
-                return RedirectToAction("Index");
             }
             catch
             {

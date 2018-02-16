@@ -1,0 +1,153 @@
+﻿@using DigitalScores.Models
+@using DigitalScores.DbManagers 
+@model DigitalScores.Models.Utakmice
+
+
+@{
+    ViewBag.Title = "GameEntry";
+    Layout = "~/Views/Shared/_DefaultAdminLayout.cshtml";
+}
+
+<body>
+    <div class="container-fluid">
+        <hr>
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget-box">
+                    <div class="widget-title">
+                        <span class="icon"> <i class="icon-info-sign"></i> </span>
+                        <h5>Unos Utakmice</h5>
+                    </div>
+                    <div class="widget-content nopadding">
+                        <section id="RefereeEntryForm">
+
+                            @using (Html.BeginForm("Create", "Utakmica", new { ligaId = ViewBag.ligaId }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                <div class="control-group">
+                                    <label class="control-label">Sezona</label>
+                                    <div class="controls">
+                                        @Html.DropDownListFor(m => m.sezonaId,
+                                               new SelectList(SezonaDbManager.Current.GetSeasonByLeague(ViewBag.ligaId), "Id", "Naziv",
+                                                "Izaberi Sezonu"))
+                                        @Html.ValidationMessageFor(m => m.sezonaId)
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Kolo</label>
+                                    <div class="controls">
+                                        @Html.DropDownListFor(m => m.koloID,
+                                               new SelectList(KoloDbManager.Current.GetRoundByLeague(ViewBag.ligaId), "Id", "Naziv"),
+                                                "Izaberi Kolo")
+                                        @Html.ValidationMessageFor(m => m.koloID)
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Klub Domacin</label>
+                                    <div class="controls">
+                                        @Html.DropDownListFor(m => m.klubDomacinId,
+                                               new SelectList(KlubDbManager.Current.GetClubsByLeague(ViewBag.ligaId), "Id", "Naziv"),
+                                                "Izaberi Klub")
+                                        @Html.ValidationMessageFor(m => m.KlDomacin)
+                                    </div>
+                                </div>
+                               <div class="control-group">
+                                    <label class="control-label">Klub Gost</label>
+                                    <div class="controls">
+                                        @Html.DropDownListFor(m => m.klubGostId,
+                                               new SelectList(KlubDbManager.Current.GetClubsByLeague(ViewBag.ligaId), "Id", "Naziv"),
+                                                "Izaberi Klub")
+                                        @Html.ValidationMessageFor(m => m.KlGost)
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Sudija 1</label>
+                                    <div class="controls">
+                                        @Html.DropDownListFor(m => m.sudija1Id,
+                                               new SelectList(RefereeDbManager.Current.GetAllReferee(), "Id", "Email"),
+                                                "Izaberi Sudiju 1")
+                                        @Html.ValidationMessageFor(m => m.sudija1Id)
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Sudija 2</label>
+                                    <div class="controls">
+                                        @Html.DropDownListFor(m => m.sudija2Id,
+                                               new SelectList(RefereeDbManager.Current.GetAllReferee(), "Id", "Email"),
+                                                "Izaberi Sudiju 2")
+                                        @Html.ValidationMessageFor(m => m.sudija2Id)
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Delegat</label>
+                                    <div class="controls">
+                                        @Html.DropDownListFor(m => m.delegatId,
+                                               new SelectList(UsersDbManager.Current.GetAllDelegates(), "Id", "Email"),
+                                                "Izaberi Delegata")
+                                        @Html.ValidationMessageFor(m => m.delegatId)
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Hala</label>
+                                    <div class="controls">
+                                        @Html.DropDownListFor(m => m.halaId,
+                                               new SelectList(HalaDbManager.Current.GetHale(), "Id", "Naziv"),
+                                                "Izaberi Halu")
+                                        @Html.ValidationMessageFor(m => m.halaId)
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Napomena delegata</label>
+                                    <div class="controls">
+                                        @Html.TextAreaFor(m => m.NapomenaDelegata)
+                                        @Html.ValidationMessageFor(m => m.NapomenaDelegata)
+                                    </div>
+                                </div>
+                              
+                           
+
+                             @*  <div class="control-group">
+                                    <label class="control-label">Telefon</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.Telefon, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.Telefon)
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Liga</label>
+                                    <div class="controls">
+
+                                        @Html.DropDownListFor(m => m.LigaId,
+                                               new SelectList(LigaDbManager.Current.GetLeagues(), "Id", "Naziv"),
+                                                "Izaberi Ligu")
+                                        @Html.ValidationMessageFor(m => m.LigaId)
+                                    </div>
+                                </div> *@
+
+                                <div class="form-actions">
+                                    <input type="submit" value="Snimi" class="btn btn-success" />
+                                </div>
+                            }
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--Footer-part-->
+    <div class="row-fluid">
+        <div id="footer" class="span12"> 2018 &copy; Digital Score. Power by DScore <a href="http://www.digitalscore.org"></a> </div>
+    </div>
+    <!--end-Footer-part-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.ui.custom.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.uniform.js"></script>
+    <script src="js/select2.min.js"></script>
+    <script src="js/jquery.validate.js"></script>
+    <script src="js/herc.js"></script>
+    <script src="js/herc.form_validation.js"></script>
+</body>
+
+

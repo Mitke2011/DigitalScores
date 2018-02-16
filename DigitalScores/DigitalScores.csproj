@@ -384,7 +384,7 @@
     <Content Include="Views\Category\CategoryList.cshtml" />
     <Content Include="Views\Shared\_DefaultDelegateLayout.cshtml" />
     <Content Include="Views\Utakmica\GamePreview.cshtml" />
-    <Content Include="Views\Lige\LigePreview.cshtml" />
+    <Content Include="Views\Lige\LigePreviewDelegate.cshtml" />
     <Content Include="Views\Rezultati\UnosRezultata.cshtml" />
     <Content Include="Views\Komesari\KomesariEntry.cshtml" />
     <Content Include="Views\Komesari\KomesariListing.cshtml" />
@@ -393,6 +393,9 @@
     <Content Include="Views\Kategorija\KategorijaEntry.cshtml" />
     <Content Include="Views\Kategorija\KategorijeListing.cshtml" />
     <Content Include="Views\Rezultati\PregledRezultataUtakmice.cshtml" />
+    <Content Include="Views\Lige\LigePreviewAdmin.cshtml" />
+    <Content Include="Views\Utakmica\GamePreviewAdmin.cshtml" />
+    <Content Include="Views\Utakmica\GameEntry.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
