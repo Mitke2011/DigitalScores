@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using DigitalScores.Models;
-using DigitalScores.DbManagers;
+﻿using System.Web.Mvc;
 
 namespace DigitalScores.Controllers
 {
