@@ -31,7 +31,7 @@
     <div id="user-nav" class="navbar navbar-inverse">
         <ul class="nav">
             <li class="dropdown" id="profile-messages">
-                @RenderSection("welcome")
+                @RenderSection("welcome",false)
                 <ul class="dropdown-menu">
                     <li><a href="#"><i class="icon-user"></i> Početna</a></li>
                     <li class="divider"></li>
@@ -47,7 +47,7 @@
     <div id="content">
         <!--breadcrumbs-->
         <div id="content-header">
-            <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Početna</a></div>
+            <div id="breadcrumb"> @Html.ActionLink("Pocetna", "index", "Delegates")</div>
         </div>
         <!--End-breadcrumbs-->
         <!--Action boxes-->
