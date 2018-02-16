@@ -31,20 +31,19 @@
     <div id="user-nav" class="navbar navbar-inverse">
         <ul class="nav">
             <li class="dropdown" id="profile-messages">
-                <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text">Dobrodošli</span><b class="caret"></b></a>
+                @RenderSection("welcome", false)
                 <ul class="dropdown-menu">
                     <li><a href="#"><i class="icon-user"></i> Početna</a></li>
                     <li class="divider"></li>
-                    <li><a href="#"><i class="icon-check"></i> Tabele</a></li>
-                    <li class="divider"></li>
-                    <li><a href="login.html"><i class="icon-key"></i> Izlaz</a></li>
+                    <li>@Html.ActionLink("Izlaz", "Logoff", "User")</li>
                 </ul>
             </li>
-
-            <li class=""><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">Podešavanja</span></a></li>
-            <li class=""><a title="" href="login.html"><i class="icon icon-share-alt"></i> <span class="text">Izlaz</span></a></li>
+            <li class="">@Html.ActionLink("Izlaz", "Logoff", "User")</li>
+            @*<li class=""><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">Podešavanja</span></a></li>*@
         </ul>
     </div>
+
+    
     <!--close-top-Header-menu-->
     <!--start-top-serch-->
     <!--close-top-serch-->
@@ -60,13 +59,13 @@
             <li>
                 <a href="@Url.Action("Index", "Kategorija")"><i class="icon icon-th-list"></i> <span>Kategorije</span></a>
             </li>
-            <li><a href="#"><i class="icon icon-th-list"></i> <span>Uskoro</span></a></li>
+            <li><a href="@Url.Action("KlubListing", "Klub")"><i class="icon icon-th-list"></i> <span>Klubovi</span></a></li>
             <li><a href="interface.html"><i class="icon icon-th-list"></i> <span>Uskoro</span></a></li>
             <li class="submenu">
-                <a href="#"><i class="icon icon-th-list"></i> <span>Uskoro</span></a>
+                <a href="#"><i class="icon icon-th-list"></i> <span>Uskoro Korisnici</span></a>
                 <ul>
-                    <li><a href="#">Uskoro</a></li>
-                    <li><a href="#">Uskoro</a></li>
+                    <li><a href="#">Uskoro Administratori</a></li>
+                    <li><a href="#">Uskoro Delegati</a></li>
                     <li><a href="#">Uskoro</a></li>
                     <li><a href="#">Uskoro</a></li>
                     <li><a href="#">Uskoro</a></li>
@@ -98,9 +97,11 @@
                 <ul class="quick-actions">
                     @*Ovde idu HTML helperi za Redirect Actions
                         Postoji nekoliko verzija, zavisi da li je potrebno da se proslede vrednosti sa forme ili ne.*@
-                    @Html.ActionLink("Lik", "Index", "Admin");
                     <li class="bg_lb">@Html.ActionLink("Pocetna", "Index", "Admin")</li>
-                    <li class="bg_lg span3"> <a href="tabele.html"> <i class="icon-signal"></i> Tabele</a> </li>
+                    <li class="bg_lb span3">@Html.ActionLink("Muska Kategorija", "LeaguesForCategory", "Lige", new { katId = 1 }, null)</li>
+                    <li class="bg_lb span3">@Html.ActionLink("Zenska Kategorija", "LeaguesForCategory", "Lige", new { katId = 2 }, null)</li>
+                    <li class="bg_lb span3">@Html.ActionLink("Omladinska Kategorija", "LeaguesForCategory", "Lige", new { katId = 3 }, null)</li>
+                    @*<li class="bg_lg span3"> <a href="tabele.html"> <i class="icon-signal"></i> Tabele</a> </li>
                     <li class="bg_ly"> <a href="widgets.html"> <i class="icon-inbox"></i>Licence </a> </li>
                     <li class="bg_lo"> <a href="raspored.html"> <i class="icon-th"></i> Raspored</a> </li>
                     <li class="bg_ls"> <a href="grid.html"> <i class="icon-fullscreen"></i> Prikaz iFrame</a> </li>
@@ -108,7 +109,7 @@
                     <li class="bg_ls"> <a href="buttons.html"> <i class="icon-tint"></i> Delegati upisi</a> </li>
                     <li class="bg_lb"> <a href="interface.html"> <i class="icon-pencil"></i>Izmene</a> </li>
                     <li class="bg_lg"> <a href="calendar.html"> <i class="icon-calendar"></i> Kalendar </a> </li>
-                    <li class="bg_lr"> <a href="error404.html"> <i class="icon-info-sign"></i> Greške</a> </li>
+                    <li class="bg_lr"> <a href="error404.html"> <i class="icon-info-sign"></i> Greške</a> </li>*@
 
                 </ul>
             </div>
