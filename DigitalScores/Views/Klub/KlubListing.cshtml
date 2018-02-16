@@ -24,7 +24,7 @@
         <th>
             @Html.DisplayNameFor(model => model.LicencaPDF)
         </th>
-        <th></th>
+        <th>@Html.DisplayNameFor(model => model.LigaKlub)</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -42,9 +42,12 @@
             @Html.DisplayFor(modelItem => item.LicencaPDF)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.DisplayFor(modelItem => item.LigaKlub.Naziv)
+        </td>
+        <td>
+            @Html.ActionLink("Izmeni", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Pregled", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Obrisi", "Delete", new { id=item.Id })
         </td>
     </tr>
 }
