@@ -29,6 +29,11 @@ namespace DigitalScores.Controllers
             return View("Logoff", "Users");
         }
 
+        public ActionResult PregledRezultataUtakmice(int utakmicaId)
+        {
+            return View();
+        }
+
         private Users SessionCheck()
         {
             Users result = null;

@@ -33,7 +33,7 @@ namespace DigitalScores.Controllers
                 {
                     ViewBag.DelegatIme = current.Ime;
                     ViewBag.DelegatPrezime = current.Prezime;
-                    return View("LigePreview", LigaDbManager.Current.GetLeagues());
+                    return View("LigePreview", LigaDbManager.Current.GetLeaguesByCategory(katId));
                 }                
             }
             return RedirectToAction("Logoff", "User");

@@ -27,7 +27,7 @@ namespace DigitalScores.Controllers
                     return View("GamePreview", UtakmicaDbManager.Current.GetGamesByLeague(ligaId));
                 }
             }
-            return View();
+            return View("logoff", "user");
         }
 
         // GET: Utakmica/Details/5

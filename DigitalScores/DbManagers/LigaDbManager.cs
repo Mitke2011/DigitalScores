@@ -83,9 +83,9 @@ namespace DigitalScores.DbManagers
             throw new NotImplementedException();
         }
 
-        public List<DigitalScores.Models.Liga> GetLeaguesByCategory(int kategorijaId) {
+        public List<Liga> GetLeaguesByCategory(int kategorijaId) {
             {
-                List<DigitalScores.Models.Liga> listaUtakmica = new List<DigitalScores.Models.Liga>();
+                List<Liga> listaUtakmica = new List<Liga>();
                 string sql = "select * from Lige where Kategorija = @kategorijaId";
 
                 using (connection = new SqlConnection(this.ConnectionString))
