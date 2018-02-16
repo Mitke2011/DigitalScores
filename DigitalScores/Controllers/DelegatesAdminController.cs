@@ -8,56 +8,47 @@ using DigitalScores.DbManagers;
 
 namespace DigitalScores.Controllers
 {
-    public class RezultatiController : Controller
+    public class DelegatesAdminController : Controller
     {
-        // GET: Rezultati
+        // GET: Delegates
         public ActionResult Index()
         {
-            return View("UnosRezultata");
+            return View("DelegatesEntry");
         }
 
-        public ActionResult UnosRezultata(int utakmicaId)
-        {
-            Users u = SessionCheck();
-            if (u != null)
-            {
-                Rezultati re = new Rezultati() { RezultatUtakmica = (Utakmice)UtakmicaDbManager.Current.GetSingle(utakmicaId) };
-                ViewBag.DelegatIme = u.Ime;
-                ViewBag.DelegatIme = u.Prezime;
-                return View("UnosRezultata", re);
-            }
-            return View("Logoff", "Users");
-        }
-
-        private Users SessionCheck()
-        {
-            Users result = null;
-            result = (Users)Session["currentUser"];
-            return result;
-        }
-
-        // GET: Rezultati/Details/5
+        // GET: Delegates/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Rezultati/Create
+        // GET: Delegates/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Rezultati/Create
+        // POST: Delegates/Create
         [HttpPost]
-        public ActionResult Create(Rezultati rezultat, int utakmicaId)
+        public ActionResult Create(Users delegat)
         {
             try
             {
-                rezultat.UtakmicaId = utakmicaId;
-                RezultatiDbManager.Current.Insert(rezultat);
-                Utakmice u = (Utakmice)UtakmicaDbManager.Current.GetSingle(utakmicaId);
-                return RedirectToAction("Index", "Utakmica", new { ligaid = u.LigaUtakmice.Id });
+                // check if user exists in DB
+                bool user = UsersDbManager.Current.CheckIfUserExists(delegat);
+
+                if (user)
+                {
+                    return RedirectToAction("Index", "Delegates");
+                }
+                //else, insert the row to user table
+                else
+                {
+                    UsersDbManager.Current.Insert(delegat);
+                    RedirectToAction("Index", "Delegates");
+                }
+
+                return RedirectToAction("Index");
             }
             catch
             {
@@ -65,13 +56,13 @@ namespace DigitalScores.Controllers
             }
         }
 
-        // GET: Rezultati/Edit/5
+        // GET: Delegates/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Rezultati/Edit/5
+        // POST: Delegates/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -87,13 +78,13 @@ namespace DigitalScores.Controllers
             }
         }
 
-        // GET: Rezultati/Delete/5
+        // GET: Delegates/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Rezultati/Delete/5
+        // POST: Delegates/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

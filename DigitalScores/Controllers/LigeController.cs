@@ -4,16 +4,39 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DigitalScores.DbManagers;
+using DigitalScores.Models;
 
 namespace DigitalScores.Controllers
 {
     public class LigeController : Controller
     {
-        // GET: Lige
+        // GET: Lige       
         public ActionResult Index()
         {
-            
-            return View("LigePreview", DbManagers.LigaDbManager.Current.GetLeagues());
+            Users current = (Users)Session["currentUser"];
+            if (current != null)
+            {
+                if (current.Privilege == Privilege.Admin || current.Privilege == Privilege.SuperAdmin)
+                {
+                    return View();
+                }
+            }
+            return RedirectToAction("Logoff", "User");
+        }
+
+        public ActionResult LeaguesForCategory(int katId)
+        {
+            Users current = (Users)Session["currentUser"];
+            if (current != null)
+            {
+                if (current.Privilege == Privilege.Delegate)
+                {
+                    ViewBag.DelegatIme = current.Ime;
+                    ViewBag.DelegatPrezime = current.Prezime;
+                    return View("LigePreview", LigaDbManager.Current.GetLeagues());
+                }                
+            }
+            return RedirectToAction("Logoff", "User");
         }
 
         // GET: Lige/Details/5

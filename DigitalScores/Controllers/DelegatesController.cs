@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DigitalScores.Models;
-using DigitalScores.DbManagers;
 
 namespace DigitalScores.Controllers
 {
@@ -13,7 +12,12 @@ namespace DigitalScores.Controllers
         // GET: Delegates
         public ActionResult Index()
         {
-            return View("DelegatesEntry");
+            Users currentDelegate = (Users)Session["currentUser"];
+            if (currentDelegate!=null)
+            {
+                return View("Delegates",currentDelegate);
+            }
+            return RedirectToAction("Index", "Users");
         }
 
         // GET: Delegates/Details/5
@@ -30,23 +34,11 @@ namespace DigitalScores.Controllers
 
         // POST: Delegates/Create
         [HttpPost]
-        public ActionResult Create(Users delegat)
+        public ActionResult Create(FormCollection collection)
         {
             try
             {
-                // check if user exists in DB
-                bool user = UsersDbManager.Current.CheckIfUserExists(delegat);
-
-                if (user)
-                {
-                    return RedirectToAction("Index", "Delegates");
-                }
-                //else, insert the row to user table
-                else
-                {
-                    UsersDbManager.Current.Insert(delegat);
-                    RedirectToAction("Index", "Delegates");
-                }
+                // TODO: Add insert logic here
 
                 return RedirectToAction("Index");
             }

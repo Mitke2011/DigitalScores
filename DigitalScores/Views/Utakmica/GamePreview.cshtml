@@ -2,34 +2,37 @@
 
 @{
     ViewBag.Title = "GamePreview";
-    Layout = "~/Views/Shared/_DefaultLayout.cshtml";
+    Layout = "~/Views/Shared/_DefaultDelegateLayout.cshtml";
 }
 
-<<<<<<< HEAD
-@*Nemam utakmice u bazi, ako ovo vidite slucajno, slobodno odkomentarisite.*@
-=======
+@if (Model != null)
+{
+    <h3>Utakmice @Model.FirstOrDefault().KoloUtakmice.Naziv</h3>
+    <table class="table">
 
->>>>>>> d5169716e4b2a8b5cccfa1a04269492d72236ebd
-<h3>Utakmice @Model.First().KoloUtakmice.Naziv</h3>
-
-
-<table class="table">
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.KlubDomacin.Naziv)
-        </td>
-        <td>
-            :
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.KlubGost.Naziv)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "UnosRezultata", "Rezultati", new { utakmicaId = item.Id}, null)
-        </td>
-    </tr>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.KlubDomacin.Naziv)
+            </td>
+            <td>
+                :
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KlubGost.Naziv)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "UnosRezultata", "Rezultati", new { utakmicaId = item.Id }, null)
+            </td>
+        </tr>
+        }
+    </table>
+    @section welcome
+{
+        <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle">
+            <i class="icon icon-user"></i>
+            <span class="text">Dobrodošli @ViewBag.DelegatIme @ViewBag.DelegatPrezime</span><b class="caret"></b>
+        </a>
+    }
 }
-
-</table>

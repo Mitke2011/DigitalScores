@@ -2,12 +2,12 @@
 
 @{
     ViewBag.Title = "UnosRezultata";
-    Layout = "~/Views/Shared/_DefaultLayout.cshtml";
+    Layout = "~/Views/Shared/_DefaultDelegateLayout.cshtml";
 }
 
 <h2>Unos Rezultata</h2>
 
-<div id="breadcrumb"> <a href="@Url.Action("Index", "Admin")" title="Glavna strana" class="tip-bottom"><i class="icon-home"></i> Glavna strana</a> <a class="tip-bottom">@Model.RezultatUtakmica.Sezona.Naziv</a><a class="current">@Model.RezultatUtakmica.LigaUtakmice.Naziv</a> <a class="current">@Model.RezultatUtakmica.KoloUtakmice.Naziv</a> </div>
+<div id="breadcrumb"> <a href="@Url.Action("Index", "Delegates")" title="Glavna strana" class="tip-bottom"><i class="icon-home"></i> Glavna strana</a> <a class="tip-bottom">@Model.RezultatUtakmica.Sezona.Naziv</a><a class="current">@Model.RezultatUtakmica.LigaUtakmice.Naziv</a> <a class="current">@Model.RezultatUtakmica.KoloUtakmice.Naziv</a> </div>
 <section id="rezultatiForma">
     @using (Html.BeginForm("Create", "Rezultati", new { utakmicaId = Model.RezultatUtakmica.Id }, FormMethod.Post))
     {
@@ -273,15 +273,23 @@
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Sacuvaj" class="btn btn-default" />
                 </div>
+                <div>
+                    @Html.ActionLink("Back to List", "ShowGamesActiveRound", "Utakmica",new { ligaId = @Model.RezultatUtakmica.LigaUtakmice.Id},null)
+                </div>                
             </div>
         </div>
     }
 </section>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+}
+@section welcome
+{
+    <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle">
+        <i class="icon icon-user"></i>
+        <span class="text">Dobrodošli @ViewBag.DelegatIme @ViewBag.DelegatPrezime</span><b class="caret"></b>
+    </a>
 }

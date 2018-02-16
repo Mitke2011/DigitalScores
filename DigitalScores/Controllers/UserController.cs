@@ -21,11 +21,19 @@ namespace DigitalScores.Controllers
         public ActionResult Login(Users user)
         {
             Users u = UsersDbManager.Current.VerifyUserByPassword(user.Username, user.Password);
-            
+
             if (u != null)
             {
                 Session["currentUser"] = u;
-                return RedirectToAction("Index", "Admin");
+                if (u.Privilege == Privilege.Admin || u.Privilege == Privilege.SuperAdmin)
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Delegates");
+                }
+
             }
 
             ViewBag.LoginValidation = "Login is not successful, please try again";
@@ -102,6 +110,13 @@ namespace DigitalScores.Controllers
             {
                 return View();
             }
+        }
+
+        [HttpGet]
+        public ActionResult Logoff()
+        {
+            Session["currentUser"] = null;
+            return RedirectToAction("Index");
         }
     }
 }
