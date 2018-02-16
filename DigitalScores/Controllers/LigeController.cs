@@ -29,12 +29,18 @@ namespace DigitalScores.Controllers
             Users current = (Users)Session["currentUser"];
             if (current != null)
             {
-                if (current.Privilege == Privilege.Delegate)
-                {
-                    ViewBag.DelegatIme = current.Ime;
-                    ViewBag.DelegatPrezime = current.Prezime;
-                    return View("LigePreview", LigaDbManager.Current.GetLeaguesByCategory(katId));
-                }                
+                switch (current.Privilege) {
+
+                    case Privilege.Delegate:
+                             ViewBag.DelegatIme = current.Ime;
+                             ViewBag.DelegatPrezime = current.Prezime;
+                             return View("LigePreviewDelegate", LigaDbManager.Current.GetLeaguesByCategory(katId));
+
+                    case Privilege.Admin:
+                             ViewBag.AdminIme = current.Ime;
+                             ViewBag.AdminPrezime = current.Prezime;
+                             return View("LigePreviewAdmin", LigaDbManager.Current.GetLeaguesByCategory(katId));
+                }              
             }
             return RedirectToAction("Logoff", "User");
         }

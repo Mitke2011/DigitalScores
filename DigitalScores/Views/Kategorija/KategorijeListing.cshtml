@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "KategorijeListing";
-    Layout = "~/Views/Shared/_DefaultLayout.cshtml";
+    Layout = "~/Views/Shared/_DefaultAdminLayout.cshtml";
 }
 
 <h3>Kategorije</h3>
@@ -22,7 +22,7 @@
             @Html.DisplayFor(modelItem => item.Naziv)
         </td>
         <td>
-           @Html.ActionLink("Edit", "Index", "Lige", new { kategorijaId=item.Id }, null) 
+           @Html.ActionLink("Edit", "LeaguesForCategory", "Lige", new { katId=item.Id }, null) 
         </td>
     </tr>
 }

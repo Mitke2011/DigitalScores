@@ -84,7 +84,7 @@ namespace DigitalScores.DbManagers
         }
 
         public List<Liga> GetLeaguesByCategory(int kategorijaId) {
-            {
+                     
                 List<Liga> listaUtakmica = new List<Liga>();
                 string sql = "select * from Lige where Kategorija = @kategorijaId";
 
@@ -121,7 +121,48 @@ namespace DigitalScores.DbManagers
                 }
 
                 return listaUtakmica;
+           
+        }
+
+        public List<Liga> GetLeagues()
+        {
+
+            List<Liga> listaUtakmica = new List<Liga>();
+            string sql = "select * from Lige";
+
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+
+                using (command = new SqlCommand(sql, connection))
+                {
+                    try
+                    {
+                        SqlDataReader reader = command.ExecuteReader();
+                        while (reader.Read())
+                        {
+
+
+                            Liga l = new Liga(reader.GetInt32(0))
+                            {
+                                Naziv = reader.GetString(reader.GetOrdinal("Naziv")),
+                                LigaKategorija = (Kategorija)KategorijaDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Kategorija")))
+
+                            };
+                            listaUtakmica.Add(l);
+                        }
+                    }
+                    catch (Exception ee)
+                    {
+
+                        throw ee;
+                    }
+
+                }
             }
+
+            return listaUtakmica;
+
         }
     }
 

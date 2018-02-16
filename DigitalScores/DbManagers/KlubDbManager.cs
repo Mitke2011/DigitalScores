@@ -83,5 +83,47 @@ namespace DigitalScores.DbManagers
         {
             throw new NotImplementedException();
         }
+
+        public List<Klub> GetClubsByLeague(int ligaId) {
+
+            List<Klub> listaKlubova = new List<Klub>();
+            string sql = @"select * from Klub 
+                where LigaId = @liga_id";
+
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+
+                using (command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.Add(new SqlParameter() { ParameterName = "@liga_id", SqlDbType = System.Data.SqlDbType.Int, Value = ligaId });
+                    try
+                    {
+                        SqlDataReader reader = command.ExecuteReader();
+                        while (reader.Read())
+                        {
+             
+
+                            Klub k = new Klub(reader.GetInt32(0))
+                            {
+                                Naziv = reader.GetString(reader.GetOrdinal("Naziv")),
+                                Grad = reader.GetString(reader.GetOrdinal("Grad")),
+                                //KoloUtakmice = reader.GetInt32(reader.GetOrdinal("Kolo")),
+                                //KlubDomacin = reader.GetString(reader.GetOrdinal("KlubDomacin")),
+                                //KlubGost = reader.GetString(reader.GetOrdinal("KlubGost")),
+                            };
+                            listaKlubova.Add(k);
+                        }
+                    }
+                    catch (Exception ee)
+                    {
+
+                        throw ee;
+                    }
+
+                }
+            }
+            return listaKlubova;
+        }
     }
 }

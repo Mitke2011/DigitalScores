@@ -23,14 +23,15 @@ namespace DigitalScores.Models
 
         //koristice se samo za db lookup
         #region Db lookup fields
-        private int koloID;
-        private int klubId;
-        private int sudija1Id;
-        private int sudija2Id;
-        private int delegatId;
-        private int ligaId;
-        private int halaId;
-        private int sezonaId;
+        public int koloID { get; set; }
+        public int klubDomacinId { get; set; }
+        public int klubGostId { get; set; }
+        public int sudija1Id { get; set; }
+        public int sudija2Id { get; set; }
+        public int delegatId { get; set; }
+        public int ligaId { get; set; }
+        public int halaId { get; set; }
+        public int sezonaId { get; set; }
         #endregion
 
         public Kolo KoloUtakmice { get; set; }

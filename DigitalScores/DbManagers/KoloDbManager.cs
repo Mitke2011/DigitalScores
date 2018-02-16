@@ -87,5 +87,47 @@ namespace DigitalScores.DbManagers
         {
             throw new NotImplementedException();
         }
+
+        public List<Kolo> GetRoundByLeague(int ligaId) {
+
+            List<Kolo> listaKola = new List<Kolo>();
+            string sql = @"select * from Kolo 
+                where Liga_Id = @liga_id";
+
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+
+                using (command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.Add(new SqlParameter() { ParameterName = "@liga_id", SqlDbType = System.Data.SqlDbType.Int, Value = ligaId });
+                    try
+                    {
+                        SqlDataReader reader = command.ExecuteReader();
+                        while (reader.Read())
+                        {
+
+
+                            Kolo k = new Kolo(reader.GetInt32(0))
+                            {
+                                Naziv = reader.GetString(reader.GetOrdinal("Naziv")),
+                                Tekuce = reader.GetInt32(reader.GetOrdinal("Tekuce")),
+                                //KoloUtakmice = reader.GetInt32(reader.GetOrdinal("Kolo")),
+                                //KlubDomacin = reader.GetString(reader.GetOrdinal("KlubDomacin")),
+                                //KlubGost = reader.GetString(reader.GetOrdinal("KlubGost")),
+                            };
+                            listaKola.Add(k);
+                        }
+                    }
+                    catch (Exception ee)
+                    {
+
+                        throw ee;
+                    }
+
+                }
+            }
+            return listaKola;
+        }
     }
 }
