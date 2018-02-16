@@ -280,8 +280,13 @@
 
 <script>
     function addToFinalScore() {
-        var q1d = document.getElementById("rezQ1D").value;
-        document.getElementById("rezFinD").value = 0;
-        document.getElementById("rezFinD").value = parseInt(q1d) + parseInt(document.getElementById("rezFinG").value);
+        var elements = document.getElementsByClassName("form-control");
+
+        for (var i = 0; i < elements.length; i++) {
+            if ("Q" in elements[i].id) {
+                document.
+            }
+        }
+
     }
 </script>

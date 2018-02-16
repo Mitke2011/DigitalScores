@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "LigePreview";
-    Layout = "~/Views/Shared/_DefaultLayout.cshtml";
+    Layout = "~/Views/Shared/_DefaultDelegateLayout.cshtml";
 }
 
 @*@<h2>Pregled liga -  @Model.First().LigaKategorija.Naziv</h2*@
@@ -16,9 +16,16 @@
             @Html.DisplayFor(modelItem => item.Naziv)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Index", "Utakmica", new { ligaId=item.Id }, null) 
+            @Html.ActionLink("Prikaz utakmica tekuceg kola", "ShowGamesActiveRound", "Utakmica", new { ligaId=item.Id }, null) 
         </td>
     </tr>
 }
 
 </table>
+@section welcome
+{
+    <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle">
+        <i class="icon icon-user"></i>
+        <span class="text">Dobrodošli @ViewBag.DelegatIme @ViewBag.DelegatPrezime</span><b class="caret"></b>
+    </a>
+}

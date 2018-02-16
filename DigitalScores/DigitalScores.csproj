@@ -205,6 +205,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\DelegatesAdminController.cs" />
     <Compile Include="Controllers\DelegatesController.cs" />
     <Compile Include="Controllers\HalaController.cs" />
     <Compile Include="Controllers\KategorijaController.cs" />
@@ -344,6 +345,8 @@
     <Content Include="Scripts\masked.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\wysihtml5-0.3.0.js" />
+    <Content Include="Views\Hala\HalaEntry.cshtml" />
+    <Content Include="Views\Hala\HalaListing.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -370,26 +373,26 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Shared\_DefaultLayout.cshtml" />
+    <Content Include="Views\Shared\_DefaultAdminLayout.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\Referee\Referees.cshtml" />
-    <Content Include="Views\Delegates\DelegatesEntry.cshtml" />
+    <Content Include="Views\DelegatesAdmin\DelegatesEntry.cshtml" />
     <Content Include="Views\Klub\KlubCreate.cshtml" />
     <Content Include="Views\Klub\KlubListing.cshtml" />
     <Content Include="Views\Category\CategoryCreate.cshtml" />
     <Content Include="Views\Category\CategoryList.cshtml" />
-    <Content Include="Views\Shared\_DefaultLayoutWithLeagues.cshtml" />
+    <Content Include="Views\Shared\_DefaultDelegateLayout.cshtml" />
     <Content Include="Views\Utakmica\GamePreview.cshtml" />
     <Content Include="Views\Lige\LigePreview.cshtml" />
     <Content Include="Views\Rezultati\UnosRezultata.cshtml" />
     <Content Include="Views\Komesari\KomesariEntry.cshtml" />
     <Content Include="Views\Komesari\KomesariListing.cshtml" />
     <Content Include="Views\Referee\RefereeListing.cshtml" />
-    <Content Include="Views\Hala\HalaEntry.cshtml" />
-    <Content Include="Views\Hala\HalaListing.cshtml" />
-    <Content Include="Views\Kategorija\KategorijeListing.cshtml" />
+    <Content Include="Views\Delegates\Delegates.cshtml" />
     <Content Include="Views\Kategorija\KategorijaEntry.cshtml" />
+    <Content Include="Views\Kategorija\KategorijeListing.cshtml" />
+    <Content Include="Views\Rezultati\PregledRezultataUtakmice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

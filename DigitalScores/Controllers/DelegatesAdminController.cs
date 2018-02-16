@@ -8,57 +8,45 @@ using DigitalScores.DbManagers;
 
 namespace DigitalScores.Controllers
 {
-    public class UserController : Controller
+    public class DelegatesAdminController : Controller
     {
-        // GET: User 
+        // GET: Delegates
         public ActionResult Index()
         {
-            return View("Login");
+            return View("DelegatesEntry");
         }
 
-        // POST: User Login
-        [HttpPost]
-        public ActionResult Login(Users user)
-        {
-            Users u = UsersDbManager.Current.VerifyUserByPassword(user.Username, user.Password);
-
-            if (u != null)
-            {
-                Session["currentUser"] = u;
-                if (u.Privilege == Privilege.Admin || u.Privilege == Privilege.SuperAdmin)
-                {
-                    return RedirectToAction("Index", "Admin");
-                }
-                else
-                {
-                    return RedirectToAction("Index", "Delegates");
-                }
-
-            }
-
-            ViewBag.LoginValidation = "Login is not successful, please try again";
-            return View("Login");
-        }
-
-        // GET: User/Details/5
+        // GET: Delegates/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: User/Create
+        // GET: Delegates/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: User/Create
+        // POST: Delegates/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Users delegat)
         {
             try
             {
-                // TODO: Add insert logic here
+                // check if user exists in DB
+                bool user = UsersDbManager.Current.CheckIfUserExists(delegat);
+
+                if (user)
+                {
+                    return RedirectToAction("Index", "Delegates");
+                }
+                //else, insert the row to user table
+                else
+                {
+                    UsersDbManager.Current.Insert(delegat);
+                    RedirectToAction("Index", "Delegates");
+                }
 
                 return RedirectToAction("Index");
             }
@@ -68,13 +56,13 @@ namespace DigitalScores.Controllers
             }
         }
 
-        // GET: User/Edit/5
+        // GET: Delegates/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: User/Edit/5
+        // POST: Delegates/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -90,13 +78,13 @@ namespace DigitalScores.Controllers
             }
         }
 
-        // GET: User/Delete/5
+        // GET: Delegates/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: User/Delete/5
+        // POST: Delegates/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
@@ -110,13 +98,6 @@ namespace DigitalScores.Controllers
             {
                 return View();
             }
-        }
-
-        [HttpGet]
-        public ActionResult Logoff()
-        {
-            Session["currentUser"] = null;
-            return RedirectToAction("Index");
         }
     }
 }

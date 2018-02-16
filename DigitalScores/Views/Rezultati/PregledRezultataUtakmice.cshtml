@@ -1,0 +1,177 @@
+﻿@model DigitalScores.Models.Rezultati
+
+@{
+    ViewBag.Title = "PregledRezultataUtakmice";
+    Layout = "~/Views/Shared/_DefaultDelegateLayout.cshtml";
+}
+
+<h2>PregledRezultataUtakmice</h2>
+
+<div>
+    <h4>Rezultati</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RezultatQ1D)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RezultatQ1D)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RezultatQ2D)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RezultatQ2D)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RezultatQ3D)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RezultatQ3D)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RezultatQ4D)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RezultatQ4D)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RezultatOT1D)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RezultatOT1D)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RezultatOT2D)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RezultatOT2D)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RezultatH1D)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RezultatH1D)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RezultatH2D)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RezultatH2D)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RezultatQ1G)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RezultatQ1G)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RezultatQ2G)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RezultatQ2G)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RezultatQ3G)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RezultatQ3G)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RezultatQ4G)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RezultatQ4G)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RezultatOT1G)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RezultatOT1G)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RezultatOT2G)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RezultatOT2G)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RezultatH1G)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RezultatH1G)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RezultatH2G)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RezultatH2G)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RezultatKonacniD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RezultatKonacniD)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RezultatKonacniG)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RezultatKonacniG)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UtakmicaId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UtakmicaId)
+        </dd>
+
+    </dl>
+</div>
+@*<p>
+    @Html.ActionLink("Back to List", "ShowGamesActiveRound","utakmica",new { ligaId = Model.RezultatUtakmica.LigaUtakmice.Id},null)
+</p>*@
+@section welcome
+{
+    <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle">
+        <i class="icon icon-user"></i>
+        <span class="text">Dobrodošli @ViewBag.DelegatIme @ViewBag.DelegatPrezime</span><b class="caret"></b>
+    </a>
+}

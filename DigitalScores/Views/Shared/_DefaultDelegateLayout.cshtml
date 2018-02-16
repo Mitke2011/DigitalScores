@@ -1,0 +1,131 @@
+﻿
+@{
+    Layout = null;
+}
+
+@RenderSection("scripts", required: false)
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Digital Score</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/bootstrap-responsive.min.css" />
+    <link rel="stylesheet" href="~/Content/fullcalendar.css" />
+    <link rel="stylesheet" href="~/Content/herc-style.css" />
+    <link rel="stylesheet" href="~/Content/herc-media.css" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/jquery.gritter.css" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+</head>
+<body>
+
+    <!--Header-part-->
+    <div id="header">
+        <h1><a href="dashboard.html">Digital Score</a></h1>
+    </div>
+    <!--close-Header-part-->
+    <!--top-Header-menu-->
+    <div id="user-nav" class="navbar navbar-inverse">
+        <ul class="nav">
+            <li class="dropdown" id="profile-messages">
+                @RenderSection("welcome")
+                <ul class="dropdown-menu">
+                    <li><a href="#"><i class="icon-user"></i> Početna</a></li>
+                    <li class="divider"></li>
+                    <li>@Html.ActionLink("Izlaz", "Logoff","User")</li>
+                </ul>
+            </li>
+            <li class="">@Html.ActionLink("Izlaz", "Logoff", "User")</li>
+        </ul>
+    </div>
+    <!--close-top-Header-menu-->
+   
+    <!--main-container-part-->
+    <div id="content">
+        <!--breadcrumbs-->
+        <div id="content-header">
+            <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Početna</a></div>
+        </div>
+        <!--End-breadcrumbs-->
+        <!--Action boxes-->
+        <div class="container-fluid">
+            <div class="quick-actions_homepage">
+                <ul class="quick-actions">
+                    @*Ovde idu HTML helperi za Redirect Actions
+                        Postoji nekoliko verzija, zavisi da li je potrebno da se proslede vrednosti sa forme ili ne.*@
+                    <li class="bg_lb span3">@Html.ActionLink("Muska Kategorija", "LeaguesForCategory", "Lige", new { katId = 1 },null)</li>
+                    <li class="bg_lb span3">@Html.ActionLink("Zenska Kategorija", "LeaguesForCategory", "Lige", new { katId = 2 }, null)</li>
+                    <li class="bg_lb span3">@Html.ActionLink("Omladinska Kategorija", "LeaguesForCategory", "Lige", new { katId = 3}, null)</li>
+                </ul>
+            </div>
+            <!--End-Action boxes-->
+            <!--Chart-box-->
+            <div class="row-fluid">
+                <div class="widget-box"> </div>
+            </div>
+            <!--End-Chart-box-->
+
+            <div class="row-fluid">
+                @RenderBody()               
+            </div>
+        </div>
+    </div>
+
+    <!--end-main-container-part-->
+    <!--Footer-part-->
+
+    <div class="row-fluid">
+        <div id="footer" class="span12"> 2018 &copy; Digital Score. Power by DScore <a href="http://www.digitalscore.org"></a> </div>
+    </div>
+
+    <!--end-Footer-part-->
+
+    <script src="~/Scripts/excanvas.min.js"></script>
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/jquery.ui.custom.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.flot.min.js"></script>
+    <script src="~/Scripts/jquery.flot.resize.min.js"></script>
+    <script src="~/Scripts/jquery.peity.min.js"></script>
+    <script src="~/Scripts/fullcalendar.min.js"></script>
+    <script src="~/Scripts/herc.js"></script>
+    <script src="~/Scripts/herc.dashboard.js"></script>
+    <script src="~/Scripts/jquery.gritter.min.js"></script>
+    <script src="~/Scripts/herc.interface.js"></script>
+    <script src="~/Scripts/herc.chat.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/herc.form_validation.js"></script>
+    <script src="~/Scripts/jquery.wizard.js"></script>
+    <script src="~/Scripts/jquery.uniform.js"></script>
+    <script src="~/Scripts/select2.min.js"></script>
+    <script src="~/Scripts/herc.popover.js"></script>
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/herc.tables.js"></script>
+
+    <script type="text/javascript">
+  // This function is called from the pop-up menus to transfer to
+  // a different page. Ignore if the value returned is a null string:
+  function goPage (newURL) {
+
+      // if url is empty, skip the menu dividers and reset the menu selection to default
+      if (newURL != "") {
+
+          // if url is "-", it is this page -- reset the menu:
+          if (newURL == "-" ) {
+              resetMenu();
+          }
+          // else, send page to designated URL
+          else {
+            document.location.href = newURL;
+          }
+      }
+  }
+
+
+    </script>
+</body>
+</html>
+

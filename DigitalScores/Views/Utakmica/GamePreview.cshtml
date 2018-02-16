@@ -2,30 +2,44 @@
 
 @{
     ViewBag.Title = "GamePreview";
-    Layout = "~/Views/Shared/_DefaultLayout.cshtml";
+    Layout = "~/Views/Shared/_DefaultDelegateLayout.cshtml";
 }
 
-@*@@<h3>Utakmice @Model.First().KoloUtakmice.Naziv</h3>*@
+@if (Model != null && Model.Count!=0)
+{
+    <h3>Utakmice @Model.FirstOrDefault().KoloUtakmice.Naziv</h3>
+    <table class="table">
 
-
-<table class="table">
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.KlubDomacin.Naziv)
-        </td>
-        <td>
-            :
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.KlubGost.Naziv)
-        </td>
-        <td>
-            @*@Html.ActionLink("Edit","Edit", new { id=item.Id })*@
-            @Html.ActionLink("Edit", "UnosRezultata", "Rezultati",new { utakmicaId = item.Id},null)
-        </td>
-    </tr>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.KlubDomacin.Naziv)
+            </td>
+            <td>
+                :
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KlubGost.Naziv)
+            </td>
+            <td>
+                @Html.ActionLink("Unesi rezultat", "UnosRezultata", "Rezultati", new { utakmicaId = item.Id }, null)
+            </td>
+            <td>
+                @Html.ActionLink("Detalji rezultata", "PregledRezultataUtakmice", "Rezultati", new { utakmicaId = item.Id }, null)
+            </td>
+        </tr>
+        }
+    </table>
+ 
 }
-
-</table>
+else {
+<h2>Nema unesenih utakmica za tekuće kolo</h2>
+}
+@section welcome
+{
+    <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle">
+        <i class="icon icon-user"></i>
+        <span class="text">Dobrodošli @ViewBag.DelegatIme @ViewBag.DelegatPrezime</span><b class="caret"></b>
+    </a>
+}

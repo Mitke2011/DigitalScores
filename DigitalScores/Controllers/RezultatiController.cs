@@ -18,8 +18,27 @@ namespace DigitalScores.Controllers
 
         public ActionResult UnosRezultata(int utakmicaId)
         {
-            Rezultati re = new Rezultati() { RezultatUtakmica = (Utakmice)UtakmicaDbManager.Current.GetSingle(utakmicaId)};
-            return View("UnosRezultata", re);
+            Users u = SessionCheck();
+            if (u != null)
+            {
+                Rezultati re = new Rezultati() { RezultatUtakmica = (Utakmice)UtakmicaDbManager.Current.GetSingle(utakmicaId) };
+                ViewBag.DelegatIme = u.Ime;
+                ViewBag.DelegatIme = u.Prezime;
+                return View("UnosRezultata", re);
+            }
+            return View("Logoff", "Users");
+        }
+
+        public ActionResult PregledRezultataUtakmice(int utakmicaId)
+        {
+            return View();
+        }
+
+        private Users SessionCheck()
+        {
+            Users result = null;
+            result = (Users)Session["currentUser"];
+            return result;
         }
 
         // GET: Rezultati/Details/5
@@ -43,7 +62,7 @@ namespace DigitalScores.Controllers
                 rezultat.UtakmicaId = utakmicaId;
                 RezultatiDbManager.Current.Insert(rezultat);
                 Utakmice u = (Utakmice)UtakmicaDbManager.Current.GetSingle(utakmicaId);
-                return RedirectToAction("Index", "Utakmica", new { ligaid = u.LigaUtakmice.Id});
+                return RedirectToAction("Index", "Utakmica", new { ligaid = u.LigaUtakmice.Id });
             }
             catch
             {

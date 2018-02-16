@@ -4,18 +4,30 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DigitalScores.DbManagers;
-
+using DigitalScores.Models;
 
 namespace DigitalScores.Controllers
 {
     public class UtakmicaController : Controller
     {
         // GET: Utakmice
-
-        public ActionResult Index(int ligaId)
+        public ActionResult Index()
         {
-            UtakmicaDbManager udb = new UtakmicaDbManager();
-            return View("GamePreview", udb.GetGamesByLeague(ligaId));
+            return View();
+        }
+        public ActionResult ShowGamesActiveRound(int ligaId)
+        {
+            Users current = (Users)Session["currentUser"];
+            if (current != null)
+            {
+                if (current.Privilege == Privilege.Delegate)
+                {
+                    ViewBag.DelegatIme = current.Ime;
+                    ViewBag.DelegatPrezime = current.Prezime;
+                    return View("GamePreview", UtakmicaDbManager.Current.GetGamesByLeague(ligaId));
+                }
+            }
+            return View("logoff", "user");
         }
 
         // GET: Utakmica/Details/5

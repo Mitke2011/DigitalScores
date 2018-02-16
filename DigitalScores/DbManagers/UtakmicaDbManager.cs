@@ -140,9 +140,9 @@ namespace DigitalScores.DbManagers
             throw new NotImplementedException();
         }
 
-        public List<DigitalScores.Models.Utakmice> GetGames()
+        public List<Utakmice> GetGames()
         {
-            List<DigitalScores.Models.Utakmice> listaUtakmica = new List<DigitalScores.Models.Utakmice>();
+            List<Utakmice> listaUtakmica = new List<Utakmice>();
             string sql = @"select * from Utakmice u
                 join Kolo kolo on (u.Kolo_Id = kolo.Id)
                 where kolo.Tekuce = 1";
@@ -184,8 +184,9 @@ namespace DigitalScores.DbManagers
             return listaUtakmica;
         }
 
-        public List<DigitalScores.Models.Utakmice> GetGamesByLeague(int ligaId) {
-            List<DigitalScores.Models.Utakmice> listaUtakmica = new List<DigitalScores.Models.Utakmice>();
+        public List<Utakmice> GetGamesByLeague(int ligaId)
+        {
+            List<Utakmice> listaUtakmica = new List<Utakmice>();
             string sql = @"select * from Utakmice u
                 join Kolo kolo on (u.Kolo_Id = kolo.Id)
                 where u.Liga_Id = @liga_id
@@ -225,7 +226,6 @@ namespace DigitalScores.DbManagers
 
                 }
             }
-
             return listaUtakmica;
         }
     }
