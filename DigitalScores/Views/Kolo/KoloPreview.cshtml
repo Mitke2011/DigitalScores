@@ -1,0 +1,44 @@
+﻿@model IEnumerable<DigitalScores.Models.Kolo>
+
+@{
+    ViewBag.Title = "KoloPreview";
+    Layout = "~/Views/Shared/_DefaultAdminLayout.cshtml";
+}
+
+<h2>KoloPreview</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Naziv
+        </th>
+        <th>
+           Sezona
+        </th>
+        <th>
+            liga
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Naziv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KoloSezona.Naziv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KoloLiga.Naziv)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) 
+        </td>
+    </tr>
+}
+
+</table>

@@ -22,7 +22,8 @@
         public int Tekuce { get; set; }
 
         #region
-        private int sezonaId;
+        public int sezonaId { get; set; }
+        public int ligaId { get; set;}
         #endregion
         public Liga KoloLiga { get; set; }
 

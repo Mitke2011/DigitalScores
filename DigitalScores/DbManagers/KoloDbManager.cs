@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using DigitalScores.MasterEntities;
 using DigitalScores.Models;
 using System.Data;
+using DigitalScores.DbManagers;
 
 namespace DigitalScores.DbManagers
 {
@@ -81,9 +82,36 @@ namespace DigitalScores.DbManagers
             throw new NotImplementedException();
         }
 
-        public override void Insert(object carrier)
+        public override void Insert(object kolo)
         {
-            throw new NotImplementedException();
+            Kolo k = kolo as Kolo;
+            string sql = "insert into Kolo (Naziv, Sezona_Id, Liga_Id, Tekuce) values (@naziv, @sezona_id, @liga_id, 0)";
+
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+
+                using (command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.AddRange(
+                new SqlParameter[] {
+                    new SqlParameter(){ ParameterName = "@naziv", Value = k.Naziv, SqlDbType = System.Data.SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@sezona_id", Value = k.sezonaId, SqlDbType = System.Data.SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@liga_id", Value = k.ligaId, SqlDbType =System.Data.SqlDbType.NVarChar },
+                  
+            });
+
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                    catch (SqlException se)
+                    {
+                        throw se;
+                    }
+
+                }
+            }
         }
 
         public List<Kolo> GetRoundByLeague(int ligaId) {
@@ -125,6 +153,47 @@ namespace DigitalScores.DbManagers
 
                 }
             }
+            return listaKola;
+        }
+
+        public List<Kolo> GetRounds()
+        {
+            List<DigitalScores.Models.Kolo> listaKola = new List<DigitalScores.Models.Kolo>();
+            string sql = @"select * from Kolo";
+
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+
+                using (command = new SqlCommand(sql, connection))
+                {
+                    try
+                    {
+                        SqlDataReader reader = command.ExecuteReader();
+                        while (reader.Read())
+                        {
+
+
+                            Kolo k = new Kolo(reader.GetInt32(0))
+                            {
+                                Naziv = reader.GetString(reader.GetOrdinal("Naziv")),
+                                KoloSezona = (Sezona)SezonaDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal ("Sezona_Id"))),
+                                KoloLiga = (Liga)LigaDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Liga_Id"))),
+                                Tekuce = reader.GetInt32(reader.GetOrdinal("Tekuce"))
+
+                            };
+                            listaKola.Add(k);
+                        }
+                    }
+                    catch (Exception ee)
+                    {
+
+                        throw ee;
+                    }
+
+                }
+            }
+
             return listaKola;
         }
     }

@@ -210,10 +210,12 @@
     <Compile Include="Controllers\HalaController.cs" />
     <Compile Include="Controllers\KategorijaController.cs" />
     <Compile Include="Controllers\KlubController.cs" />
+    <Compile Include="Controllers\KoloController.cs" />
     <Compile Include="Controllers\KomesariController.cs" />
     <Compile Include="Controllers\LigeController.cs" />
     <Compile Include="Controllers\RefereeController.cs" />
     <Compile Include="Controllers\RezultatiController.cs" />
+    <Compile Include="Controllers\SezonaController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UtakmicaController.cs" />
     <Compile Include="DbManagers\HalaDbManager.cs" />
@@ -396,9 +398,12 @@
     <Content Include="Views\Lige\LigePreviewAdmin.cshtml" />
     <Content Include="Views\Utakmica\GamePreviewAdmin.cshtml" />
     <Content Include="Views\Utakmica\GameEntry.cshtml" />
+    <Content Include="Views\Kolo\KoloPreview.cshtml" />
+    <Content Include="Views\Kolo\KoloEntry.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Sezona\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\DefaultFont\glyphicons-halflings-regular.woff" />

@@ -123,5 +123,45 @@ namespace DigitalScores.DbManagers
             }
             return listaSezona;
         }
+
+        public List<Sezona> GetSeasons()
+        {
+
+            List<Sezona> listaSezona = new List<Sezona>();
+            string sql = @"select * from Sezone";
+
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+
+                using (command = new SqlCommand(sql, connection))
+                {
+                    try
+                    {
+                        SqlDataReader reader = command.ExecuteReader();
+                        while (reader.Read())
+                        {
+
+
+                            Sezona s = new Sezona(reader.GetInt32(0))
+                            {
+                                Naziv = reader.GetString(reader.GetOrdinal("Naziv")),
+                                //KoloUtakmice = reader.GetInt32(reader.GetOrdinal("Kolo")),
+                                //KlubDomacin = reader.GetString(reader.GetOrdinal("KlubDomacin")),
+                                //KlubGost = reader.GetString(reader.GetOrdinal("KlubGost")),
+                            };
+                            listaSezona.Add(s);
+                        }
+                    }
+                    catch (Exception ee)
+                    {
+
+                        throw ee;
+                    }
+
+                }
+            }
+            return listaSezona;
+        }
     }
 }
