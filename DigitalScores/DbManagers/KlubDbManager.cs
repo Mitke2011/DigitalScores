@@ -131,8 +131,8 @@ namespace DigitalScores.DbManagers
         {
             Klub data = carrier as Klub;
             string sql = @"insert into Klub 
-                           (Naziv,Trener,LigaId, Sport_id,Licencapdf) 
-                     values(@Naziv,@Trener,@LigaID,@sportid,@licenca)";
+                           (Naziv,Trener,LigaId,Grad,Sport_id,Licencapdf) 
+                     values(@Naziv,@Trener,@LigaID,@Grad,@sportid,@licenca)";
 
             using (connection = new SqlConnection(this.ConnectionString))
             {
@@ -143,6 +143,7 @@ namespace DigitalScores.DbManagers
                     {
                         new SqlParameter() { ParameterName = "@Naziv",Value = data.Naziv, DbType = DbType.String},
                         new SqlParameter() { ParameterName = "@Trener",Value = data.Trener, DbType = DbType.String},
+                        new SqlParameter() { ParameterName = "@Grad",Value = data.Grad, DbType = DbType.String},
                         new SqlParameter() { ParameterName = "@LigaID",Value = data.LigaKlub.Id, DbType = DbType.Int32},
                         new SqlParameter() { ParameterName = "@sportid",Value = data.KlubSport.Id, DbType = DbType.Int32},
                         new SqlParameter() { ParameterName = "@licenca",Value = data.LicencaPDF, DbType = DbType.String}

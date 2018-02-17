@@ -27,9 +27,14 @@ namespace DigitalScores.Controllers
         }
 
         // GET: Klub/Create
-        public ActionResult Create()
+        //public ActionResult Create()
+        //{
+        //    return View("KlubCreate");
+        //}
+
+        public ActionResult Create(int ligaId, string nazivLige)
         {
-            return View("KlubCreate");
+            return View("KlubCreate", new Klub() { LigaKlub = new Liga(ligaId) { Naziv = nazivLige } });
         }
 
         // POST: Klub/Create
@@ -38,20 +43,29 @@ namespace DigitalScores.Controllers
         {
             try
             {
+                entry.LigaKlub = new Liga(int.Parse(Request.Form["LigaKlub.Id"]));
+                entry.KlubSport = new Sport(int.Parse(Request.Form["KlubSport.Id"]));
                 KlubDbManager.Current.Insert(entry);
 
                 return RedirectToAction("KlubListing");
             }
             catch (Exception e)
             {
-                return View();
+                return View("KlubCreate");
             }
         }
 
         // GET: Klub/Edit/5
         public ActionResult Edit(int id)
-        {            
-            return View(KlubDbManager.Current.GetSingle(id));
+        {
+            return View(KlubDbManager.Current.GetSingle(id) as Klub);
+        }
+
+        public ActionResult Edit(int idKlub, int idLige, string nazivLige)
+        {
+            Klub k = KlubDbManager.Current.GetSingle(idKlub) as Klub;
+            k.LigaKlub = new Liga(idLige) { Naziv = nazivLige };
+            return View(k);
         }
 
         // POST: Klub/Edit/5
@@ -73,7 +87,7 @@ namespace DigitalScores.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-                        return View(KlubDbManager.Current.GetSingle(id));
+            return View(KlubDbManager.Current.GetSingle(id));
         }
 
         // POST: Klub/Delete/5
@@ -85,7 +99,7 @@ namespace DigitalScores.Controllers
                 KlubDbManager.Current.DeleteSingle(entry);
                 return RedirectToAction("KlubListing");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return View();
             }
