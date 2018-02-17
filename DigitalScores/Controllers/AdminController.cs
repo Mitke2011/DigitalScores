@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using DigitalScores.Models;
 
 namespace DigitalScores.Controllers
 {
@@ -7,6 +8,8 @@ namespace DigitalScores.Controllers
         // GET: Admin
         public ActionResult Index()
         {
+            ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
+            ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
             return View();
         }
 
