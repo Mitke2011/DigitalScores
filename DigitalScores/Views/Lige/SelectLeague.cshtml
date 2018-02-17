@@ -6,7 +6,7 @@
 }
 
 <h2>Pronadjite ligu i izaberite je</h2>
-<table>
+@*<table>
     <tr>
         <td>
             @using (Html.BeginForm())
@@ -58,13 +58,13 @@
                             @if (ViewBag.KlubId == 0)
                             {
                                 <td>
-                                    @Html.ActionLink("Izaberi", "Create", "Klub", new { ligaId = item.Id, nazivLige = item.Naziv },null)
+                                    @Html.ActionLink("Izaberi", "Create", "Klub", new { ligaId = item.Id, nazivLige = item.Naziv }, null)
                                 </td>
                             }
                             @if (ViewBag.KlubId != 0)
                             {
                                 <td>
-                                    @Html.ActionLink("Izaberi", "Edit", "Klub", new { idKlub = ViewBag.KlubId, idLige = item.Id, nazivLige = item.Naziv },null)
+                                    @Html.ActionLink("Izaberi", "Edit", "Klub", new { idKlub = ViewBag.KlubId, idLige = item.Id, nazivLige = item.Naziv }, null)
                                 </td>
 
                             }
@@ -82,10 +82,10 @@
             </table>
         </td>
     </tr>
-</table>
+</table>*@
 
 
-<script type="text/javascript">
+@*<script type="text/javascript">
     $(document).ready(function () {
         if (!Modernizr.input.placeholder) {
             $("input").each(function () {
@@ -101,95 +101,111 @@
             });
         }
     });
-</script>
+</script>*@
 
-@*<table class="table">
-        <tr>
-            <td>
-                @using (Html.BeginForm())
-                {
-                    <p>
-                        <br />
-                        @Html.TextBox("ligaCat", "",
-                           new
-                           {
-                               @class = "form-control",
-                               @placeholder = "Kategorija:"
-                           })
-                        <br />
-                        @Html.TextBox("nazivLige", "", new
-                   {
-                       @class = "form-control",
-                       @placeholder = "Liga:"
-                   })
+<body>
+    <div class="container-fluid">
+        <hr>
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget-box">
+                    <div class="widget-title">
+                        <span class="icon"> <i class="icon-info-sign"></i> </span>
+                        <h5>Pretraga liga po nazivu i kategoriji</h5>
+                    </div>
+                    <div class="widget-content nopadding">
+                        <section id="LeagueFilterForm">
 
-                        <br />
-                        <input type="submit" value="Filter" class="btn btn-default">
-                    </p>
-                }
-            </td>
-            <td>
+                            @using (Html.BeginForm("SelectLeague", "Lige", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                            <div class="control-group">
+                                <div class="controls">
+                                    @Html.TextBox("ligaCat", "",  new { @class = "form-control", @placeholder = "Kategorija:"})
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="controls">
+                                    @Html.TextBox("nazivLige", "", new { @class = "form-control", @placeholder = "Liga:"})
+                                </div>
+                            </div>
+                            @Html.Hidden("klubId", (int)ViewBag.KlubId)
+                            <div class="form-actions">
+                                <input type="submit" value="Pronadji" class="btn btn btn-default" />
+                            </div>
+                            }
+                        </section>
+                    </div>
+                    <div class="widget-content nopadding">
+                        <section id="LeagueDisplayForm">
+                            <table class="table">
+                                <tr>
 
-                <p>
-                    @Html.ActionLink("Create New", "Create", null, new { @id = "CreateNew" })
-                </p>
-                <table class="table">
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Smer)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.BrInd)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Ime)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Prezime)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.ProsecnaOcena)
-                        </th>
-                        <th></th>
-                    </tr>
+                                    <th>
+                                        <label class = "control-label">Naziv Lige</label>
+                                    </th>
+                                    <th>
+                                        <label class="control-label">Naziv kategorije</label>
+                                    </th>
+                                    <th>
+                                        <label class="control-label">Akcije</label>
+                                    </th>
+                                </tr>
+                                @if (Model != null)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Naziv)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.LigaKategorija.Naziv)
+                                            </td>
 
-                    @if (Model != null)
-                    {
-                        foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Smer)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.BrInd)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Ime)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Prezime)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ProsecnaOcena)
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.StudentId }, new { @id = "Edit_" + item.StudentId }) |
-                                    @Html.ActionLink("Details", "StudentDetails", new { id = item.StudentId }, new { @id = "Details_" + item.StudentId }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.StudentId }, new { @id = "Delete_" + item.StudentId })
-                                </td>
-                            </tr>
-                        }
-                    }
+                                            @if (ViewBag.KlubId == 0)
+                                            {
+                                                <td>
+                                                    @Html.ActionLink("Izaberi", "Create", "Klub", new { ligaId = item.Id, nazivLige = item.Naziv }, null)
+                                                </td>
+                                            }
+                                            @if (ViewBag.KlubId != 0)
+                                            {
+                                                <td>
+                                                    @Html.ActionLink("Izaberi", "Edit", "Klub", new { idKlub = ViewBag.KlubId, idLige = item.Id, nazivLige = item.Naziv }, null)
+                                                </td>
 
-                    @if (Model == null)
-                    {
-                        <tr>
-                            <td>Inputed lookup data was not in correct format.</td>
-                        </tr>
-                    }
+                                            }
 
-                </table>
-            </td>
-        </tr>
-    </table>*@
+                                        </tr>
+                                    }
+                                }
+                                @if (Model == null)
+                                {
+                                    <tr>
+                                        <td>Uneseni podaci nisu validni.</td>
+                                    </tr>
+                                }
+
+                            </table>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--Footer-part-->
+    <div class="row-fluid">
+        <div id="footer" class="span12"> 2018 &copy; Digital Score. Power by DScore <a href="http://www.digitalscore.org"></a> </div>
+    </div>
+    <!--end-Footer-part-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.ui.custom.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.uniform.js"></script>
+    <script src="js/select2.min.js"></script>
+    <script src="js/jquery.validate.js"></script>
+    <script src="js/herc.js"></script>
+    <script src="js/herc.form_validation.js"></script>
+</body>

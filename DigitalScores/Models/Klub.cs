@@ -28,6 +28,7 @@ namespace DigitalScores.Models
         #region DbLookup fields
         private int sportId;
         #endregion
+        [Display(Name ="Sport")]
         public Sport KlubSport { get; set; }
 
         public Klub()
