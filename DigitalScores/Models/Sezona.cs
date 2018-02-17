@@ -20,7 +20,7 @@
         public string Naziv { get; set; }
 
         #region DbLookup fields
-        private int ligaId;
+        public int ligaId { get; set; }
         #endregion
         public Liga Liga { get; set; }
 

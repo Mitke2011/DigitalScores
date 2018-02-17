@@ -9,7 +9,7 @@ namespace DigitalScores.Controllers
         // GET: Klub
         public ActionResult KlubListing()
         {
-            return View("KlubListing", (List<Klub>)KlubDbManager.Current.GetAll());
+            return View("KlubListing", KlubDbManager.Current.GetAll());
         }
 
         // GET: Klub/Details/5
