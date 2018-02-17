@@ -1,18 +1,21 @@
 ﻿@model DigitalScores.Models.Klub
 
 @{
-    ViewBag.Title = "KlubCreate";
+    ViewBag.Title = "EditKlub";
     Layout = "~/Views/Shared/_DefaultAdminLayout.cshtml";
 }
 
-<h2>Dodaj novi klub</h2>
+<h2>Izmeni podatke o klubu: @Model.Naziv</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <hr />       
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
         <table id="clubsAdmin" class="table-responsive">
             <tr>
                 <td>@Html.LabelFor(model => model.Naziv, htmlAttributes: new { @class = "control-label col-md-2" })</td>
@@ -49,25 +52,13 @@
                         @Html.ValidationMessageFor(model => model.LicencaPDF, "", new { @class = "text-danger" })
                     </div>
                 </td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.LigaKlub, htmlAttributes: new { @class = "control-label col-md-2" })</td>
-                <td>
-                    <div class="col-md-10">
-                        @Html.TextBox("klubLiga","Izaberite ligu", new { htmlAttributes = new {@id="klubLiga", @class = "form-control", @editable = "false" } }) @*model => model.LigaKlub, new { htmlAttributes = new { @class = "form-control",@editable = "false" } }*@
-                        
-                    </div>
-                </td>
-            </tr>
+            </tr>            
         </table>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Sacuvaj" class="btn btn-default" />
-            </div>
-        </div>
     </div>
 }
-
+<div class="col-md-10">
+    <input type="submit" value="Save" class="btn btn-default" />
+</div>
 <div>
-    @Html.ActionLink("Nazad na listu klubova", "KlubListing")
+    @Html.ActionLink("Back to List", "Index")
 </div>

@@ -1,6 +1,8 @@
 ﻿using System.Web.Mvc;
 using DigitalScores.DbManagers;
 using System.Collections.Generic;
+using DigitalScores.Models;
+using System;
 
 namespace DigitalScores.Controllers
 {
@@ -9,32 +11,38 @@ namespace DigitalScores.Controllers
         // GET: Klub
         public ActionResult KlubListing()
         {
-            return View("KlubListing", KlubDbManager.Current.GetAll());
+            List<Klub> result = new List<Klub>();
+
+            foreach (var item in KlubDbManager.Current.GetAll())
+            {
+                result.Add(item as Klub);
+            }
+            return View("KlubListing", result);
         }
 
         // GET: Klub/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            return View(KlubDbManager.Current.GetSingle(id));
         }
 
         // GET: Klub/Create
         public ActionResult Create()
         {
-            return View("KlubEntries");
+            return View("KlubCreate");
         }
 
         // POST: Klub/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Klub entry)
         {
             try
             {
-                // TODO: Add insert logic here
+                KlubDbManager.Current.Insert(entry);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("KlubListing");
             }
-            catch
+            catch (Exception e)
             {
                 return View();
             }
@@ -42,43 +50,42 @@ namespace DigitalScores.Controllers
 
         // GET: Klub/Edit/5
         public ActionResult Edit(int id)
-        {
-            return View();
+        {            
+            return View(KlubDbManager.Current.GetSingle(id));
         }
 
         // POST: Klub/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Klub entry)
         {
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                KlubDbManager.Current.Update(entry);
+                return RedirectToAction("KlubListing");
             }
-            catch
+            catch (Exception e)
             {
                 return View();
             }
         }
 
         // GET: Klub/Delete/5
+        [HttpGet]
         public ActionResult Delete(int id)
         {
-            return View();
+                        return View(KlubDbManager.Current.GetSingle(id));
         }
 
         // POST: Klub/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(Klub entry)
         {
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                KlubDbManager.Current.DeleteSingle(entry);
+                return RedirectToAction("KlubListing");
             }
-            catch
+            catch(Exception e)
             {
                 return View();
             }
