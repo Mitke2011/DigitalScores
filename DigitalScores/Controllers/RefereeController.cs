@@ -44,16 +44,23 @@ namespace DigitalScores.Controllers
         // GET: Referee/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return View("RefereeEdit", RefereeDbManager.Current.GetSingle(id));
         }
 
         // POST: Referee/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Sudija entry)
         {
             try
             {
-                // TODO: Add update logic here
+                Sudija sudija = (Sudija)RefereeDbManager.Current.GetSingle(id);
+                sudija.Ime = entry.Ime;
+                sudija.Prezime = entry.Prezime;
+                sudija.Email = entry.Email;
+                sudija.Telefon = entry.Telefon;
+                sudija.Grad = entry.Grad;
+
+                RefereeDbManager.Current.Update(sudija);
 
                 return RedirectToAction("Index");
             }

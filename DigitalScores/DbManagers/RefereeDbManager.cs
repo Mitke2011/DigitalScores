@@ -48,7 +48,7 @@ namespace DigitalScores.DbManagers
         public override object GetSingle(int id)
         {
             Sudija s = null;
-            string sql = "select * from sudija where id = @id";
+            string sql = "select * from sudije where id = @id";
 
             using (connection = new SqlConnection(this.ConnectionString))
             {
@@ -84,9 +84,30 @@ namespace DigitalScores.DbManagers
 
             return s;
         }
-        public override void Update(object carrier)
+        public override void Update(object sudija)
         {
-            throw new NotImplementedException();
+            Sudija s = sudija as Sudija;
+            string sql = @"update Sudije set Ime=@ime, Prezime=@prezime, Email = @email, Telefon = @telefon, Grad = @grad WHERE id = @sudijaId";
+
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+                using (command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.AddRange(new SqlParameter[]
+                    {
+                        new SqlParameter() { ParameterName = "@sudijaId",Value = s.Id, SqlDbType = System.Data.SqlDbType.Int},
+                        new SqlParameter() { ParameterName = "@Ime",Value = s.Ime, SqlDbType = System.Data.SqlDbType.NVarChar},
+                        new SqlParameter() { ParameterName = "@prezime",Value = s.Prezime, SqlDbType = System.Data.SqlDbType.NVarChar},
+                        new SqlParameter() { ParameterName = "@email",Value = s.Email, SqlDbType = System.Data.SqlDbType.NVarChar},
+                        new SqlParameter() { ParameterName = "@telefon",Value = s.Telefon, SqlDbType = System.Data.SqlDbType.NVarChar},
+                        new SqlParameter() { ParameterName = "@grad ",Value = s.Telefon, SqlDbType = System.Data.SqlDbType.NVarChar}
+
+                    });
+
+                    command.ExecuteNonQuery();
+                }
+            }
         }
 //      Dodavanje novog sudije u bazu
         public override void Insert(object referee)

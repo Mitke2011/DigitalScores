@@ -2,12 +2,12 @@
 
 @{
     ViewBag.Title = "UnosRezultata";
-    Layout = "~/Views/Shared/_DefaultDelegateLayout.cshtml";
+    Layout = "~/Views/Shared/_DefaultLayout.cshtml";
 }
 
 <h2>Unos Rezultata</h2>
 
-<div id="breadcrumb"> <a href="@Url.Action("Index", "Delegates")" title="Glavna strana" class="tip-bottom"><i class="icon-home"></i> Glavna strana</a> <a class="tip-bottom">@Model.RezultatUtakmica.Sezona.Naziv</a><a class="current">@Model.RezultatUtakmica.LigaUtakmice.Naziv</a> <a class="current">@Model.RezultatUtakmica.KoloUtakmice.Naziv</a> </div>
+<div id="breadcrumb"> <a href="@Url.Action("Index", "Admin")" title="Glavna strana" class="tip-bottom"><i class="icon-home"></i> Glavna strana</a> <a class="tip-bottom">@Model.RezultatUtakmica.Sezona.Naziv</a><a class="current">@Model.RezultatUtakmica.LigaUtakmice.Naziv</a> <a class="current">@Model.RezultatUtakmica.KoloUtakmice.Naziv</a> </div>
 <section id="rezultatiForma">
     @using (Html.BeginForm("Create", "Rezultati", new { utakmicaId = Model.RezultatUtakmica.Id }, FormMethod.Post))
     {
@@ -18,13 +18,13 @@
             <table id="klubovi" class="table-responsive">
                 <tr>
                     <td>
-                        <div class="text-center">@Model.RezultatUtakmica.KlubDomacin.Naziv</div>
+                        <div class="text-center"><h3>@Model.RezultatUtakmica.KlubDomacin.Naziv</h3></div>
                     </td>
                     <td>
-                        <div class="text-center"> vs </div>
+                        <div class="text-center"><h3><span> - </span></h3></div>
                     </td>
                     <td>
-                        <div class="text-center">@Model.RezultatUtakmica.KlubGost.Naziv</div>
+                        <div class="text-center"><h3>@Model.RezultatUtakmica.KlubGost.Naziv</h3></div>
                     </td>
                 </tr>
             </table>
@@ -37,7 +37,7 @@
                         <div class="form-group">
                             <div class="control-group">
                                 <div class="col-md-10">
-                                    @Html.EditorFor(model => model.RezultatQ1D, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(model => model.RezultatQ1D, new { htmlAttributes = new { @class = "form-control", @id = "rezQ1D" } })
                                     @Html.ValidationMessageFor(model => model.RezultatQ1D, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -48,7 +48,7 @@
                         <div class="form-group">
                             <div class="control-group">
                                 <div class="col-md-10">
-                                    @Html.EditorFor(model => model.RezultatQ1G, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(model => model.RezultatQ1G, new { htmlAttributes = new { @class = "form-control", @id = "rezQ1G" } })
                                     @Html.ValidationMessageFor(model => model.RezultatQ1G, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -62,8 +62,8 @@
                         <div class="form-group">
                             <div class="control-group">
                                 <div class="col-md-10">
-                                    @Html.EditorFor(model => model.RezultatQ2D, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.RezultatQ2D, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.RezultatQ2D, new { htmlAttributes = new { @class = "form-control", @id = "rezQ2D" } })
+                                    @Html.ValidationMessageFor(model => model.RezultatQ2D, "", new { @class = "text-danger", @id = "rezQ2G" })
                                 </div>
                             </div>
                         </div>
@@ -73,7 +73,7 @@
                         <div class="form-group">
                             <div class="control-group">
                                 <div class="col-md-10">
-                                    @Html.EditorFor(model => model.RezultatQ2G, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(model => model.RezultatQ2G, new { htmlAttributes = new { @class = "form-control", @id = "rezQ2G" } })
                                     @Html.ValidationMessageFor(model => model.RezultatQ2G, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -87,7 +87,7 @@
                         <div class="form-group">
                             <div class="control-group">
                                 <div class="col-md-10">
-                                    @Html.EditorFor(model => model.RezultatQ3D, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(model => model.RezultatQ3D, new { htmlAttributes = new { @class = "form-control", @id = "rezQ3D" } })
                                     @Html.ValidationMessageFor(model => model.RezultatQ3D, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -98,7 +98,7 @@
                         <div class="form-group">
                             <div class="control-group">
                                 <div class="col-md-10">
-                                    @Html.EditorFor(model => model.RezultatQ3G, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(model => model.RezultatQ3G, new { htmlAttributes = new { @class = "form-control", @id = "rezQ3G" } })
                                     @Html.ValidationMessageFor(model => model.RezultatQ3G, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -112,7 +112,7 @@
                         <div class="form-group">
                             <div class="control-group">
                                 <div class="col-md-10">
-                                    @Html.EditorFor(model => model.RezultatQ4D, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(model => model.RezultatQ4D, new { htmlAttributes = new { @class = "form-control", @id = "rezQ4D" } })
                                     @Html.ValidationMessageFor(model => model.RezultatQ4D, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -123,7 +123,7 @@
                         <div class="form-group">
                             <div class="control-group">
                                 <div class="col-md-10">
-                                    @Html.EditorFor(model => model.RezultatQ4G, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(model => model.RezultatQ4G, new { htmlAttributes = new { @class = "form-control", @id = "rezQ4G" } })
                                     @Html.ValidationMessageFor(model => model.RezultatQ4G, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -142,8 +142,7 @@
                         <div class="form-group">
                             <div class="control-group">
                                 <div class="col-md-10">
-                                    @Html.EditorFor(model => model.RezultatOT1D, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.RezultatOT1D, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.RezultatOT1D, new { htmlAttributes = new { @class = "form-control", @id = "OT1D" } })
                                 </div>
                             </div>
                         </div>
@@ -153,8 +152,7 @@
                         <div class="form-group">
                             <div class="control-group">
                                 <div class="col-md-10">
-                                    @Html.EditorFor(model => model.RezultatOT1G, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.RezultatOT1G, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.RezultatOT1G, new { htmlAttributes = new { @class = "form-control", @id = "OT1G" } })
                                 </div>
                             </div>
                         </div>
@@ -167,8 +165,7 @@
                         <div class="form-group">
                             <div class="control-group">
                                 <div class="col-md-10">
-                                    @Html.EditorFor(model => model.RezultatOT2D, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.RezultatOT2D, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.RezultatOT2D, new { htmlAttributes = new { @class = "form-control", @id = "OT2D" } })
                                 </div>
                             </div>
                         </div>
@@ -178,8 +175,7 @@
                         <div class="form-group">
                             <div class="control-group">
                                 <div class="col-md-10">
-                                    @Html.EditorFor(model => model.RezultatOT2G, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.RezultatOT2G, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.RezultatOT2G, new { htmlAttributes = new { @class = "form-control", @id = "OT2G" } })
                                 </div>
                             </div>
                         </div>
@@ -196,7 +192,7 @@
                         <div class="form-group">
                             <div class="control-group">
                                 <div class="col-md-10">
-                                    @Html.EditorFor(model => model.RezultatH1D, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(model => model.RezultatH1D, new { htmlAttributes = new { @class = "form-control", @id = "rezH1D" } })
                                     @Html.ValidationMessageFor(model => model.RezultatH1D, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -207,7 +203,7 @@
                         <div class="form-group">
                             <div class="control-group">
                                 <div class="col-md-10">
-                                    @Html.EditorFor(model => model.RezultatH1G, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(model => model.RezultatH1G, new { htmlAttributes = new { @class = "form-control", @id = "rezH1G" } })
                                     @Html.ValidationMessageFor(model => model.RezultatH1G, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -221,7 +217,7 @@
                         <div class="form-group">
                             <div class="control-group">
                                 <div class="col-md-10">
-                                    @Html.EditorFor(model => model.RezultatH2D, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(model => model.RezultatH2D, new { htmlAttributes = new { @class = "form-control", @id = "rezH2D" } })
                                     @Html.ValidationMessageFor(model => model.RezultatH2D, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -232,7 +228,7 @@
                         <div class="form-group">
                             <div class="control-group">
                                 <div class="col-md-10">
-                                    @Html.EditorFor(model => model.RezultatH2G, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(model => model.RezultatH2G, new { htmlAttributes = new { @class = "form-control", @id = "rezH2G" } })
                                     @Html.ValidationMessageFor(model => model.RezultatH2G, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -248,7 +244,7 @@
                         <div class="form-group">
                             <div class="control-group">
                                 <div class="col-md-10">
-                                    @Html.EditorFor(model => model.RezultatKonacniD, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(model => model.RezultatKonacniD, new { htmlAttributes = new { @class = "form-control", @id = "rezFinD" } })
                                     @Html.ValidationMessageFor(model => model.RezultatKonacniD, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -259,7 +255,7 @@
                         <div class="form-group">
                             <div class="control-group">
                                 <div class="col-md-10">
-                                    @Html.EditorFor(model => model.RezultatKonacniG, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(model => model.RezultatKonacniG, new { htmlAttributes = new { @class = "form-control", @id = "rezFinG" } })
                                     @Html.ValidationMessageFor(model => model.RezultatKonacniG, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -273,23 +269,24 @@
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Sacuvaj" class="btn btn-default" />
                 </div>
-                <div>
-                    @Html.ActionLink("Back to List", "ShowGamesActiveRound", "Utakmica",new { ligaId = @Model.RezultatUtakmica.LigaUtakmice.Id},null)
-                </div>                
             </div>
         </div>
     }
 </section>
 
+<div>
+    @Html.ActionLink("Nazad", "Index", "Utakmica", new { ligaId = Model.RezultatUtakmica.LigaUtakmice.Id }, new { @class = "form-control"})
+</div>
 
+<script>
+    function addToFinalScore() {
+        var elements = document.getElementsByClassName("form-control");
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
-@section welcome
-{
-    <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle">
-        <i class="icon icon-user"></i>
-        <span class="text">Dobrodošli @ViewBag.DelegatIme @ViewBag.DelegatPrezime</span><b class="caret"></b>
-    </a>
-}
+        for (var i = 0; i < elements.length; i++) {
+            if ("Q" in elements[i].id) {
+                document.
+            }
+        }
+
+    }
+</script>

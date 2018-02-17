@@ -84,9 +84,30 @@ namespace DigitalScores.DbManagers
 
             return s;
         }
-        public override void Update(object carrier)
+        public override void Update(object komesar)
         {
-            throw new NotImplementedException();
+
+            Komesari k = komesar as Komesari;
+            string sql = @"update Komesari set Ime=@ime, Prezime=@prezime, Email =@email, Telefon = @telefon, Liga_Id =@liga_id WHERE id = @KomesarId";
+
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+                using (command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.AddRange(new SqlParameter[]
+                    {
+                        new SqlParameter() { ParameterName = "@KomesarId",Value = k.Id, SqlDbType = System.Data.SqlDbType.Int},
+                        new SqlParameter() { ParameterName = "@ime",Value = k.Ime, SqlDbType = System.Data.SqlDbType.NVarChar},
+                        new SqlParameter() { ParameterName = "@prezime",Value = k.Prezime, SqlDbType = System.Data.SqlDbType.NVarChar},
+                        new SqlParameter() { ParameterName = "@email",Value = k.Email,SqlDbType = System.Data.SqlDbType.NVarChar},
+                        new SqlParameter() { ParameterName = "@telefon",Value = k.Telefon, SqlDbType = System.Data.SqlDbType.NVarChar},
+                        new SqlParameter() { ParameterName = "@liga_Id",Value = k.LigaId, SqlDbType = System.Data.SqlDbType.NVarChar}
+                    });
+
+                    command.ExecuteNonQuery();
+                }
+            }
         }
         //      Dodavanje novog Komesara u bazu
         public override void Insert(object komesar)

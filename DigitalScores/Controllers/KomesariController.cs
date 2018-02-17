@@ -52,16 +52,24 @@ namespace DigitalScores.Controllers
         // GET: Komesari/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+     
+            return View("EditKomesara", KomesariDbManager.Current.GetSingle(id));
         }
 
         // POST: Komesari/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Komesari komesar)
         {
             try
             {
-                // TODO: Add update logic here
+                Komesari ek = (Komesari)KomesariDbManager.Current.GetSingle(id);
+
+                ek.Ime = komesar.Ime;
+                ek.Prezime = komesar.Prezime;
+                ek.Email = komesar.Email;
+                ek.LigaId = komesar.LigaId;
+
+                KomesariDbManager.Current.Update(ek);
 
                 return RedirectToAction("Index");
             }

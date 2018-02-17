@@ -1033,11 +1033,13 @@ div.dataTables_wrapper .ui-widget-header {
 }
 .table th {
 	height: auto;
-	font-size: 10px;
-	padding: 5px 10px 2px;
+	font-size: 18px;
+	//padding: 5px 10px 2px;
 	border-bottom: 0;
+    border-top: none;
 	text-align: center;
-	color: #666666;
+	color: #27a9e3;
+   
 }
 .table.with-check tr th:first-child, .table.with-check tr td:first-child {
 	width: 10px;

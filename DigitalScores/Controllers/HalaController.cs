@@ -43,16 +43,19 @@ namespace DigitalScores.Controllers
         // GET: Hala/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return View("HalaEdit", HalaDbManager.Current.GetSingle(id));
         }
 
         // POST: Hala/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Hala entry)
         {
             try
             {
-                // TODO: Add update logic here
+                Hala hala = (Hala)HalaDbManager.Current.GetSingle(id);
+                hala.Naziv = entry.Naziv;
+                hala.Grad = entry.Grad;
+                HalaDbManager.Current.Update(hala);
 
                 return RedirectToAction("Index");
             }

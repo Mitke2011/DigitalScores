@@ -64,8 +64,8 @@ namespace DigitalScores.DbManagers
                             h = new Hala(id)
                             {
 
-                                Naziv = reader.GetString(reader.GetOrdinal("ime")),
-                                Grad = reader.GetString(reader.GetOrdinal("prezime"))
+                                Naziv = reader.GetString(reader.GetOrdinal("naziv")),
+                                Grad = reader.GetString(reader.GetOrdinal("grad"))
                             };
                         }
                     }
@@ -112,9 +112,27 @@ namespace DigitalScores.DbManagers
             }
         }
 
-        public override void Update(object carrier)
+        public override void Update(object hala)
         {
-            throw new NotImplementedException();
+
+            Hala h = hala as Hala;
+            string sql = @"update Hala set Naziv=@naziv, Grad=@grad WHERE id = @halaId";
+
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+                using (command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.AddRange(new SqlParameter[]
+                    {
+                        new SqlParameter() { ParameterName = "@halaId",Value = h.Id, SqlDbType = System.Data.SqlDbType.Int},
+                        new SqlParameter() { ParameterName = "@naziv",Value = h.Naziv, SqlDbType = System.Data.SqlDbType.NVarChar},
+                        new SqlParameter() { ParameterName = "@grad",Value = h.Grad, SqlDbType = System.Data.SqlDbType.NVarChar},
+                    });
+
+                    command.ExecuteNonQuery();
+                }
+            }
         }
         public List<Hala> GetHale() {
             List<DigitalScores.Models.Hala> listaHala = new List<DigitalScores.Models.Hala>();

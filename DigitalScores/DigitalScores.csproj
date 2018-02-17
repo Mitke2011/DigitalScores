@@ -210,10 +210,12 @@
     <Compile Include="Controllers\HalaController.cs" />
     <Compile Include="Controllers\KategorijaController.cs" />
     <Compile Include="Controllers\KlubController.cs" />
+    <Compile Include="Controllers\KoloController.cs" />
     <Compile Include="Controllers\KomesariController.cs" />
     <Compile Include="Controllers\LigeController.cs" />
     <Compile Include="Controllers\RefereeController.cs" />
     <Compile Include="Controllers\RezultatiController.cs" />
+    <Compile Include="Controllers\SezonaController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UtakmicaController.cs" />
     <Compile Include="DbManagers\HalaDbManager.cs" />
@@ -396,6 +398,11 @@
     <Content Include="Views\Klub\Details.cshtml" />
     <Content Include="Views\Klub\Edit.cshtml" />
     <Content Include="Views\Klub\Delete.cshtml" />
+    <Content Include="Views\Lige\SelectLeague.cshtml" />
+    <Content Include="Views\Sezona\SezonaListing.cshtml" />
+    <Content Include="Views\Komesari\EditKomesara.cshtml" />
+    <Content Include="Views\Hala\HalaEdit.cshtml" />
+    <Content Include="Views\Referee\RefereeEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

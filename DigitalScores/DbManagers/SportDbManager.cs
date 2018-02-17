@@ -44,7 +44,27 @@ namespace DigitalScores.DbManagers
 
         public override List<object> GetAll()
         {
-            throw new NotImplementedException();
+            string sql = "select * from Sport";
+            List<object> result = new List<object>();
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+                using (command = new SqlCommand(sql, connection))
+                {
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        result.Add(new Sport(reader.GetInt32(reader.GetOrdinal("id")))
+                        {
+                            Naziv = reader.GetString(reader.GetOrdinal("Naziv"))
+                        });
+                    }
+                }
+
+            }
+
+            return result;
         }
 
         public override object GetSingle(int id)

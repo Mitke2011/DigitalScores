@@ -15,15 +15,19 @@
                 <div class="widget-box">
                     <div class="widget-title">
                         <span class="icon"> <i class="icon-info-sign"></i> </span>
+<<<<<<< HEAD:DigitalScores/Views/Delegates/DelegatesEntry.cshtml
+                        <h5>Unos Delegata</h5>
+=======
                         <h5>Unos delegata</h5>
+>>>>>>> 5fcc37fb0959498cfe9bc22c64f0da5649a0cef3:DigitalScores/Views/DelegatesAdmin/DelegatesEntry.cshtml
                     </div>
                     <div class="widget-content nopadding">
-                        <section id="RefereeEntryForm">
+                        <section id="DelegateEntryForm">
 
                             @using (Html.BeginForm("Create", "Delegates", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                             {
                                 <div class="control-group">
-                                    <label class="control-label">Username</label>
+                                    <label class="control-label">Korisnicko Ime</label>
                                     <div class="controls">
                                         @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
                                         @Html.ValidationMessageFor(m => m.Username)
@@ -112,7 +116,3 @@
     <script src="js/herc.js"></script>
     <script src="js/herc.form_validation.js"></script>
 </body>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
