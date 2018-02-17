@@ -1,0 +1,195 @@
+﻿@model IEnumerable<DigitalScores.Models.Liga>
+
+@{
+    ViewBag.Title = "SelectLeague";
+    Layout = "~/Views/Shared/_DefaultAdminLayout.cshtml";
+}
+
+<h2>Pronadjite ligu i izaberite je</h2>
+<table>
+    <tr>
+        <td>
+            @using (Html.BeginForm())
+            {
+                <p>
+                    <br />
+                    @Html.TextBox("ligaCat", "",
+                       new
+                       {
+                           @class = "form-control",
+                           @placeholder = "Kategorija:"
+                       })
+                    <br />
+                    @Html.TextBox("nazivLige", "", new
+               {
+                   @class = "form-control",
+                   @placeholder = "Liga:"
+               })
+
+                    <br />
+                    @Html.Hidden("klubId", (int)ViewBag.KlubId)
+                    <input type="submit" value="Filter" class="btn btn-default">
+                </p>
+            }
+        </td>
+        <td>
+            <table class="table">
+                <tr>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Naziv)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LigaKategorija)
+                    </th>
+                </tr>
+                @if (Model != null)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Naziv)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LigaKategorija.Naziv)
+                            </td>
+
+                            @if (ViewBag.KlubId == 0)
+                            {
+                                <td>
+                                    @Html.ActionLink("Izaberi", "Create", "Klub", new { ligaId = item.Id, nazivLige = item.Naziv },null)
+                                </td>
+                            }
+                            @if (ViewBag.KlubId != 0)
+                            {
+                                <td>
+                                    @Html.ActionLink("Izaberi", "Edit", "Klub", new { idKlub = ViewBag.KlubId, idLige = item.Id, nazivLige = item.Naziv },null)
+                                </td>
+
+                            }
+
+                        </tr>
+                    }
+                }
+                @if (Model == null)
+                {
+                    <tr>
+                        <td>Uneseni podaci nis validni.</td>
+                    </tr>
+                }
+
+            </table>
+        </td>
+    </tr>
+</table>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        if (!Modernizr.input.placeholder) {
+            $("input").each(function () {
+                if ($(this).val() == "" && $(this).attr("placeholder") != "") {
+                    $(this).val($(this).attr("placeholder"));
+                    $(this).focus(function () {
+                        if ($(this).val() == $(this).attr("placeholder")) $(this).val("");
+                    });
+                    $(this).blur(function () {
+                        if ($(this).val() == "") $(this).val($(this).attr("placeholder"));
+                    });
+                }
+            });
+        }
+    });
+</script>
+
+@*<table class="table">
+        <tr>
+            <td>
+                @using (Html.BeginForm())
+                {
+                    <p>
+                        <br />
+                        @Html.TextBox("ligaCat", "",
+                           new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Kategorija:"
+                           })
+                        <br />
+                        @Html.TextBox("nazivLige", "", new
+                   {
+                       @class = "form-control",
+                       @placeholder = "Liga:"
+                   })
+
+                        <br />
+                        <input type="submit" value="Filter" class="btn btn-default">
+                    </p>
+                }
+            </td>
+            <td>
+
+                <p>
+                    @Html.ActionLink("Create New", "Create", null, new { @id = "CreateNew" })
+                </p>
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Smer)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.BrInd)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Ime)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Prezime)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProsecnaOcena)
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Smer)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BrInd)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Ime)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Prezime)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProsecnaOcena)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.StudentId }, new { @id = "Edit_" + item.StudentId }) |
+                                    @Html.ActionLink("Details", "StudentDetails", new { id = item.StudentId }, new { @id = "Details_" + item.StudentId }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.StudentId }, new { @id = "Delete_" + item.StudentId })
+                                </td>
+                            </tr>
+                        }
+                    }
+
+                    @if (Model == null)
+                    {
+                        <tr>
+                            <td>Inputed lookup data was not in correct format.</td>
+                        </tr>
+                    }
+
+                </table>
+            </td>
+        </tr>
+    </table>*@

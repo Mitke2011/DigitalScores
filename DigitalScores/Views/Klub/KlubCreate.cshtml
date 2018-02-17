@@ -1,4 +1,5 @@
 ﻿@model DigitalScores.Models.Klub
+@using DigitalScores.DbManagers 
 
 @{
     ViewBag.Title = "KlubCreate";
@@ -51,11 +52,18 @@
                 </td>
             </tr>
             <tr>
+                <td></td>
+                <rd>@Html.DropDownListFor(m => m.KlubSport.Id,
+                                               new SelectList(SportDbManager.Current.GetAll(), "Id", "Naziv",
+                                                "Izaberi Sport"))</rd>
+            </tr>
+            <tr>
                 <td>@Html.LabelFor(model => model.LigaKlub, htmlAttributes: new { @class = "control-label col-md-2" })</td>
                 <td>
                     <div class="col-md-10">
-                        @Html.TextBox("klubLiga","Izaberite ligu", new { htmlAttributes = new {@id="klubLiga", @class = "form-control", @editable = "false" } }) @*model => model.LigaKlub, new { htmlAttributes = new { @class = "form-control",@editable = "false" } }*@
-                        
+                        @Html.EditorFor(model => model.LigaKlub.Naziv, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ActionLink("Izaberite Ligu", "SelectLeague", "Lige", new { klubId = 0},null)
+                        @Html.HiddenFor(model => model.LigaKlub.Id)
                     </div>
                 </td>
             </tr>

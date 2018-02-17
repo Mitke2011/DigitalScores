@@ -1,4 +1,6 @@
-﻿namespace DigitalScores.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DigitalScores.Models
 {
     public class Liga
     {
@@ -17,6 +19,7 @@
             }
         }
 
+        [Display(Name ="Naziv Lige")]
         public string Naziv { get; set; }
 
         public Liga()
@@ -28,6 +31,7 @@
             this.Id = id;
         }
 
+        [Display(Name ="Kategorija")]
         public Kategorija LigaKategorija { get; set; }
     }
 }

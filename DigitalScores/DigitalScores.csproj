@@ -396,6 +396,7 @@
     <Content Include="Views\Klub\Details.cshtml" />
     <Content Include="Views\Klub\Edit.cshtml" />
     <Content Include="Views\Klub\Delete.cshtml" />
+    <Content Include="Views\Lige\SelectLeague.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
