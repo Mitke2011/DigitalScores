@@ -34,8 +34,9 @@
             @Html.DisplayNameFor(model => model.Region)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Privilege)
+            @Html.DisplayNameFor(model => model.UserPrivilege)
         </th>
+        <th>@Html.Label("Akcije",new { @style="font-size:12px"})</th>
 </tr>
 
 @foreach (var item in Model)
@@ -62,22 +63,22 @@
         <td>
             @Html.DisplayFor(modelItem => item.Region)
         </td>
-        @if (item.Privilege == DigitalScores.Models.Privilege.Admin)
+        @if (item.UserPrivilege == DigitalScores.Models.Privilege.Admin)
         {
             <td>
-                @Html.Display("Administrator")
+                @Html.Label("Administrator")
             </td>
         }
-        @if (item.Privilege == DigitalScores.Models.Privilege.Delegate)
+        @if (item.UserPrivilege == DigitalScores.Models.Privilege.Delegate)
         {
             <td>
-                @Html.Display("Delegat")
+                @Html.Label("Delegat")
             </td>
         }
         <td>
-            @Html.ActionLink("Izmeni", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Detalji", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Obrisi", "Delete", new { id = item.Id })
+            @Html.ActionLink("Izmeni", "Edit", new { id = item.Id }, new { @style = "font-size:14px" }) 
+            @*@Html.ActionLink("Detalji", "Details", new { id = item.Id }, new { @style = "font-size:14px" }) |*@
+            @*@Html.ActionLink("Obrisi", "Delete", new { id = item.Id }, new { @style = "font-size:14px" })*@
         </td>
     </tr>
 }

@@ -1,6 +1,8 @@
 ﻿using System.Web.Mvc;
 using DigitalScores.Models;
 using DigitalScores.DbManagers;
+using System;
+using System.Collections.Generic;
 
 namespace DigitalScores.Controllers
 {
@@ -14,8 +16,21 @@ namespace DigitalScores.Controllers
 
         public ActionResult Listing()
         {
-            return View(UsersDbManager.Current.GetAll());
+            ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
+            ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
+            return View(FillUsers(UsersDbManager.Current.GetAll()));
         }
+
+        private List<Users> FillUsers(List<object> list)
+        {
+            List<Users> result = new List<Users>();
+            foreach (var item in list)
+            {
+                result.Add((Users)item);
+            }
+            return result;
+        }
+
         // POST: User Login
         [HttpPost]
         public ActionResult Login(Users user)
@@ -25,7 +40,7 @@ namespace DigitalScores.Controllers
             if (u != null)
             {
                 Session["currentUser"] = u;
-                if (u.Privilege == Privilege.Admin || u.Privilege == Privilege.SuperAdmin)
+                if (u.UserPrivilege == Privilege.Admin || u.UserPrivilege == Privilege.SuperAdmin)
                 {
                     return RedirectToAction("Index", "Admin");
                 }
@@ -49,50 +64,104 @@ namespace DigitalScores.Controllers
         // GET: User/Create
         public ActionResult Create()
         {
+            ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
+            ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
             return View();
         }
 
         // POST: User/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        //public ActionResult Create(FormCollection collection)
+        //{
+        //    try
+        //    {
+        //        User u = new User() {
+        //            Username = collection["username"],
+        //            Password = collection["password"],
+        //            Ime = collection["ime"],
+        //            Prezime = collection["prezime"],
+        //            Email = collection["email"],
+        //            UserPrivilege = SetPrivilege(collection["privileges"]),
+        //            Grad = collection["grad"],
+        //            Region = collection["region"],
+        //            Telefon = collection["telefon"]
+        //        };
+        //        UsersDbManager.Current.Insert(u);
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
+
+        public ActionResult Create(Users entry)
         {
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                entry.UserPrivilege = SetPrivilege(Request.Form["privileges"]);
+                UsersDbManager.Current.Insert(entry);
+                return RedirectToAction("Listing");
             }
             catch
             {
                 return View();
+            }
+        }
+        private Privilege SetPrivilege(string selection)
+        {
+            switch (selection)
+            {
+                case "Administrator":
+                    return Privilege.Admin;
+                case "Delegat":
+                    return Privilege.Delegate;
+                default:
+                    return Privilege.Invalid;
             }
         }
 
         // GET: User/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
+            ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
+             Users u = UsersDbManager.Current.GetSingle(id) as Users;
+            return View(u);
         }
 
         // POST: User/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(FormCollection collection)
         {
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                Users u = new Users(int.Parse(collection["id"])) {
+                    Username = collection["username"],
+                    Password = collection["password"],
+                    Ime = collection["ime"],
+                    Prezime = collection["prezime"],
+                    Email = collection["email"],
+                    UserPrivilege = SetPrivilege(collection["privileges"]),
+                    Grad = collection["grad"],
+                    Region = collection["region"],
+                    Telefon = collection["telefon"]
+                };
+                UsersDbManager.Current.Update(u);
+                return RedirectToAction("Listing");
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                throw e;
             }
+            
         }
 
         // GET: User/Delete/5
         public ActionResult Delete(int id)
         {
+            ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
+            ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
             return View();
         }
 
