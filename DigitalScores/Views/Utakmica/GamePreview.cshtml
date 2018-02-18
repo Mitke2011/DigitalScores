@@ -34,9 +34,7 @@
                 @Html.DisplayFor(modelItem => item.KlubGost.Naziv)
             </td>
             <td>
-                @Html.ActionLink("Unesi rezultat", "UnosRezultata", "Rezultati", new { utakmicaId = item.Id }, null)
-            </td>
-            <td>
+                @Html.ActionLink("Unesi rezultat", "UnosRezultata", "Rezultati", new { utakmicaId = item.Id }, null) |
                 @Html.ActionLink("Detalji rezultata", "PregledRezultataUtakmice", "Rezultati", new { utakmicaId = item.Id }, null)
             </td>
         </tr>

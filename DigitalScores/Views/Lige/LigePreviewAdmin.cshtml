@@ -5,39 +5,48 @@
     Layout = "~/Views/Shared/_DefaultAdminLayout.cshtml";
 }
 
+
+
 @*@<h2>Pregled liga -  @Model.First().LigaKategorija.Naziv</h2*@
 
 @if (Model != null && Model.Count != 0)
 {
-<button >
-    @Html.ActionLink("Dodaj Ligu", "Create", "Lige", new { katId = ViewBag.katId }, null)
-</button>
-<table class="table">
+<div style='float: right;'>
+        <button type="button" class="btn btn-info">
+            @Html.ActionLink("+ Dodaj Ligu", "Create", "Lige", new { katId = ViewBag.katId }, new { @class = "button-link-class" })
+        </button>
+    </div>
+    <h3>Lige</h3>
+        <table class="table">
 
-    <tr>
-        <th>
-           Liga
-</th>
-    </tr>
-@foreach (var item in Model)
-{
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Naziv)
-        </td>
-        <td>
-            @Html.ActionLink("Prikaz svih utakmica Lige", "ShowGamesAllRounds", "Utakmica", new { ligaId = item.Id }, null) 
-        </td>
-        <td>
-          @Html.ActionLink("Izmeni", "Edit", new { id = item.Id }) 
-        </td>
-    </tr>
-}
+            <tr>
+                <th>
+                    Liga
+                </th>
+                <th>
+                    Akcije
+                </th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Naziv)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Utakmice", "ShowGamesAllRounds", "Utakmica", new { ligaId = item.Id }, null) |
 
-</table>
-} else { 
-<h2>Nema unesenih utakmica za izabranu ligu</h2>
-    <button>
-        @Html.ActionLink("Dodaj Ligu", "Create", "Lige", new { katId = ViewBag.katId }, null)
-    </button>
+                        @Html.ActionLink("Izmeni", "Edit", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+
+        </table>
+        } else {
+        <h2>Nema unesenih utakmica za izabranu ligu</h2>
+        <div style='float: right;'>
+            <button type="button" class="btn btn-info">
+                @Html.ActionLink("+ Dodaj Ligu", "Create", "Lige", new { katId = ViewBag.katId }, new { @class = "button-link-class" })
+            </button>
+        </div>
 }

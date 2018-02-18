@@ -1,0 +1,53 @@
+﻿@model DigitalScores.Models.Kategorija
+@using DigitalScores.DbManagers;
+@using DigitalScores.Models
+
+@{
+    ViewBag.Title = "KategorijaEdit";
+    Layout = "~/Views/Shared/_DefaultAdminLayout.cshtml";
+}
+
+<body>
+    <div class="container-fluid">
+        <hr>
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget-box">
+                    <div class="widget-title">
+                        <span class="icon"> <i class="icon-info-sign"></i> </span>
+                        <h5>Izmeni kategoriju: @Model.Naziv</h5>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.Id)
+                    </div>
+                    <div class="widget-content nopadding">
+                        <section id="RefereeEntryForm">
+
+                            @using (Html.BeginForm("Edit", "Kategorija", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="control-group">
+                                    <label class="control-label">Naziv</label>
+                                    <div class="controls">
+                                        @Html.EditorFor(m => m.Naziv, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.Naziv)
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <input type="submit" value="Snimi" class="btn btn-success" />
+                                </div>
+                            }
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        @Html.ActionLink("Vrati se na listu kategorija", "Index")
+    </div>
+
+</body>
+
+

@@ -5,28 +5,34 @@
     Layout = "~/Views/Shared/_DefaultAdminLayout.cshtml";
 }
 
+
+<div style='float: right;'>
+    <button type="button" class="btn btn-info">
+        @Html.ActionLink("+ Dodaj kategoriju", "Create", null, new { @class = "button-link-class" })
+    </button>
+</div>
 <h3>Kategorije</h3>
+        <table class="table">
+            <tr>
+                <th>
+                    Naziv Kategorije
+                </th>
+                <th>
+                    Akcije
+                </th>
+            </tr>
 
-<p>@Html.ActionLink("Dodaj kategoriju", "Create", null, new { @style = "font-size:15px" })</p>
-<table class="table">
-    <tr>
-        <th>
-            Naziv Kategorije
-        </th>
-        <th>
-            Akcije
-        </th>
-    </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Naziv)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Lige", "LeaguesForCategory", "Lige", new { katId = item.Id }, null) |
+                        @Html.ActionLink("Izmeni", "Edit", "Kategorija", new { id = item.Id }, null)
+                    </td>
+                </tr>
+            }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Naziv)
-        </td>
-        <td>
-           @Html.ActionLink("Edit", "LeaguesForCategory", "Lige", new { katId=item.Id }, null) 
-        </td>
-    </tr>
-}
-
-</table>
+        </table>

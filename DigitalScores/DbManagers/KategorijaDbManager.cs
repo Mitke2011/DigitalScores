@@ -73,9 +73,26 @@ namespace DigitalScores.DbManagers
             return result;
         }
 
-        public override void Update(object carrier)
+        public override void Update(object kategorija)
         {
-            throw new NotImplementedException();
+
+            Kategorija k = kategorija as Kategorija;
+            string sql = @"update Kategorije set Naziv=@naziv WHERE id = @katId";
+
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+                using (command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.AddRange(new SqlParameter[]
+                    {
+                        new SqlParameter() { ParameterName = "@katId",Value = k.Id, SqlDbType = System.Data.SqlDbType.Int},
+                        new SqlParameter() { ParameterName = "@naziv",Value = k.Naziv, SqlDbType = System.Data.SqlDbType.NVarChar},
+                      });
+
+                    command.ExecuteNonQuery();
+                }
+            }
         }
 
         public override void Insert(object kategorija)

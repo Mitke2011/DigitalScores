@@ -5,47 +5,50 @@
     Layout = "~/Views/Shared/_DefaultAdminLayout.cshtml";
 }
 
+
+<div style='float: right;'>
+    <button type="button" class="btn btn-info">
+        @Html.ActionLink("+ Dodaj Sudiju", "Create", "Referee", null, new { @class = "button-link-class" })
+    </button>
+</div>
 <h3>Sudije</h3>
+    <table class="table">
+        <tr>
+            <th>
+                Ime i Prezime
+            <th>
+                Email
+            </th>
+            <th>
+                Telefon
+            </th>
+            <th>
+                Grad
+            </th>
+            <th>Akcije</th>
+        </tr>
 
-<p>@Html.ActionLink("Dodaj Sudiju", "Create",null, new {@style = "font-size:15px"})</p>
-<table class="table">
-    <tr>
-        <th>
-            Ime i Prezime
-        <th>
-            Email
-        </th>
-        <th>
-            Telefon
-        </th>
-        <th>
-            Grad
-        </th>
-        <th></th>
-    </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ime) @Html.DisplayFor(modelItem => item.Prezime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefon)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Grad)
+                </td>
+                <td>
+                    @Html.ActionLink("Izmeni", "Edit", new { id = item.Id })
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ime) @Html.DisplayFor(modelItem => item.Prezime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Telefon)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Grad)
-        </td>
-        <td>
-            @Html.ActionLink("Izmeni", "Edit", new { id=item.Id }) 
+                </td>
+            </tr>
+        }
 
-        </td>
-    </tr>
-}
-
-</table>
-<button>
-    
-</button>
+    </table>
+    <button></button>

@@ -13,52 +13,54 @@
     </a>
 }
 
-<h2>Prikaz svih klubova</h2>
 
-<p>
-    @Html.ActionLink("Zapocni dodavanje novog kluba", "SelectLeague", "Lige", new { klubId = 0 }, new { @style = "font-size:15px" })
+<div style='float: right;'>
+    <button type="button" class="btn btn-info">
+        @Html.ActionLink("+ Dodaj Klub", "SelectLeague", "Lige", new { klubId = 0 }, new { @class = "button-link-class" })
+    </button>
+</div>
+<h3>Klubovi</h3>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Naziv)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Grad)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Trener)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LicencaPDF)
+                </th>
+                <th>@Html.DisplayNameFor(model => model.LigaKlub)</th>
+                <th>Akcije</th>
+            </tr>
 
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Naziv)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Grad)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Trener)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LicencaPDF)
-        </th>
-        <th>@Html.DisplayNameFor(model => model.LigaKlub)</th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Naziv)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Grad)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Trener)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LicencaPDF)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LigaKlub.Naziv)
-            </td>
-            <td>
-                @Html.ActionLink("Izmeni", "Edit", new { id = item.Id }) |
-                @*@Html.ActionLink("Pregled", "Details", new { id = item.Id }) |*@
-                @Html.ActionLink("Obrisi", "Delete", new { id = item.Id })
-            </td>
-        </tr>
-    }
-</table>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Naziv)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Grad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Trener)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LicencaPDF)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LigaKlub.Naziv)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Izmeni", "Edit", new { id = item.Id }) |
+                        @*@Html.ActionLink("Pregled", "Details", new { id = item.Id }) |*@
+                        @Html.ActionLink("Obrisi", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        </table>

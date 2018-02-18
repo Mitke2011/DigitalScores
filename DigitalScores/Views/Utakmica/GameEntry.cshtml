@@ -81,7 +81,7 @@
                                     <label class="control-label">Delegat</label>
                                     <div class="controls">
                                         @Html.DropDownListFor(m => m.delegatId,
-                                               new SelectList(UsersDbManager.Current.GetAllDelegates(), "Id", "Email"),
+                                               new SelectList(UsersDbManager.Current.GetAllDelegates(), "Id", "ImeiPrezime"),
                                                 "Izaberi Delegata")
                                         @Html.ValidationMessageFor(m => m.delegatId)
                                     </div>

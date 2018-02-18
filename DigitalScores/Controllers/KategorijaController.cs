@@ -13,8 +13,9 @@ namespace DigitalScores.Controllers
         }
 
         // GET: Kategorija/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int katId)
         {
+            
             return View();
         }
 
@@ -43,17 +44,19 @@ namespace DigitalScores.Controllers
         // GET: Kategorija/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return View("KategorijaEdit", KategorijaDbManager.Current.GetSingle(id));
         }
 
         // POST: Kategorija/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Kategorija entry)
         {
             try
             {
-                // TODO: Add update logic here
+                Kategorija h = (Kategorija)KategorijaDbManager.Current.GetSingle(id);
+                h.Naziv = entry.Naziv;
 
+                KategorijaDbManager.Current.Update(h);
                 return RedirectToAction("Index");
             }
             catch

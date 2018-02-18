@@ -66,7 +66,7 @@ namespace DigitalScores.DbManagers
                                 Email = reader.GetString(reader.GetOrdinal("email")),
                                 Grad = reader.GetString(reader.GetOrdinal("grad")),
                                 Region = reader.GetString(reader.GetOrdinal("region")),
-                                Privilege = GetPrivilege(reader.GetInt32(reader.GetOrdinal("Privilege_Id"))),
+                                UserPrivilege = GetPrivilege(reader.GetInt32(reader.GetOrdinal("Privilege_Id"))),
                                 Telefon = reader.GetString(reader.GetOrdinal("telefon"))
                             });
                         }
@@ -109,7 +109,7 @@ namespace DigitalScores.DbManagers
                                 Email = reader.GetString(reader.GetOrdinal("email")),
                                 Grad = reader.GetString(reader.GetOrdinal("grad")),
                                 Region = reader.GetString(reader.GetOrdinal("region")),
-                                Privilege = GetPrivilege(reader.GetInt32(reader.GetOrdinal("Privilege_Id"))),
+                                UserPrivilege = GetPrivilege(reader.GetInt32(reader.GetOrdinal("Privilege_Id"))),
                                 Telefon = reader.GetString(reader.GetOrdinal("telefon"))
                             };
                         }
@@ -167,7 +167,7 @@ namespace DigitalScores.DbManagers
                     new SqlParameter(){ ParameterName = "@Id", Value = user.Id, SqlDbType = SqlDbType.Int},
                     new SqlParameter(){ ParameterName = "@username", Value = user.Username, SqlDbType = SqlDbType.NVarChar},
                     new SqlParameter(){ ParameterName = "@password", Value = user.Password, SqlDbType = SqlDbType.NVarChar},
-                    new SqlParameter(){ ParameterName = "@privilege_id", Value = (int)user.Privilege, SqlDbType = SqlDbType.Int},
+                    new SqlParameter(){ ParameterName = "@privilege_id", Value = (int)user.UserPrivilege, SqlDbType = SqlDbType.Int},
                     new SqlParameter(){ ParameterName = "@ime", Value = user.Ime, SqlDbType = SqlDbType.NVarChar},
                     new SqlParameter(){ ParameterName = "@prezime", Value = user.Prezime, SqlDbType = SqlDbType.NVarChar},
                     new SqlParameter(){ ParameterName = "@email", Value = user.Email, SqlDbType = SqlDbType.NVarChar},
@@ -212,7 +212,7 @@ namespace DigitalScores.DbManagers
                             {
                                 Username = reader.GetString(reader.GetOrdinal("username")),
                                 Password = reader.GetString(reader.GetOrdinal("password")),
-                                Privilege = GetPrivilege(reader.GetInt32(reader.GetOrdinal("privilege_id"))),
+                                UserPrivilege = GetPrivilege(reader.GetInt32(reader.GetOrdinal("privilege_id"))),
                                 Ime = reader.GetString(reader.GetOrdinal("ime")),
                                 Prezime = reader.GetString(reader.GetOrdinal("prezime")),
                                 Email = reader.GetString(reader.GetOrdinal("email")),
@@ -266,7 +266,7 @@ namespace DigitalScores.DbManagers
                     command.Parameters.AddRange(new SqlParameter[] {
                     new SqlParameter(){ ParameterName = "@username", Value = user.Username, SqlDbType = SqlDbType.NVarChar},
                     new SqlParameter(){ ParameterName = "@password", Value = user.Password, SqlDbType = SqlDbType.NVarChar},
-                    new SqlParameter(){ ParameterName = "@privilege_id", Value = (int)user.Privilege, SqlDbType = SqlDbType.Int},
+                    new SqlParameter(){ ParameterName = "@privilege_id", Value = (int)user.UserPrivilege, SqlDbType = SqlDbType.Int},
                     new SqlParameter(){ ParameterName = "@ime", Value = user.Ime, SqlDbType = SqlDbType.NVarChar},
                     new SqlParameter(){ ParameterName = "@prezime", Value = user.Prezime, SqlDbType = SqlDbType.NVarChar},
                     new SqlParameter(){ ParameterName = "@email", Value = user.Email, SqlDbType = SqlDbType.NVarChar},
@@ -303,10 +303,10 @@ namespace DigitalScores.DbManagers
         public override void Insert(object user)
         {
             Users u = user as Users;
-            int userPrivilege = (int)u.Privilege;
+            int userPrivilege = (int)u.UserPrivilege;
 
             string sql = @"insert into users (username, password, privilege_id, ime, prezime, email, grad, telefon, region) 
-                                     cvalues (@username, @password, @privilege_id, @ime, @prezime, @email, @grad, @telefon, @region)";
+                                     values (@username, @password, @privilege_id, @ime, @prezime, @email, @grad, @telefon, @region)";
 
             using (connection = new SqlConnection(this.ConnectionString))
             {
@@ -358,10 +358,12 @@ namespace DigitalScores.DbManagers
                             {
                                 Ime = reader.GetString(reader.GetOrdinal("Ime")),
                                 Prezime = reader.GetString(reader.GetOrdinal("Prezime")),
+                                ImeiPrezime = reader.GetString(reader.GetOrdinal("Ime")) + " " + reader.GetString(reader.GetOrdinal("Prezime")),
                                 Email = reader.GetString(reader.GetOrdinal("Email")),
                                 Telefon = reader.GetString(reader.GetOrdinal("Telefon")),
                                 Grad = reader.GetString(reader.GetOrdinal("Grad")),
-                                Privilege = Privilege.Delegate
+                                UserPrivilege = Privilege.Delegate
+                                
                             };
                             listaDelegata.Add(u);
                         }

@@ -1,9 +1,10 @@
 ﻿@model DigitalScores.Models.Users
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_DefaultAdminLayout.cshtml";
 }
+
 @section welcome
     {
     <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle">
@@ -11,7 +12,7 @@
         </i>  <span class="text">Dobrodošli @ViewBag.AdminIme @ViewBag.AdminPrezime</span><b class="caret"></b>
     </a>
 }
-<h2>Novi korisnik</h2>
+<h2>Izmena podataka: @Model.Ime @Model.Prezime @Model.Id</h2>
 
 <body>
     <div class="container-fluid">
@@ -21,33 +22,33 @@
                 <div class="widget-box">
                     <div class="widget-title">
                         <span class="icon"> <i class="icon-info-sign"></i> </span>
-                        <h5>Unos podataka za novog korisnika</h5>
+                        <h5>Izmene podataka o korisniku</h5>
                     </div>
                     <div class="widget-content nopadding">
-                        <section id="KlubEntryForm">
+                        <section id="UsersEditForm">
 
-                            @using (Html.BeginForm("Create", "User", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            @using (Html.BeginForm("Edit", "User", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                             {
                                 <div class="control-group">
-                                   @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="controls">
                                         @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-                                
+
                                 <div class="control-group">
                                     @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="controls">
-                                       @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                        @Html.Password("password",Model.Password)
+                                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
 
                                 <div class="control-group">
-                                    @Html.LabelFor(model => model.UserPrivilege, htmlAttributes : new { @class = "control-label col-md-2" } )
+                                    @Html.LabelFor(model => model.UserPrivilege, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="controls">
-                                        @Html.DropDownList("privileges",new SelectList(new List<string>() {"Administrator","Delegat"}),"Privilegije")
+                                        @Html.DropDownList("privileges", new SelectList(new List<string>() { "Administrator", "Delegat" }), "Privilegije")
                                         @Html.ValidationMessageFor(model => model.UserPrivilege, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -63,8 +64,8 @@
                                 <div class="control-group">
                                     @Html.LabelFor(model => model.Prezime, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="controls">
-                                       @Html.EditorFor(model => model.Prezime, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Prezime, "", new { @class = "text-danger" })
+                                        @Html.EditorFor(model => model.Prezime, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Prezime, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
 
@@ -97,6 +98,12 @@
                                     <div class="controls">
                                         @Html.EditorFor(model => model.Region, new { htmlAttributes = new { @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.Region, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="control-group">                                   
+                                    <div class="controls">                                       
+                                        @Html.HiddenFor(model => model.Id)
                                     </div>
                                 </div>
                                 

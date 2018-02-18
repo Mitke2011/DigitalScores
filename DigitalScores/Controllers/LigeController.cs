@@ -15,7 +15,7 @@ namespace DigitalScores.Controllers
             Users current = (Users)Session["currentUser"];
             if (current != null)
             {
-                if (current.Privilege == Privilege.Admin || current.Privilege == Privilege.SuperAdmin)
+                if (current.UserPrivilege == Privilege.Admin || current.UserPrivilege == Privilege.SuperAdmin)
                 {
                     return View();
                 }
@@ -46,7 +46,7 @@ namespace DigitalScores.Controllers
             Users current = (Users)Session["currentUser"];
             if (current != null)
             {
-                switch (current.Privilege)
+                switch (current.UserPrivilege)
                 {
 
                     case Privilege.Delegate:

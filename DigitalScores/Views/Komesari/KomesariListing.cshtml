@@ -5,46 +5,51 @@
     Layout = "~/Views/Shared/_DefaultAdminLayout.cshtml";
 }
 
+
+<div style='float: right;'>
+    <button type="button" class="btn btn-info">
+        @Html.ActionLink("+ Dodaj Komesara", "Create", "Komesari", null, new { @class = "button-link-class" })
+    </button>
+</div>
 <h3>Komesari</h3>
 
-<p>@Html.ActionLink("Dodaj Komesara", "Create",null, new { @style = "font-size:15px" })</p>
-<table class="table">
-    <tr>
-        <th>
-            Ime i Prezime
-        </th>
-        <th>
-            Email
-        </th>
-        <th>
-            Telefon
-        </th>
-        <th>
-            Liga
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ime) @Html.DisplayFor(modelItem => item.Prezime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Telefon)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Liga.Naziv)
-            </td>
-            <td>
-                @Html.ActionLink("Izmeni", "Edit", new { id = item.Id })
-
-            </td>
+            <th>
+                Ime i Prezime
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Telefon
+            </th>
+            <th>
+                Liga
+            </th>
+            <th>Akcije</th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ime) @Html.DisplayFor(modelItem => item.Prezime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefon)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Liga.Naziv)
+                </td>
+                <td>
+                    @Html.ActionLink("Izmeni", "Edit", new { id = item.Id })
+
+                </td>
+            </tr>
+        }
+
+    </table>

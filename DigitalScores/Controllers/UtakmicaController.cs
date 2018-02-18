@@ -16,7 +16,7 @@ namespace DigitalScores.Controllers
             Users current = (Users)Session["currentUser"];
             if (current != null)
             {
-                if (current.Privilege == Privilege.Delegate)
+                if (current.UserPrivilege == Privilege.Delegate)
                 {
                     ViewBag.DelegatIme = current.Ime;
                     ViewBag.DelegatPrezime = current.Prezime;
@@ -31,7 +31,7 @@ namespace DigitalScores.Controllers
             Users current = (Users)Session["currentUser"];
             if (current != null)
             {
-                if (current.Privilege == Privilege.Admin)
+                if (current.UserPrivilege == Privilege.Admin)
                 {
                     ViewBag.LigaId = ligaId;
                     ViewBag.AdminIme = current.Ime;
@@ -54,7 +54,7 @@ namespace DigitalScores.Controllers
             Users current = (Users)Session["currentUser"];
             if (current != null)
             {
-                if (current.Privilege == Privilege.Admin)
+                if (current.UserPrivilege == Privilege.Admin)
                 {
                     ViewBag.LigaId = ligaId;
                     return View("GameEntry");

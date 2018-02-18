@@ -8,59 +8,63 @@
 
 @if (Model != null && Model.Count != 0)
 {
-    <button type="button" class="btn-success">
-        @Html.ActionLink("Dodaj Utakmicu", "Create", "Utakmica", new { ligaId = ViewBag.LigaId }, new { @class= "button-link-class" })
-    </button>
-
-
-    <table class="table">
-        <tr>
-            <th>
-               Klub domacin
-            <th>
-         
-            </th>
-            <th>
-               Klub Gost
-            </th>
-            <th>
-                Kolo
-            </th>
-           
-        </tr>
-
-        @foreach (var item in Model)
-                {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.KlubDomacin.Naziv)
-            </td>
-            <td>
-                :
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.KlubGost.Naziv)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.KoloUtakmice.Naziv)
-            </td>
-
-
-        </tr>
-        }
-    </table>
+    <div style='float: right;'>
+        <button type="button" class="btn btn-info">
+            @Html.ActionLink("+ Dodaj Utakmicu", "Create", "Utakmica", new { ligaId = ViewBag.LigaId }, new { @class = "button-link-class" })
+        </button>
+    </div>
+        <h3>Utakmice</h3>
  
-}
-else {
-<h2>Nema unesenih utakmica za izabranu ligu</h2>
-<button>
-    @Html.ActionLink("Dodaj Utakmicu", "Create", "Utakmica", new { ligaId = ViewBag.LigaId }, null)
-</button>
-}
-@*@section welcome
-{
-    <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle">
-        <i class="icon icon-user"></i>
-        <span class="text">Dobrodošli @ViewBag.DelegatIme @ViewBag.DelegatPrezime</span><b class="caret"></b>
-    </a>
-*@
+
+
+        <table class="table">
+            <tr>
+                <th>
+                    Klub domacin
+                <th>
+
+                </th>
+                <th>
+                    Klub Gost
+                </th>
+                <th>
+                    Kolo
+                </th>
+
+            </tr>
+
+            @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.KlubDomacin.Naziv)
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.KlubGost.Naziv)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.KoloUtakmice.Naziv)
+                    </td>
+
+
+                </tr>
+            }
+        </table>
+
+        }
+        else {
+        <h2>Nema unesenih utakmica za izabranu ligu</h2>
+        <button type="button" class="btn btn-info">
+            @Html.ActionLink("+ Dodaj Utakmicu", "Create", "Utakmica", new { ligaId = ViewBag.LigaId }, new { @class = "button-link-class" })
+        </button>
+        }
+        @*@section welcome
+            {
+                <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle">
+                    <i class="icon icon-user"></i>
+                    <span class="text">Dobrodošli @ViewBag.DelegatIme @ViewBag.DelegatPrezime</span><b class="caret"></b>
+                </a>
+        *@

@@ -22,13 +22,14 @@ namespace DigitalScores.Models
         public string Username { get; set; }
         public string Password { get; set; }
         [Display(Name ="Nivo Privilegija")]
-        public Privilege Privilege { get; set; }
+        public Privilege UserPrivilege { get; set; }
         public string Ime { get; set; }
         public string Prezime { get; set; }
         public string Email { get; set; }
         public string Grad { get; set; }
         public string Telefon { get; set; }
         public string Region { get; set; }
+        public string ImeiPrezime { get; set; }
 
         public Users()
         {
@@ -37,7 +38,7 @@ namespace DigitalScores.Models
 
         public Users(int id)
         {
-            this.id = id;
+            this.Id = id;
         }
 
         public Users(string username)
