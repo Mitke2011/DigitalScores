@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DigitalScores.MasterEntities;
 using DigitalScores.Models;
 using System.Data.SqlClient;
+using System.Data;
 
 namespace DigitalScores.DbManagers
 {
@@ -42,13 +43,8 @@ namespace DigitalScores.DbManagers
 
         public override List<object> GetAll()
         {
-            throw new NotImplementedException();
-        }
-
-        public override object GetSingle(int id)
-        {
-            Users u = null;
-            string sql = "select * from users where id = @id";
+            List<object> result = new List<object>();
+            string sql = @"select * from users";
 
             using (connection = new SqlConnection(this.ConnectionString))
             {
@@ -56,7 +52,49 @@ namespace DigitalScores.DbManagers
 
                 using (command = new SqlCommand(sql, connection))
                 {
-                    command.Parameters.Add(new SqlParameter() { ParameterName = "@id", SqlDbType = System.Data.SqlDbType.Int, Value = id });
+                    try
+                    {
+                        SqlDataReader reader = command.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            result.Add(new Users(reader.GetInt32(reader.GetOrdinal("id")))
+                            {
+                                Username = reader.GetString(reader.GetOrdinal("username")),
+                                Password = reader.GetString(reader.GetOrdinal("password")),
+                                Ime = reader.GetString(reader.GetOrdinal("ime")),
+                                Prezime = reader.GetString(reader.GetOrdinal("prezime")),
+                                Email = reader.GetString(reader.GetOrdinal("email")),
+                                Grad = reader.GetString(reader.GetOrdinal("grad")),
+                                Region = reader.GetString(reader.GetOrdinal("region")),
+                                Privilege = GetPrivilege(reader.GetInt32(reader.GetOrdinal("Privilege_Id"))),
+                                Telefon = reader.GetString(reader.GetOrdinal("telefon"))
+                            });
+                        }
+                    }
+                    catch (SqlException e)
+                    {
+
+                        throw e;
+                    }
+
+                }
+            }
+
+            return result;
+        }
+
+        public override object GetSingle(int id)
+        {
+            Users u = null;
+            string sql = @"select * from users where id = @id";
+
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+
+                using (command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.Add(new SqlParameter() { ParameterName = "@id", SqlDbType = SqlDbType.Int, Value = id });
                     try
                     {
                         SqlDataReader reader = command.ExecuteReader();
@@ -76,10 +114,10 @@ namespace DigitalScores.DbManagers
                             };
                         }
                     }
-                    catch (Exception)
+                    catch (SqlException e)
                     {
 
-                        throw;
+                        throw e;
                     }
 
                 }
@@ -106,13 +144,18 @@ namespace DigitalScores.DbManagers
 
         public override void Update(object carrier)
         {
-            throw new NotImplementedException();
-        }
-
-        public Users GetUserByUsername(string username)
-        {
-            Users user = null;
-            string sql = "select * from users where username = @username";
+            Users user = carrier as Users;
+            string sql = @"update users set
+                            username = @username,
+                            password = @password,
+                            Privilege_Id = @privilege_id,
+                            Ime =@ime,
+                            Prezime = @prezime,
+                            Email = @email,
+                            Grad = @grad,
+                            Telefon = @telefon,
+                            Region = @region
+                           WHERE id = @id";
 
             using (connection = new SqlConnection(this.ConnectionString))
             {
@@ -120,7 +163,44 @@ namespace DigitalScores.DbManagers
 
                 using (command = new SqlCommand(sql, connection))
                 {
-                    command.Parameters.Add(new SqlParameter() { ParameterName = "@username", SqlDbType = System.Data.SqlDbType.NVarChar, Value = username });
+                    command.Parameters.AddRange(new SqlParameter[] {
+                    new SqlParameter(){ ParameterName = "@Id", Value = user.Id, SqlDbType = SqlDbType.Int},
+                    new SqlParameter(){ ParameterName = "@username", Value = user.Username, SqlDbType = SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@password", Value = user.Password, SqlDbType = SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@privilege_id", Value = (int)user.Privilege, SqlDbType = SqlDbType.Int},
+                    new SqlParameter(){ ParameterName = "@ime", Value = user.Ime, SqlDbType = SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@prezime", Value = user.Prezime, SqlDbType = SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@email", Value = user.Email, SqlDbType = SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@grad", Value = user.Grad, SqlDbType = SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@telefon", Value = user.Telefon, SqlDbType = SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@region", Value = user.Region, SqlDbType = SqlDbType.NVarChar}
+                    });
+
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                    catch (SqlException e)
+                    {
+
+                        throw e;
+                    }
+                }
+            }
+        }
+
+        public Users GetUserByUsername(string username)
+        {
+            Users user = null;
+            string sql = @"select * from users where username = @username";
+
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+
+                using (command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.Add(new SqlParameter() { ParameterName = "@username", SqlDbType = SqlDbType.NVarChar, Value = username });
 
                     try
                     {
@@ -143,9 +223,9 @@ namespace DigitalScores.DbManagers
                         }
                     }
 
-                    catch (Exception)
+                    catch (SqlException e)
                     {
-                        throw;
+                        throw e;
                     }
                 }
             }
@@ -166,23 +246,33 @@ namespace DigitalScores.DbManagers
         public bool CheckIfUserExists(Users user)
         {
             bool result = false;
-            string sql = "select COUNT([Username]) from users where username = @username and password = @password and privilege_id = @privilege_id and ime = @ime and prezime = @prezime and email = @email and grad = @grad and telefon = @telefon and region = @region";
+            string sql = @"select COUNT([Username]) from users 
+                            where username = @username and 
+                                  password = @password and 
+                                  privilege_id = @privilege_id and 
+                                  ime = @ime and 
+                                  prezime = @prezime and 
+                                  email = @email and 
+                                  grad = @grad and 
+                                  telefon = @telefon and 
+                                  region = @region";
+
             using (connection = new SqlConnection(this.ConnectionString))
             {
                 connection.Open();
 
-                using (command = new SqlCommand(sql,connection))
+                using (command = new SqlCommand(sql, connection))
                 {
                     command.Parameters.AddRange(new SqlParameter[] {
-                    new SqlParameter(){ ParameterName = "username", Value = user.Username, SqlDbType = System.Data.SqlDbType.NVarChar},
-                    new SqlParameter(){ ParameterName = "password", Value = user.Password, SqlDbType = System.Data.SqlDbType.NVarChar},
-                    new SqlParameter(){ ParameterName = "privilege_id", Value = user.Privilege, SqlDbType = System.Data.SqlDbType.Int},
-                    new SqlParameter(){ ParameterName = "ime", Value = user.Ime, SqlDbType = System.Data.SqlDbType.NVarChar},
-                    new SqlParameter(){ ParameterName = "prezime", Value = user.Prezime, SqlDbType = System.Data.SqlDbType.NVarChar},
-                    new SqlParameter(){ ParameterName = "email", Value = user.Email, SqlDbType = System.Data.SqlDbType.NVarChar},
-                    new SqlParameter(){ ParameterName = "grad", Value = user.Grad, SqlDbType = System.Data.SqlDbType.NVarChar},
-                    new SqlParameter(){ ParameterName = "telefon", Value = user.Telefon, SqlDbType = System.Data.SqlDbType.NVarChar},
-                    new SqlParameter(){ ParameterName = "region", Value = user.Region, SqlDbType = System.Data.SqlDbType.NVarChar}
+                    new SqlParameter(){ ParameterName = "@username", Value = user.Username, SqlDbType = SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@password", Value = user.Password, SqlDbType = SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@privilege_id", Value = (int)user.Privilege, SqlDbType = SqlDbType.Int},
+                    new SqlParameter(){ ParameterName = "@ime", Value = user.Ime, SqlDbType = SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@prezime", Value = user.Prezime, SqlDbType = SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@email", Value = user.Email, SqlDbType = SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@grad", Value = user.Grad, SqlDbType = SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@telefon", Value = user.Telefon, SqlDbType = SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@region", Value = user.Region, SqlDbType = SqlDbType.NVarChar}
                     });
                 }
 
@@ -201,7 +291,7 @@ namespace DigitalScores.DbManagers
                         return result;
                     }
                 }
-                catch (Exception se)
+                catch (SqlException se)
                 {
 
                     throw se;
@@ -215,7 +305,8 @@ namespace DigitalScores.DbManagers
             Users u = user as Users;
             int userPrivilege = (int)u.Privilege;
 
-            string sql = "insert into users (username, password, privilege_id, ime, prezime, email, grad, telefon, region) values (@username, @password, @privilege_id, @ime, @prezime, @email, @grad, @telefon, @region)";
+            string sql = @"insert into users (username, password, privilege_id, ime, prezime, email, grad, telefon, region) 
+                                     cvalues (@username, @password, @privilege_id, @ime, @prezime, @email, @grad, @telefon, @region)";
 
             using (connection = new SqlConnection(this.ConnectionString))
             {
@@ -223,15 +314,15 @@ namespace DigitalScores.DbManagers
                 using (command = new SqlCommand(sql, connection))
                 {
                     command.Parameters.AddRange(new SqlParameter[] {
-                    new SqlParameter(){ ParameterName = "username", Value = u.Username, SqlDbType = System.Data.SqlDbType.NVarChar},
-                    new SqlParameter(){ ParameterName = "password", Value = u.Password, SqlDbType = System.Data.SqlDbType.NVarChar},
-                    new SqlParameter(){ ParameterName = "privilege_id", Value = userPrivilege, SqlDbType = System.Data.SqlDbType.Int},
-                    new SqlParameter(){ ParameterName = "ime", Value = u.Ime, SqlDbType = System.Data.SqlDbType.NVarChar},
-                    new SqlParameter(){ ParameterName = "prezime", Value = u.Prezime, SqlDbType = System.Data.SqlDbType.NVarChar},
-                    new SqlParameter(){ ParameterName = "email", Value = u.Email, SqlDbType = System.Data.SqlDbType.NVarChar},
-                    new SqlParameter(){ ParameterName = "grad", Value = u.Grad, SqlDbType = System.Data.SqlDbType.NVarChar},
-                    new SqlParameter(){ ParameterName = "telefon", Value = u.Telefon, SqlDbType = System.Data.SqlDbType.NVarChar},
-                    new SqlParameter(){ ParameterName = "region", Value = u.Region, SqlDbType = System.Data.SqlDbType.NVarChar}
+                    new SqlParameter(){ ParameterName = "@username", Value = u.Username, SqlDbType = SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@password", Value = u.Password, SqlDbType = SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@privilege_id", Value = (int)userPrivilege, SqlDbType = SqlDbType.Int},
+                    new SqlParameter(){ ParameterName = "@ime", Value = u.Ime, SqlDbType = SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@prezime", Value = u.Prezime, SqlDbType = SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@email", Value = u.Email, SqlDbType = SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@grad", Value = u.Grad, SqlDbType = SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@telefon", Value = u.Telefon, SqlDbType = SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@region", Value = u.Region, SqlDbType = SqlDbType.NVarChar}
                     });
 
                     try
@@ -247,7 +338,8 @@ namespace DigitalScores.DbManagers
             }
         }
 
-        public List<Users> GetAllDelegates() {
+        public List<Users> GetAllDelegates()
+        {
             List<Users> listaDelegata = new List<Users>();
             string sql = @"select * from Users where Privilege_id = 2";
 
@@ -262,8 +354,6 @@ namespace DigitalScores.DbManagers
                         SqlDataReader reader = command.ExecuteReader();
                         while (reader.Read())
                         {
-
-
                             Users u = new Users(reader.GetInt32(0))
                             {
                                 Ime = reader.GetString(reader.GetOrdinal("Ime")),
@@ -271,12 +361,12 @@ namespace DigitalScores.DbManagers
                                 Email = reader.GetString(reader.GetOrdinal("Email")),
                                 Telefon = reader.GetString(reader.GetOrdinal("Telefon")),
                                 Grad = reader.GetString(reader.GetOrdinal("Grad")),
-                                //KlubGost = reader.GetString(reader.GetOrdinal("KlubGost")),
+                                Privilege = Privilege.Delegate
                             };
                             listaDelegata.Add(u);
                         }
                     }
-                    catch (Exception ee)
+                    catch (SqlException ee)
                     {
 
                         throw ee;

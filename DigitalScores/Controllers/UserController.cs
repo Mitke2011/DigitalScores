@@ -12,6 +12,10 @@ namespace DigitalScores.Controllers
             return View("Login");
         }
 
+        public ActionResult Listing()
+        {
+            return View(UsersDbManager.Current.GetAll());
+        }
         // POST: User Login
         [HttpPost]
         public ActionResult Login(Users user)

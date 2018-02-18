@@ -1,4 +1,6 @@
-﻿namespace DigitalScores.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DigitalScores.Models
 {
     public class Users
     {
@@ -19,6 +21,7 @@
     
         public string Username { get; set; }
         public string Password { get; set; }
+        [Display(Name ="Nivo Privilegija")]
         public Privilege Privilege { get; set; }
         public string Ime { get; set; }
         public string Prezime { get; set; }
