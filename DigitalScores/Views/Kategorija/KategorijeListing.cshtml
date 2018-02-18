@@ -7,13 +7,15 @@
 
 <h3>Kategorije</h3>
 
-
+<p>@Html.ActionLink("Dodaj kategoriju", "Create", null, new { @style = "font-size:15px" })</p>
 <table class="table">
     <tr>
         <th>
             Naziv Kategorije
         </th>
-        <th></th>
+        <th>
+            Akcije
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -28,6 +30,3 @@
 }
 
 </table>
-<button>
-    @Html.ActionLink("Dodaj kategoriju", "Create")
-</button>
