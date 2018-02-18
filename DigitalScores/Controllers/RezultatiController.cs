@@ -58,7 +58,7 @@ namespace DigitalScores.Controllers
                 rezultat.UtakmicaId = utakmicaId;
                 RezultatiDbManager.Current.Insert(rezultat);
                 Utakmice u = (Utakmice)UtakmicaDbManager.Current.GetSingle(utakmicaId);
-                return RedirectToAction("Index", "Utakmica", new { ligaid = u.LigaUtakmice.Id });
+                return RedirectToAction("ShowGamesActiveRound", "Utakmica", new { ligaid = u.LigaUtakmice.Id });
             }
             catch
             {

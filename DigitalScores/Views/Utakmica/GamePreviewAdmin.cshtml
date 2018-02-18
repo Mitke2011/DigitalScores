@@ -8,9 +8,10 @@
 
 @if (Model != null && Model.Count != 0)
 {
-    <button>
-        @Html.ActionLink("Dodaj Utakmicu", "Create", "Utakmica", new { ligaId = ViewBag.LigaId }, null)
+    <button type="button" class="btn-success">
+        @Html.ActionLink("Dodaj Utakmicu", "Create", "Utakmica", new { ligaId = ViewBag.LigaId }, new { @class= "button-link-class" })
     </button>
+
 
     <table class="table">
         <tr>

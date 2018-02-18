@@ -404,6 +404,8 @@
     <Content Include="Views\Kolo\KoloPreview.cshtml" />
     <Content Include="Views\User\Listing.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
+    <Content Include="Views\Lige\LigeEdit.cshtml" />
+    <Content Include="Views\Lige\LigeEntry.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
