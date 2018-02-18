@@ -21,6 +21,7 @@ namespace DigitalScores.Models
 
         [Display(Name ="Naziv Lige")]
         public string Naziv { get; set; }
+        public int kategorijaId { get; set; }
 
         public Liga()
         {

@@ -124,6 +124,7 @@ namespace DigitalScores.DbManagers
                         {
                             Naziv = reader.GetString(reader.GetOrdinal("Naziv")),
                             LigaKategorija = (Kategorija)KategorijaDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Kategorija")))
+                            
                         };
                     }
                 }
@@ -133,14 +134,57 @@ namespace DigitalScores.DbManagers
             return result;
         }
 
-        public override void Insert(object carrier)
+        public override void Insert(object liga)
         {
-            throw new NotImplementedException();
+            Liga l = liga as Liga;
+            string sql = "insert into Lige (Naziv,Kategorija) values (@naziv, @katId)";
+
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+
+                using (command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.AddRange(
+                new SqlParameter[] {
+                    new SqlParameter(){ ParameterName = "@katId", Value = l.kategorijaId, SqlDbType = System.Data.SqlDbType.Int},
+                    new SqlParameter(){ ParameterName = "@naziv", Value = l.Naziv, SqlDbType = System.Data.SqlDbType.NVarChar}
+
+            });
+
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                    catch (SqlException se)
+                    {
+                        throw se;
+                    }
+
+                }
+            }
         }
 
-        public override void Update(object carrier)
+        public override void Update(object liga)
         {
-            throw new NotImplementedException();
+            Liga l = liga as Liga;
+            string sql = @"update Lige set Naziv=@naziv WHERE id = @ligaId";
+
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+                using (command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.AddRange(new SqlParameter[]
+                    {
+                        new SqlParameter() { ParameterName = "@ligaId",Value = l.Id, SqlDbType = System.Data.SqlDbType.Int},
+                        new SqlParameter() { ParameterName = "@naziv",Value = l.Naziv, SqlDbType = System.Data.SqlDbType.NVarChar},
+                        new SqlParameter() { ParameterName = "@katId",Value = l.kategorijaId, SqlDbType = System.Data.SqlDbType.Int},
+                    });
+
+                    command.ExecuteNonQuery();
+                }
+            }
         }
 
         public List<Liga> GetLeaguesByCategory(int kategorijaId)

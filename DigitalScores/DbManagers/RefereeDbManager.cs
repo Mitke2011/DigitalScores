@@ -167,6 +167,7 @@ namespace DigitalScores.DbManagers
                                 Email = reader.GetString(reader.GetOrdinal("Email")),
                                 Telefon = reader.GetString(reader.GetOrdinal("Telefon")),
                                 Grad = reader.GetString(reader.GetOrdinal("Grad")),
+                                ImeiPrezime = reader.GetString(reader.GetOrdinal("Ime")) + " " + reader.GetString(reader.GetOrdinal("Prezime"))
                                 //KlubGost = reader.GetString(reader.GetOrdinal("KlubGost")),
                             };
                             listaSudija.Add(s);

@@ -402,6 +402,8 @@
     <Content Include="Views\Referee\RefereeEdit.cshtml" />
     <Content Include="Views\Kolo\KoloEntry.cshtml" />
     <Content Include="Views\Kolo\KoloPreview.cshtml" />
+    <Content Include="Views\Lige\LigeEntry.cshtml" />
+    <Content Include="Views\Lige\LigeEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

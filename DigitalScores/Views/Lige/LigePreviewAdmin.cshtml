@@ -7,7 +7,11 @@
 
 @*@<h2>Pregled liga -  @Model.First().LigaKategorija.Naziv</h2*@
 
-
+@if (Model != null && Model.Count != 0)
+{
+<button >
+    @Html.ActionLink("Dodaj Ligu", "Create", "Lige", new { katId = ViewBag.katId }, null)
+</button>
 <table class="table">
 
     <tr>
@@ -15,15 +19,25 @@
            Liga
 </th>
     </tr>
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Naziv)
         </td>
         <td>
-            @Html.ActionLink("Prikaz svih utakmica Lige", "ShowGamesAllRounds", "Utakmica", new { ligaId=item.Id }, null) 
+            @Html.ActionLink("Prikaz svih utakmica Lige", "ShowGamesAllRounds", "Utakmica", new { ligaId = item.Id }, null) 
+        </td>
+        <td>
+          @Html.ActionLink("Izmeni", "Edit", new { id = item.Id }) 
         </td>
     </tr>
 }
 
 </table>
+} else { 
+<h2>Nema unesenih utakmica za izabranu ligu</h2>
+    <button>
+        @Html.ActionLink("Dodaj Ligu", "Create", "Lige", new { katId = ViewBag.katId }, null)
+    </button>
+}

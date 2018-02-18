@@ -19,6 +19,7 @@
         public string Email { get; set; }
         public string Telefon { get; set; }
         public string Grad { get; set; }
+        public string ImeiPrezime { get; set; }
 
         public Sudija()
         {

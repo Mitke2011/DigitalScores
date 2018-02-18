@@ -4,6 +4,7 @@ using DigitalScores.DbManagers;
 using DigitalScores.Models;
 using System.Collections.Generic;
 
+
 namespace DigitalScores.Controllers
 {
     public class LigeController : Controller
@@ -54,6 +55,7 @@ namespace DigitalScores.Controllers
                         return View("LigePreviewDelegate", LigaDbManager.Current.GetLeaguesByCategory(katId));
 
                     case Privilege.Admin:
+                        ViewBag.KatId = katId;
                         ViewBag.AdminIme = current.Ime;
                         ViewBag.AdminPrezime = current.Prezime;
                         return View("LigePreviewAdmin", LigaDbManager.Current.GetLeaguesByCategory(katId));
@@ -69,20 +71,21 @@ namespace DigitalScores.Controllers
         }
 
         // GET: Lige/Create
-        public ActionResult Create()
+        public ActionResult Create(int katId)
         {
-            return View();
+            ViewBag.katId = katId;
+            return View("LigeEntry");
         }
 
         // POST: Lige/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Liga liga, int katId)
         {
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                liga.kategorijaId = katId;
+                LigaDbManager.Current.Insert(liga);
+                return RedirectToAction("LeaguesForCategory", "Lige", new {katId = katId });
             }
             catch
             {
@@ -93,18 +96,21 @@ namespace DigitalScores.Controllers
         // GET: Lige/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+
+            return View("LigeEdit", LigaDbManager.Current.GetSingle(id));
         }
 
         // POST: Lige/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Liga entry)
         {
             try
             {
-                // TODO: Add update logic here
+                Liga liga = (Liga)LigaDbManager.Current.GetSingle(id);
+                liga.Naziv = entry.Naziv;
+                LigaDbManager.Current.Update(liga);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("LeaguesForCategory", "Lige", new { katId = liga.LigaKategorija.Id});
             }
             catch
             {
