@@ -6,11 +6,15 @@
 }
 
 
-<div style='float: right;'>
-    <button type="button" class="btn btn-info">
-        @Html.ActionLink("+ Dodaj kategoriju", "Create", null, new { @class = "button-link-class" })
-    </button>
-</div>
+@section welcome
+    {
+    <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle">
+        <i class="icon icon-user">
+        </i>  <span class="text"> @ViewBag.AdminIme @ViewBag.AdminPrezime</span><b class="caret"></b>
+    </a>
+}
+ @Html.ActionLink("+ Dodaj kategoriju", "Create", null, new { @class = "button-link-class" })
+
 <h3>Kategorije</h3>
         <table class="table">
             <tr>

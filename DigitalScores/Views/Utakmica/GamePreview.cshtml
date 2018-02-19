@@ -7,7 +7,7 @@
 
 @if (Model != null && Model.Count!=0)
 {
-    <h3>Utakmice @Model.FirstOrDefault().KoloUtakmice.Naziv</h3>
+    <h3>Utakmice @Model.FirstOrDefault().KoloUtakmice.Naziv - @Model.FirstOrDefault().LigaUtakmice.Naziv</h3>
     <table class="table">
         <tr>
             <th>

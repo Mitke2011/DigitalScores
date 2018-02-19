@@ -9,6 +9,8 @@ namespace DigitalScores.Controllers
         // GET: Kategorija
         public ActionResult Index()
         {
+            ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
+            ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
             return View("KategorijeListing", KategorijaDbManager.Current.GetKategorije());
         }
 
@@ -22,6 +24,8 @@ namespace DigitalScores.Controllers
         // GET: Kategorija/Create
         public ActionResult Create()
         {
+            ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
+            ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
             return View("KategorijaEntry");
         }
 
@@ -31,6 +35,7 @@ namespace DigitalScores.Controllers
         {
             try
             {
+
                 KategorijaDbManager.Current.Insert(kategorija);
 
                 return RedirectToAction("Index");
@@ -44,6 +49,8 @@ namespace DigitalScores.Controllers
         // GET: Kategorija/Edit/5
         public ActionResult Edit(int id)
         {
+            ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
+            ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
             return View("KategorijaEdit", KategorijaDbManager.Current.GetSingle(id));
         }
 

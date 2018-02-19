@@ -9,18 +9,24 @@ namespace DigitalScores.Controllers
         // GET: Hala
         public ActionResult Index()
         {
+            ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
+            ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
             return View("HalaListing", HalaDbManager.Current.GetHale());
         }
 
         // GET: Hala/Details/5
         public ActionResult Details(int id)
         {
+            ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
+            ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
             return View();
         }
 
         // GET: Hala/Create
         public ActionResult Create()
         {
+            ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
+            ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
             return View("HalaEntry");
         }
 
@@ -43,6 +49,9 @@ namespace DigitalScores.Controllers
         // GET: Hala/Edit/5
         public ActionResult Edit(int id)
         {
+
+            ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
+            ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
             return View("HalaEdit", HalaDbManager.Current.GetSingle(id));
         }
 

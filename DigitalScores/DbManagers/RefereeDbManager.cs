@@ -101,7 +101,7 @@ namespace DigitalScores.DbManagers
                         new SqlParameter() { ParameterName = "@prezime",Value = s.Prezime, SqlDbType = System.Data.SqlDbType.NVarChar},
                         new SqlParameter() { ParameterName = "@email",Value = s.Email, SqlDbType = System.Data.SqlDbType.NVarChar},
                         new SqlParameter() { ParameterName = "@telefon",Value = s.Telefon, SqlDbType = System.Data.SqlDbType.NVarChar},
-                        new SqlParameter() { ParameterName = "@grad ",Value = s.Telefon, SqlDbType = System.Data.SqlDbType.NVarChar}
+                        new SqlParameter() { ParameterName = "@grad ",Value = s.Grad, SqlDbType = System.Data.SqlDbType.NVarChar}
 
                     });
 

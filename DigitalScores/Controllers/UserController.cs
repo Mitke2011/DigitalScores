@@ -106,6 +106,8 @@ namespace DigitalScores.Controllers
         {
             try
             {
+                ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
+                ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
                 entry.UserPrivilege = SetPrivilege(Request.Form["privileges"]);
                 UsersDbManager.Current.Insert(entry);
                 return RedirectToAction("Listing");

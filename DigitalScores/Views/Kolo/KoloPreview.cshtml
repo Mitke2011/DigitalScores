@@ -5,12 +5,8 @@
     Layout = "~/Views/Shared/_DefaultAdminLayout.cshtml";
 }
 
+@Html.ActionLink("+ Dodaj Kolo", "Create", "Kolo", null, new { @class = "button-link-class" })
 
-<div style='float: right;'>
-    <button type="button" class="btn btn-info">
-        @Html.ActionLink("+ Dodaj Kolo", "Create", "Kolo", null, new { @class = "button-link-class" })
-    </button>
-</div>
 <h3>Spisak Kola</h3>
         <table class="table">
             <tr>

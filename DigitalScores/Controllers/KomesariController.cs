@@ -9,7 +9,8 @@ namespace DigitalScores.Controllers
         // GET: Komesari
         public ActionResult Index()
         {
-
+            ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
+            ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
             return View("KomesariListing", KomesariDbManager.Current.GetAllKomesari());
         }
 
@@ -22,6 +23,8 @@ namespace DigitalScores.Controllers
         // GET: Komesari/Create
         public ActionResult Create()
         {
+            ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
+            ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
             return View("KomesariEntry");
         }
 
@@ -52,7 +55,8 @@ namespace DigitalScores.Controllers
         // GET: Komesari/Edit/5
         public ActionResult Edit(int id)
         {
-     
+            ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
+            ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
             return View("EditKomesara", KomesariDbManager.Current.GetSingle(id));
         }
 
@@ -67,6 +71,7 @@ namespace DigitalScores.Controllers
                 ek.Ime = komesar.Ime;
                 ek.Prezime = komesar.Prezime;
                 ek.Email = komesar.Email;
+                ek.Telefon = komesar.Telefon;
                 ek.LigaId = komesar.LigaId;
 
                 KomesariDbManager.Current.Update(ek);

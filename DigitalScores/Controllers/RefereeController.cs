@@ -9,6 +9,8 @@ namespace DigitalScores.Controllers
         // GET: Referee
         public ActionResult Index()
         {
+            ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
+            ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
             return View("RefereeListing", RefereeDbManager.Current.GetAllReferee());
         }
 
@@ -21,6 +23,8 @@ namespace DigitalScores.Controllers
         // GET: Referee/Create
         public ActionResult Create()
         {
+            ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
+            ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
             return View("Referees");
         }
 
@@ -33,7 +37,7 @@ namespace DigitalScores.Controllers
                 Sudija s = referee;
                 // Implement verification if the Referee already exists in the system
                 RefereeDbManager.Current.Insert(s);
-                return RedirectToAction("Create");
+                return RedirectToAction("Index");
             }
             catch
             {
@@ -44,6 +48,8 @@ namespace DigitalScores.Controllers
         // GET: Referee/Edit/5
         public ActionResult Edit(int id)
         {
+            ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
+            ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
             return View("RefereeEdit", RefereeDbManager.Current.GetSingle(id));
         }
 
