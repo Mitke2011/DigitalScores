@@ -106,6 +106,7 @@ namespace DigitalScores.Controllers
         {
             ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
             ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
+           
 
             return View("LigeEdit", LigaDbManager.Current.GetSingle(id));
         }

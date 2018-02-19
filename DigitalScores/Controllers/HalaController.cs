@@ -61,9 +61,13 @@ namespace DigitalScores.Controllers
         {
             try
             {
-                Hala hala = (Hala)HalaDbManager.Current.GetSingle(id);
-                hala.Naziv = entry.Naziv;
-                hala.Grad = entry.Grad;
+                Hala hala = new Hala(id)
+                {
+                    Naziv = entry.Naziv,
+                    Grad = entry.Grad
+                    
+                };
+               
                 HalaDbManager.Current.Update(hala);
 
                 return RedirectToAction("Index");

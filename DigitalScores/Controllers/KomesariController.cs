@@ -1,6 +1,9 @@
 ﻿using System.Web.Mvc;
 using DigitalScores.Models;
 using DigitalScores.DbManagers;
+using System.Collections.Generic;
+using System.Linq;
+using System;
 
 namespace DigitalScores.Controllers
 {
@@ -55,26 +58,63 @@ namespace DigitalScores.Controllers
         // GET: Komesari/Edit/5
         public ActionResult Edit(int id)
         {
+
+
+
             ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
             ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
-            return View("EditKomesara", KomesariDbManager.Current.GetSingle(id));
+            ViewBag.Lige = LigaDbManager.Current.GetLeagues();
+            Komesari k = (Komesari)KomesariDbManager.Current.GetSingle(id);
+            SetSelectedLeague(k.Liga);
+            return View("EditKomesara", k);
+        }
+
+
+        private void SetSelectedLeague(Liga liga)
+        {
+            List<Liga> values = new List<Liga>();
+
+            foreach (var item in LigaDbManager.Current.GetLeagues())
+            {
+                values.Add((Liga)item);
+            }
+
+            IEnumerable<SelectListItem> items =
+
+                from value in values
+                select new SelectListItem
+
+                {
+
+                    Text = value.Naziv,
+
+                    Value = value.Id.ToString(),
+
+                    Selected = value.Id == liga.Id,
+
+                };
+            ViewBag.KomesarLig = items;
+
         }
 
         // POST: Komesari/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Komesari komesar)
+        public ActionResult Edit(int id, FormCollection collection)
         {
             try
             {
-                Komesari ek = (Komesari)KomesariDbManager.Current.GetSingle(id);
+                Komesari k = new Komesari(id)
+                {
+                    Ime = collection["ime"],
+                    Prezime = collection["prezime"],
+                    Email = collection["email"],
+                    Telefon = collection["telefon"],
+                    Liga = (Liga)LigaDbManager.Current.GetSingle(int.Parse(collection["ligakomesar"]))
 
-                ek.Ime = komesar.Ime;
-                ek.Prezime = komesar.Prezime;
-                ek.Email = komesar.Email;
-                ek.Telefon = komesar.Telefon;
-                ek.LigaId = komesar.LigaId;
 
-                KomesariDbManager.Current.Update(ek);
+                };
+
+                KomesariDbManager.Current.Update(k);
 
                 return RedirectToAction("Index");
             }

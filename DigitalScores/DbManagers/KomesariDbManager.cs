@@ -69,7 +69,7 @@ namespace DigitalScores.DbManagers
                                 Prezime = reader.GetString(reader.GetOrdinal("prezime")),
                                 Email = reader.GetString(reader.GetOrdinal("email")),
                                 Telefon = reader.GetString(reader.GetOrdinal("telefon")),
-                                Liga = (Liga)KomesariDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Liga_Id")))
+                                Liga = (Liga)LigaDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Liga_Id")))
                             };
                         }
                     }
@@ -102,7 +102,7 @@ namespace DigitalScores.DbManagers
                         new SqlParameter() { ParameterName = "@prezime",Value = k.Prezime, SqlDbType = System.Data.SqlDbType.NVarChar},
                         new SqlParameter() { ParameterName = "@email",Value = k.Email,SqlDbType = System.Data.SqlDbType.NVarChar},
                         new SqlParameter() { ParameterName = "@telefon",Value = k.Telefon, SqlDbType = System.Data.SqlDbType.NVarChar},
-                        new SqlParameter() { ParameterName = "@liga_Id",Value = k.LigaId, SqlDbType = System.Data.SqlDbType.NVarChar}
+                        new SqlParameter() { ParameterName = "@liga_Id",Value = k.Liga.Id, SqlDbType = System.Data.SqlDbType.NVarChar}
                     });
 
                     command.ExecuteNonQuery();

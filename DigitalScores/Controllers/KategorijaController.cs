@@ -60,10 +60,13 @@ namespace DigitalScores.Controllers
         {
             try
             {
-                Kategorija h = (Kategorija)KategorijaDbManager.Current.GetSingle(id);
-                h.Naziv = entry.Naziv;
+                Kategorija k = new Kategorija(id)
+                {
+                    Naziv = entry.Naziv
+                };
+            
 
-                KategorijaDbManager.Current.Update(h);
+                KategorijaDbManager.Current.Update(k);
                 return RedirectToAction("Index");
             }
             catch

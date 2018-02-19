@@ -59,12 +59,14 @@ namespace DigitalScores.Controllers
         {
             try
             {
-                Sudija sudija = (Sudija)RefereeDbManager.Current.GetSingle(id);
-                sudija.Ime = entry.Ime;
-                sudija.Prezime = entry.Prezime;
-                sudija.Email = entry.Email;
-                sudija.Telefon = entry.Telefon;
-                sudija.Grad = entry.Grad;
+                Sudija sudija = new Sudija(id)
+                {
+                    Ime = entry.Ime,
+                    Prezime = entry.Prezime,
+                    Email = entry.Email,
+                    Telefon = entry.Telefon,
+                    Grad = entry.Grad
+                };
 
                 RefereeDbManager.Current.Update(sudija);
 
