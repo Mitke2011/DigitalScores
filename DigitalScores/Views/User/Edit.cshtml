@@ -12,7 +12,7 @@
         </i>  <span class="text">Dobrodošli @ViewBag.AdminIme @ViewBag.AdminPrezime</span><b class="caret"></b>
     </a>
 }
-<h2>Izmena podataka: @Model.Ime @Model.Prezime @Model.Id</h2>
+<h2>Izmena podataka za korisnika: @Model.Ime @Model.Prezime</h2>
 
 <body>
     <div class="container-fluid">
@@ -48,7 +48,7 @@
                                 <div class="control-group">
                                     @Html.LabelFor(model => model.UserPrivilege, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="controls">
-                                        @Html.DropDownList("privileges", new SelectList(new List<string>() { "Administrator", "Delegat" }), "Privilegije")
+                                        @Html.DropDownList("privileges", new SelectList(ViewBag.SelectedPrivilege, "Value","Text",Model.UserPrivilege),null,null)
                                         @Html.ValidationMessageFor(model => model.UserPrivilege, "", new { @class = "text-danger" })
                                     </div>
                                 </div>

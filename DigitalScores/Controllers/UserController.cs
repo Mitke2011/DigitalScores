@@ -3,6 +3,7 @@ using DigitalScores.Models;
 using DigitalScores.DbManagers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DigitalScores.Controllers
 {
@@ -40,13 +41,18 @@ namespace DigitalScores.Controllers
             if (u != null)
             {
                 Session["currentUser"] = u;
-                if (u.UserPrivilege == Privilege.Admin || u.UserPrivilege == Privilege.SuperAdmin)
+                
+                switch (u.UserPrivilege)
                 {
-                    return RedirectToAction("Index", "Admin");
-                }
-                else
-                {
-                    return RedirectToAction("Index", "Delegates");
+                    case Privilege.SuperAdmin:                        
+                    case Privilege.Admin:
+                        return RedirectToAction("Index", "Admin");
+                    case Privilege.Delegate:
+                        return RedirectToAction("Index", "Delegates");
+                    case Privilege.Invalid:
+                        return RedirectToAction("Logoff");
+                    default:
+                        break;
                 }
 
             }
@@ -70,7 +76,7 @@ namespace DigitalScores.Controllers
         }
 
         // POST: User/Create
-        [HttpPost]
+        //[HttpPost]
         //public ActionResult Create(FormCollection collection)
         //{
         //    try
@@ -95,6 +101,7 @@ namespace DigitalScores.Controllers
         //    }
         //}
 
+        [HttpPost]
         public ActionResult Create(Users entry)
         {
             try
@@ -112,7 +119,7 @@ namespace DigitalScores.Controllers
         {
             switch (selection)
             {
-                case "Administrator":
+                case "Admin":
                     return Privilege.Admin;
                 case "Delegat":
                     return Privilege.Delegate;
@@ -126,8 +133,38 @@ namespace DigitalScores.Controllers
         {
             ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
             ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
-             Users u = UsersDbManager.Current.GetSingle(id) as Users;
+            Users u = UsersDbManager.Current.GetSingle(id) as Users;
+            SetUserPrivilegeForEdit(u.UserPrivilege);
             return View(u);
+        }
+
+        private void SetUserPrivilegeForEdit(Privilege selectedPrivilege)
+        {
+
+            IEnumerable<Privilege> values =
+
+                              Enum.GetValues(typeof(Privilege))
+
+                              .Cast<Privilege>();
+
+            IEnumerable<SelectListItem> items =
+
+                from value in values
+                where value != Privilege.SuperAdmin
+                select new SelectListItem
+
+                {
+
+                    Text = value.ToString(),
+
+                    Value = value.ToString(),
+
+                    Selected = value == selectedPrivilege,
+
+                };
+
+            ViewBag.SelectedPrivilege = items;
+
         }
 
         // POST: User/Edit/5
@@ -136,7 +173,8 @@ namespace DigitalScores.Controllers
         {
             try
             {
-                Users u = new Users(int.Parse(collection["id"])) {
+                Users u = new Users(int.Parse(collection["id"]))
+                {
                     Username = collection["username"],
                     Password = collection["password"],
                     Ime = collection["ime"],
@@ -154,7 +192,7 @@ namespace DigitalScores.Controllers
             {
                 throw e;
             }
-            
+
         }
 
         // GET: User/Delete/5
