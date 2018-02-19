@@ -9,13 +9,16 @@
     {
     <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle">
         <i class="icon icon-user">
-        </i>  <span class="text"> @ViewBag.AdminIme @ViewBag.AdminPrezime</span><b class="caret"></b>
+        </i>  <span class="text">Dobrodošli @ViewBag.AdminIme @ViewBag.AdminPrezime</span><b class="caret"></b>
     </a>
 }
 
-@Html.ActionLink("+ Dodaj novog korisnika", "Create", null, new { @class = "button-link-class" })
+    <div style='float: right;'>
+        <button type="button" class="btn btn-info">
+            @Html.ActionLink("+ Dodaj Novog Korisnika", "Create", "Hala", null, new { @class = "button-link-class" })
+        </button>
+    </div>
 <h3>Korisnici</h3>
-
     <table class="table">
         <tr>
             <th>
@@ -79,6 +82,12 @@
                 {
                     <td>
                         @Html.Label("Delegat")
+                    </td>
+                }
+                @if (item.UserPrivilege == DigitalScores.Models.Privilege.Invalid)
+                {
+                    <td>
+                        @Html.Label("Neaktivan")
                     </td>
                 }
                 <td>
