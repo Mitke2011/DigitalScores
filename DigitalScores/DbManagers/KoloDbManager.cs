@@ -196,5 +196,35 @@ namespace DigitalScores.DbManagers
 
             return listaKola;
         }
+
+        public void SetActiveRound(int koloId)
+        {
+            string sql = @"update Kolo set tekuce = 1
+                            where id = @koloId";
+
+            string sqlResetOthers = @"update Kolo set tekuce = 0
+                                      where id !=@koloId";
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+
+                using (command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.Add(new SqlParameter() { ParameterName = "@koloId", Value = koloId, DbType = DbType.Int32 });
+
+                    try
+                    {
+                        command.ExecuteNonQuery();
+
+                        command.CommandText = sqlResetOthers;
+                        command.ExecuteNonQuery();
+                    }
+                    catch (SqlException se)
+                    {
+                        throw se;
+                    }
+                }
+            }
+        }
     }
 }
