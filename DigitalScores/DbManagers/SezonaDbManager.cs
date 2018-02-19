@@ -11,22 +11,23 @@ namespace DigitalScores.DbManagers
     {
         static SezonaDbManager instance;
 
-        public static SezonaDbManager Current {
+        public static SezonaDbManager Current
+        {
 
             get
             {
-                if (instance==null)
+                if (instance == null)
                 {
                     instance = new SezonaDbManager();
                 }
                 return instance;
             }
         }
-        public SezonaDbManager():base()
+        public SezonaDbManager() : base()
         {
 
         }
-        public SezonaDbManager(string connectionString):base(connectionString)
+        public SezonaDbManager(string connectionString) : base(connectionString)
         {
 
         }
@@ -42,7 +43,28 @@ namespace DigitalScores.DbManagers
 
         public override List<object> GetAll()
         {
-            throw new NotImplementedException();
+            string sql = "select * from Sezone";
+            List<object> result = new List<object>();
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+                using (command = new SqlCommand(sql, connection))
+                {                    
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        result.Add(new Sezona(reader.GetInt32(reader.GetOrdinal("id")))
+                        {
+                            Naziv = reader.GetString(reader.GetOrdinal("Naziv")),
+                            Liga = (Liga)LigaDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Liga_Id")))
+                        });
+                    }
+                }
+
+            }
+
+            return result;
         }
 
         public override object GetSingle(int id)
@@ -74,12 +96,68 @@ namespace DigitalScores.DbManagers
 
         public override void Insert(object carrier)
         {
-            throw new NotImplementedException();
+            Sezona s = carrier as Sezona;
+            string sql = @"insert into sezone (Naziv, Liga_Id) 
+                                        values (@naziv,@ligaId)";
+
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+
+                using (command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.AddRange(
+                        new SqlParameter[]
+                        {                            
+                            new SqlParameter() { ParameterName = "@naziv", Value = s.Naziv, DbType = DbType.Int32 },
+                            new SqlParameter() { ParameterName = "@ligaId", Value = s.Liga.Id, DbType = DbType.Int32 }
+                        });
+
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                    catch (SqlException se)
+                    {
+                        throw se;
+                    }
+                }
+            }
         }
 
         public override void Update(object carrier)
         {
-            throw new NotImplementedException();
+            Sezona s = carrier as Sezona;
+            string sql = @"update sezone set 
+                           Naziv = @naziv,
+                            Liga_Id = @ligaId
+                            where id = @Id";
+
+
+            using (connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
+
+                using (command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.AddRange(
+                        new SqlParameter[]
+                        {
+                            new SqlParameter() { ParameterName = "@Id", Value = s.Id, DbType = DbType.Int32 } ,
+                            new SqlParameter() { ParameterName = "@naziv", Value = s.Naziv, DbType = DbType.Int32 },
+                            new SqlParameter() { ParameterName = "@ligaId", Value = s.Liga.Id, DbType = DbType.Int32 }
+                        });
+
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                    catch (SqlException se)
+                    {
+                        throw se;
+                    }
+                }
+            }
         }
 
         public List<Sezona> GetSeasonByLeague(int ligaId)
@@ -105,10 +183,7 @@ namespace DigitalScores.DbManagers
 
                             Sezona s = new Sezona(reader.GetInt32(0))
                             {
-                                Naziv = reader.GetString(reader.GetOrdinal("Naziv")),
-                                //KoloUtakmice = reader.GetInt32(reader.GetOrdinal("Kolo")),
-                                //KlubDomacin = reader.GetString(reader.GetOrdinal("KlubDomacin")),
-                                //KlubGost = reader.GetString(reader.GetOrdinal("KlubGost")),
+                                Naziv = reader.GetString(reader.GetOrdinal("Naziv"))
                             };
                             listaSezona.Add(s);
                         }
@@ -124,44 +199,34 @@ namespace DigitalScores.DbManagers
             return listaSezona;
         }
 
-        public List<Sezona> GetSeasons()
+        public void SetActiveSeason(int seasonId)
         {
+            string sql = @"update sezone set tekuca = 1
+                            where id = @seasonId";
 
-            List<Sezona> listaSezona = new List<Sezona>();
-            string sql = @"select * from Sezone";
-
+            string sqlResetOthers = @"update sezone set tekuca = 0
+                                      where id !=@seasonId";
             using (connection = new SqlConnection(this.ConnectionString))
             {
                 connection.Open();
 
                 using (command = new SqlCommand(sql, connection))
                 {
+                    command.Parameters.Add(new SqlParameter() { ParameterName = "@seasonId", Value = seasonId, DbType = DbType.Int32 });
+
                     try
                     {
-                        SqlDataReader reader = command.ExecuteReader();
-                        while (reader.Read())
-                        {
+                        command.ExecuteNonQuery();
 
-
-                            Sezona s = new Sezona(reader.GetInt32(0))
-                            {
-                                Naziv = reader.GetString(reader.GetOrdinal("Naziv")),
-                                //KoloUtakmice = reader.GetInt32(reader.GetOrdinal("Kolo")),
-                                //KlubDomacin = reader.GetString(reader.GetOrdinal("KlubDomacin")),
-                                //KlubGost = reader.GetString(reader.GetOrdinal("KlubGost")),
-                            };
-                            listaSezona.Add(s);
-                        }
+                        command.CommandText = sqlResetOthers;
+                        command.ExecuteNonQuery();
                     }
-                    catch (Exception ee)
+                    catch (SqlException se)
                     {
-
-                        throw ee;
+                        throw se;
                     }
-
                 }
             }
-            return listaSezona;
         }
     }
 }

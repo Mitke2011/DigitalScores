@@ -1,0 +1,121 @@
+﻿@model DigitalScores.Models.Utakmice
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_DefaultAdminLayout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Utakmice</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.koloID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.koloID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.klubDomacinId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.klubDomacinId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.klubGostId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.klubGostId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sudija1Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sudija1Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sudija2Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sudija2Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.delegatId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.delegatId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ligaId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ligaId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.halaId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.halaId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sezonaId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sezonaId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NapomenaDelegata)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NapomenaDelegata)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KlDomacin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KlDomacin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KlGost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KlGost)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -396,7 +396,6 @@
     <Content Include="Views\Klub\Edit.cshtml" />
     <Content Include="Views\Klub\Delete.cshtml" />
     <Content Include="Views\Lige\SelectLeague.cshtml" />
-    <Content Include="Views\Sezona\SezonaListing.cshtml" />
     <Content Include="Views\Komesari\EditKomesara.cshtml" />
     <Content Include="Views\Hala\HalaEdit.cshtml" />
     <Content Include="Views\Referee\RefereeEdit.cshtml" />
@@ -408,6 +407,13 @@
     <Content Include="Views\Kategorija\KategorijaEdit.cshtml" />
     <Content Include="Views\Lige\LigeEdit.cshtml" />
     <Content Include="Views\Lige\LigeEntry.cshtml" />
+    <Content Include="Views\Utakmica\Edit.cshtml" />
+    <Content Include="Views\Utakmica\Delete.cshtml" />
+    <Content Include="Views\Sezona\Index.cshtml" />
+    <Content Include="Views\Sezona\Details.cshtml" />
+    <Content Include="Views\Sezona\Create.cshtml" />
+    <Content Include="Views\Sezona\Edit.cshtml" />
+    <Content Include="Views\Sezona\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<DigitalScores.Models.Sezona>
 
 @{
-    ViewBag.Title = "SezonaListing";
-    Layout = "~/Views/Shared/_DefaultDelegateLayout.cshtml";
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_DefaultAdminLayout.cshtml";
 }
 
-<h2>SezonaListing</h2>
+<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -15,6 +15,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Naziv)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ligaId)
+        </th>
         <th></th>
     </tr>
 
@@ -22,6 +25,9 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Naziv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ligaId)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
