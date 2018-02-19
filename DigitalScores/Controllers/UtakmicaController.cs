@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using DigitalScores.DbManagers;
 using DigitalScores.Models;
+using System;
 
 namespace DigitalScores.Controllers
 {
@@ -69,14 +70,15 @@ namespace DigitalScores.Controllers
         {
             try
             {
+                
                 utakmica.ligaId = ligaId;
                 UtakmicaDbManager.Current.Insert(utakmica);
                 return RedirectToAction("ShowGamesAllRounds", "Utakmica", new { ligaId = ligaId });
 
             }
-            catch
+            catch(Exception e)
             {
-                return View();
+                throw e;
             }
         }
 
@@ -96,9 +98,9 @@ namespace DigitalScores.Controllers
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                throw e;
             }
         }
 
@@ -118,7 +120,7 @@ namespace DigitalScores.Controllers
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
                 return View();
             }

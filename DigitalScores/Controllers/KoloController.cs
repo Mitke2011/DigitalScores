@@ -37,9 +37,9 @@ namespace DigitalScores.Controllers
                 KoloDbManager.Current.Insert(kolo);
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                throw e;
             }
         }
 
@@ -59,9 +59,9 @@ namespace DigitalScores.Controllers
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                throw e;
             }
         }
 
@@ -81,9 +81,9 @@ namespace DigitalScores.Controllers
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                throw e;
             }
         }
     }

@@ -33,7 +33,7 @@
                                     <div class="controls">
 
                                         @Html.DropDownListFor(m => m.sezonaId,
-                                               new SelectList(SezonaDbManager.Current.GetSeasons(), "Id", "Naziv"),
+                                               new SelectList(SezonaDbManager.Current.GetAll(), "Id", "Naziv"),
                                                 "Izaberi Sezonu")
                                         @Html.ValidationMessageFor(m => m.sezonaId)
                                     </div>
