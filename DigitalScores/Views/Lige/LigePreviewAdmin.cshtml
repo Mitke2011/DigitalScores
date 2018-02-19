@@ -7,16 +7,19 @@
 
 
 
-@*@<h2>Pregled liga -  @Model.First().LigaKategorija.Naziv</h2*@
+@section welcome
+    {
+    <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle">
+        <i class="icon icon-user">
+        </i>  <span class="text"> @ViewBag.AdminIme @ViewBag.AdminPrezime</span><b class="caret"></b>
+    </a>
+}
 
 @if (Model != null && Model.Count != 0)
 {
-<div style='float: right;'>
-        <button type="button" class="btn btn-info">
-            @Html.ActionLink("+ Dodaj Ligu", "Create", "Lige", new { katId = ViewBag.katId }, new { @class = "button-link-class" })
-        </button>
-    </div>
-    <h3>Lige</h3>
+   @Html.ActionLink("+ Dodaj Ligu", "Create", "Lige", new { katId = ViewBag.katId }, new { @class = "button-link-class" })
+
+    <h3>Lige -  @Model.First().LigaKategorija.Naziv</h3>
         <table class="table">
 
             <tr>

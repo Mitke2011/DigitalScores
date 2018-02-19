@@ -8,7 +8,7 @@
     {
     <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle">
         <i class="icon icon-user">
-        </i>  <span class="text">Dobrodošli @ViewBag.AdminIme @ViewBag.AdminPrezime</span><b class="caret"></b>
+        </i>  <span class="text"> @ViewBag.AdminIme @ViewBag.AdminPrezime</span><b class="caret"></b>
     </a>
 }
 <h2>Novi korisnik</h2>
@@ -47,7 +47,7 @@
                                 <div class="control-group">
                                     @Html.LabelFor(model => model.UserPrivilege, htmlAttributes : new { @class = "control-label col-md-2" } )
                                     <div class="controls">
-                                        @Html.DropDownList("privileges",new SelectList(new List<string>() {"Administrator","Delegat"}),"Privilegije")
+                                        @Html.DropDownList("privileges",new SelectList(new List<string>() {"Administrator","Delegat"}),"Izaberi nivo privilegije")
                                         @Html.ValidationMessageFor(model => model.UserPrivilege, "", new { @class = "text-danger" })
                                     </div>
                                 </div>

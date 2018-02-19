@@ -4,7 +4,13 @@
     ViewBag.Title = "SelectLeague";
     Layout = "~/Views/Shared/_DefaultAdminLayout.cshtml";
 }
-
+@section welcome
+    {
+    <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle">
+        <i class="icon icon-user">
+        </i>  <span class="text"> @ViewBag.AdminIme @ViewBag.AdminPrezime</span><b class="caret"></b>
+    </a>
+}
 <h2>Pronadjite ligu i izaberite je</h2>
 @*<table>
     <tr>

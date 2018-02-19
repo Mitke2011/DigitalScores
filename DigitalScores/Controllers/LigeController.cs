@@ -12,6 +12,8 @@ namespace DigitalScores.Controllers
         // GET: Lige       
         public ActionResult Index()
         {
+            ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
+            ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
             Users current = (Users)Session["currentUser"];
             if (current != null)
             {
@@ -26,6 +28,8 @@ namespace DigitalScores.Controllers
         [HttpGet]
         public ActionResult SelectLeague(int klubId)
         {
+            ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
+            ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
             ViewBag.KlubId = klubId;
             return View();
         }
@@ -43,6 +47,8 @@ namespace DigitalScores.Controllers
 
         public ActionResult LeaguesForCategory(int katId)
         {
+            ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
+            ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
             Users current = (Users)Session["currentUser"];
             if (current != null)
             {
@@ -73,6 +79,8 @@ namespace DigitalScores.Controllers
         // GET: Lige/Create
         public ActionResult Create(int katId)
         {
+            ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
+            ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
             ViewBag.katId = katId;
             return View("LigeEntry");
         }
@@ -96,6 +104,8 @@ namespace DigitalScores.Controllers
         // GET: Lige/Edit/5
         public ActionResult Edit(int id)
         {
+            ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
+            ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
 
             return View("LigeEdit", LigaDbManager.Current.GetSingle(id));
         }

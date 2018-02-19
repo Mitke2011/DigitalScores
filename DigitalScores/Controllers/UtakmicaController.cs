@@ -13,6 +13,7 @@ namespace DigitalScores.Controllers
         }
         public ActionResult ShowGamesActiveRound(int ligaId)
         {
+           
             Users current = (Users)Session["currentUser"];
             if (current != null)
             {
@@ -28,6 +29,8 @@ namespace DigitalScores.Controllers
 
         public ActionResult ShowGamesAllRounds(int ligaId)
         {
+            ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
+            ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
             Users current = (Users)Session["currentUser"];
             if (current != null)
             {
@@ -51,6 +54,8 @@ namespace DigitalScores.Controllers
         // GET: Utakmica/Create
         public ActionResult Create(int ligaId)
         {
+            ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
+            ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
             Users current = (Users)Session["currentUser"];
             if (current != null)
             {

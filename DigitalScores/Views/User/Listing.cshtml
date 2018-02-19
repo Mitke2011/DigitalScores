@@ -5,14 +5,17 @@
     Layout = "~/Views/Shared/_DefaultAdminLayout.cshtml";
 }
 
+@section welcome
+    {
+    <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle">
+        <i class="icon icon-user">
+        </i>  <span class="text"> @ViewBag.AdminIme @ViewBag.AdminPrezime</span><b class="caret"></b>
+    </a>
+}
 
-
-    <div style='float: right;'>
-        <button type="button" class="btn btn-info">
-            @Html.ActionLink("+ Dodaj Novog Korisnika", "Create", "Hala", null, new { @class = "button-link-class" })
-        </button>
-    </div>
+@Html.ActionLink("+ Dodaj novog korisnika", "Create", null, new { @class = "button-link-class" })
 <h3>Korisnici</h3>
+
     <table class="table">
         <tr>
             <th>

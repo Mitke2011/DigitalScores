@@ -1,18 +1,24 @@
 ﻿@model List<DigitalScores.Models.Utakmice>
+@using DigitalScores.DbManagers;
 
 @{
     ViewBag.Title = "GamePreviewAdmin";
     Layout = "~/Views/Shared/_DefaultAdminLayout.cshtml";
 }
-
+@section welcome
+    {
+    <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle">
+        <i class="icon icon-user">
+        </i>  <span class="text"> @ViewBag.AdminIme @ViewBag.AdminPrezime</span><b class="caret"></b>
+    </a>
+}
 
 @if (Model != null && Model.Count != 0)
 {
-    <div style='float: right;'>
-        <button type="button" class="btn btn-info">
+
+
             @Html.ActionLink("+ Dodaj Utakmicu", "Create", "Utakmica", new { ligaId = ViewBag.LigaId }, new { @class = "button-link-class" })
-        </button>
-    </div>
+
         <h3>Utakmice</h3>
  
 
@@ -57,10 +63,9 @@
         }
         else {
         <h2>Nema unesenih utakmica za izabranu ligu</h2>
-        <button type="button" class="btn btn-info">
-            @Html.ActionLink("+ Dodaj Utakmicu", "Create", "Utakmica", new { ligaId = ViewBag.LigaId }, new { @class = "button-link-class" })
-        </button>
-        }
+        @Html.ActionLink("+ Dodaj Utakmicu", "Create", "Utakmica", new { ligaId = ViewBag.LigaId }, new { @class = "button-link-class" })
+
+}
         @*@section welcome
             {
                 <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle">
