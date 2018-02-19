@@ -14,7 +14,7 @@
         </i>  <span class="text"> @ViewBag.AdminIme @ViewBag.AdminPrezime</span><b class="caret"></b>
     </a>
 }
-
+<h2>Upravljanje Ligama i utakmicama</h2>
 @if (Model != null && Model.Count != 0)
 {
    @Html.ActionLink("+ Dodaj Ligu", "Create", "Lige", new { katId = ViewBag.katId }, new { @class = "button-link-class" })
