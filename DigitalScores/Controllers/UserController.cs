@@ -227,5 +227,14 @@ namespace DigitalScores.Controllers
             Session["currentUser"] = null;
             return RedirectToAction("Index");
         }
+
+        private void LoginGuard()
+        {
+            Users current = Session["currentUser"] as Users;
+            if (current == null)
+            {
+                RedirectToAction("Logoff", "User");
+            }
+        }
     }
 }

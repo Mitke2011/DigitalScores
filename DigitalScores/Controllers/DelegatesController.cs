@@ -87,5 +87,14 @@ namespace DigitalScores.Controllers
                 return View();
             }
         }
+
+        private void LoginGuard()
+        {
+            Users current = Session["currentUser"] as Users;
+            if (current == null)
+            {
+                RedirectToAction("Logoff", "User");
+            }
+        }
     }
 }
