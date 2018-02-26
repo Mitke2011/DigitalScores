@@ -124,8 +124,9 @@ namespace DigitalScores.DbManagers
                         {
                             Naziv = reader.GetString(reader.GetOrdinal("Naziv")),
                             LigaKategorija = (Kategorija)KategorijaDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Kategorija")))
-                            
-                        };
+
+
+                       };
                     }
                 }
 
