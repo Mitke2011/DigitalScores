@@ -10,134 +10,218 @@ namespace DigitalScores.Controllers
         // GET: Utakmice
         public ActionResult Index()
         {
-            return View();
+            if (LoginGuard()!=null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Logoff", "User");
+            }
+
         }
         public ActionResult ShowGamesActiveRound(int ligaId)
         {
-           
-            Users current = (Users)Session["currentUser"];
-            if (current != null)
-            {
+            Users current  = LoginGuard();
+            if (current!=null)
+            {             
                 if (current.UserPrivilege == Privilege.Delegate)
                 {
                     ViewBag.DelegatIme = current.Ime;
                     ViewBag.DelegatPrezime = current.Prezime;
                     return View("GamePreview", UtakmicaDbManager.Current.GetGamesByLeague(ligaId));
                 }
+                else
+                {
+                    // You are not allowed to see the content of this page!
+                    return null;
+                }
             }
-            return View("logoff", "user");
+            else
+            {
+                return RedirectToAction("Logoff", "User");
+            }
+
+
         }
 
         public ActionResult ShowGamesAllRounds(int ligaId)
         {
-            ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
-            ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
-            Users current = (Users)Session["currentUser"];
-            if (current != null)
+            Users current = LoginGuard();
+            if (current!=null)
             {
+                ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
+                ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;                
+
                 if (current.UserPrivilege == Privilege.Admin)
                 {
                     ViewBag.LigaId = ligaId;
                     ViewBag.AdminIme = current.Ime;
                     ViewBag.AdminPrezime = current.Prezime;
+
                     return View("GamePreviewAdmin", UtakmicaDbManager.Current.GetGamesByLeagueAdmin(ligaId));
                 }
+
+                // You are not allowed to see the content of this page!
+                return null;
             }
-            return View("logoff", "user");
+            else
+            {
+                return RedirectToAction("Logoff", "User");
+            }
         }
 
         // GET: Utakmica/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            Users current = LoginGuard();
+            if (current!=null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Logoff", "User");
+            }
         }
 
         // GET: Utakmica/Create
         public ActionResult Create(int ligaId)
         {
-            ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
-            ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
-            Users current = (Users)Session["currentUser"];
-            if (current != null)
+            Users current = LoginGuard();
+            if (current!=null)
             {
-                if (current.UserPrivilege == Privilege.Admin)
+                ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
+                ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
+                
+                if (current != null)
                 {
-                    ViewBag.LigaId = ligaId;
-                    return View("GameEntry");
+                    if (current.UserPrivilege == Privilege.Admin)
+                    {
+                        ViewBag.LigaId = ligaId;
+                        return View("GameEntry");
+                    }
                 }
+                // You are not allowed to see the content of this page!
+                return null;
             }
-            return View("logoff", "user");
+            else
+            {
+                return RedirectToAction("Logoff", "User");
+            }
         }
 
         // POST: Utakmica/Create
         [HttpPost]
         public ActionResult Create(Utakmice utakmica, int ligaId)
         {
-            try
+            Users current = LoginGuard();
+            if (current!=null)
             {
-                
-                utakmica.ligaId = ligaId;
-                UtakmicaDbManager.Current.Insert(utakmica);
-                return RedirectToAction("ShowGamesAllRounds", "Utakmica", new { ligaId = ligaId });
+                try
+                {
+                    utakmica.ligaId = ligaId;
+                    UtakmicaDbManager.Current.Insert(utakmica);
+                    return RedirectToAction("ShowGamesAllRounds", "Utakmica", new { ligaId = ligaId });
 
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
             }
-            catch(Exception e)
+            else
             {
-                throw e;
+                return RedirectToAction("Logoff", "User");
             }
         }
 
         // GET: Utakmica/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Users current = LoginGuard();
+            if (current!=null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Logoff", "User");
+            }
         }
 
         // POST: Utakmica/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            try
+            Users current = LoginGuard();
+            if (current!=null)
             {
-                // TODO: Add update logic here
+                try
+                {
+                    // TODO: Add update logic here
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
             }
-            catch (Exception e)
+            else
             {
-                throw e;
+                return RedirectToAction("Logoff", "User");
             }
         }
 
         // GET: Utakmica/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            Users current = LoginGuard();
+            if (current!=null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Logoff", "User");
+            }
         }
 
         // POST: Utakmica/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            try
+            Users current = LoginGuard();
+            if (current!=null)
             {
-                // TODO: Add delete logic here
+                try
+                {
+                    // TODO: Add delete logic here
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    return View();
+                }
             }
-            catch (Exception e)
+            else
             {
-                return View();
+                return RedirectToAction("Logoff", "User");
             }
         }
 
-        private void LoginGuard()
+        private Users LoginGuard()
         {
+            Users result = null;
             Users current = Session["currentUser"] as Users;
-            if (current == null)
+            if (current != null && current.UserPrivilege == Privilege.Invalid)
             {
-                RedirectToAction("Logoff", "User");
+                result = current;
             }
+
+            return result;
         }
     }
 }

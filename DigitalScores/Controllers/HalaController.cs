@@ -100,13 +100,16 @@ namespace DigitalScores.Controllers
             }
         }
 
-        private void LoginGuard()
+        private Users LoginGuard()
         {
+            Users result = null;
             Users current = Session["currentUser"] as Users;
-            if (current == null)
+            if (current != null && current.UserPrivilege == Privilege.Invalid)
             {
-                RedirectToAction("Logoff", "User");
+                result = current;
             }
+
+            return result;
         }
     }
 }

@@ -224,17 +224,21 @@ namespace DigitalScores.Controllers
         [HttpGet]
         public ActionResult Logoff()
         {
-            Session["currentUser"] = null;
+            Session.Clear();
+            Session.Abandon();
             return RedirectToAction("Index");
         }
 
-        private void LoginGuard()
+        private Users LoginGuard()
         {
+            Users result = null;
             Users current = Session["currentUser"] as Users;
-            if (current == null)
+            if (current != null && current.UserPrivilege == Privilege.Invalid)
             {
-                RedirectToAction("Logoff", "User");
+                result = current;
             }
+
+            return result;
         }
     }
 }
