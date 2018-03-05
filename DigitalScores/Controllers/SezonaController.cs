@@ -22,7 +22,7 @@ namespace DigitalScores.Controllers
         }
 
         // GET: Sezona/Create
-        public ActionResult Create()
+        public ActionResult Create(int ligaId=0, string nazivLige = "")
         {
             return View();
         }

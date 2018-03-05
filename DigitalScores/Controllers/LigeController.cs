@@ -31,14 +31,38 @@ namespace DigitalScores.Controllers
             ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
             ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
             ViewBag.KlubId = klubId;
-            return View();
+            return View("SelectLeague");
         }
 
-        public ActionResult SelectLeague(string nazivLige, string ligaCat, int klubId)
+        [HttpGet]
+        public ActionResult SelectLeagueSeason(int seasonId)
         {
-            ViewBag.KlubId = klubId;
+            ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
+            ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
+            ViewBag.SeasonId = seasonId;
+            return View("SelectLeague");
+        }
+        
+
+        public ActionResult SelectLeague(string nazivLige, string ligaCat, int? klubId=null,int? seasonId=null)
+        {
+            if (klubId!=null)
+            {
+                ViewBag.KlubId = klubId;
+            }
+            if (seasonId!=null)
+            {
+                ViewBag.SeasonId = seasonId;
+            }
+            
             return View(FilterLeagues(nazivLige, ligaCat));
         }
+
+        //public ActionResult SelectLeague(string nazivLige, string ligaCat, int seasonId)
+        //{
+        //    ViewBag.SeasonId = seasonId;
+        //    return View(FilterLeagues(nazivLige, ligaCat));
+        //}
 
         private List<Liga> FilterLeagues(string nazivLige, string kategorijaLige)
         {

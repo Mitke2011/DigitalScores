@@ -218,6 +218,7 @@
     <Compile Include="Controllers\SezonaController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UtakmicaController.cs" />
+    <Compile Include="DbManagers\RegionDbManager.cs" />
     <Compile Include="DbManagers\HalaDbManager.cs" />
     <Compile Include="DbManagers\KategorijaDbManager.cs" />
     <Compile Include="DbManagers\KoloDbManager.cs" />
@@ -237,6 +238,7 @@
     <Compile Include="Models\Kategorija.cs" />
     <Compile Include="Models\KluboviStats.cs" />
     <Compile Include="Models\Komesari.cs" />
+    <Compile Include="Models\Region.cs" />
     <Compile Include="Models\Rezultati.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Models\Hala.cs" />

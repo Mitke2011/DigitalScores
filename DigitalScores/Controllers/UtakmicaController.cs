@@ -29,7 +29,7 @@ namespace DigitalScores.Controllers
                 {
                     ViewBag.DelegatIme = current.Ime;
                     ViewBag.DelegatPrezime = current.Prezime;
-                    return View("GamePreview", UtakmicaDbManager.Current.GetGamesByLeague(ligaId));
+                    return View("GamePreview", UtakmicaDbManager.Current.GetGamesByLeagueDelegate(ligaId,current.Id));
                 }
                 else
                 {

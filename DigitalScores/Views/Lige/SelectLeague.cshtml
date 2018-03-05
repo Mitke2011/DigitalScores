@@ -13,101 +13,101 @@
 }
 <h2>Pronadjite ligu i izaberite je</h2>
 @*<table>
-    <tr>
-        <td>
-            @using (Html.BeginForm())
-            {
-                <p>
-                    <br />
-                    @Html.TextBox("ligaCat", "",
-                       new
-                       {
-                           @class = "form-control",
-                           @placeholder = "Kategorija:"
-                       })
-                    <br />
-                    @Html.TextBox("nazivLige", "", new
-               {
-                   @class = "form-control",
-                   @placeholder = "Liga:"
-               })
-
-                    <br />
-                    @Html.Hidden("klubId", (int)ViewBag.KlubId)
-                    <input type="submit" value="Filter" class="btn btn-default">
-                </p>
-            }
-        </td>
-        <td>
-            <table class="table">
-                <tr>
-
-                    <th>
-                        @Html.DisplayNameFor(model => model.Naziv)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.LigaKategorija)
-                    </th>
-                </tr>
-                @if (Model != null)
+        <tr>
+            <td>
+                @using (Html.BeginForm())
                 {
-                    foreach (var item in Model)
+                    <p>
+                        <br />
+                        @Html.TextBox("ligaCat", "",
+                           new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Kategorija:"
+                           })
+                        <br />
+                        @Html.TextBox("nazivLige", "", new
+                   {
+                       @class = "form-control",
+                       @placeholder = "Liga:"
+                   })
+
+                        <br />
+                        @Html.Hidden("klubId", (int)ViewBag.KlubId)
+                        <input type="submit" value="Filter" class="btn btn-default">
+                    </p>
+                }
+            </td>
+            <td>
+                <table class="table">
+                    <tr>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.Naziv)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.LigaKategorija)
+                        </th>
+                    </tr>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Naziv)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LigaKategorija.Naziv)
+                                </td>
+
+                                @if (ViewBag.KlubId == 0)
+                                {
+                                    <td>
+                                        @Html.ActionLink("Izaberi", "Create", "Klub", new { ligaId = item.Id, nazivLige = item.Naziv }, null)
+                                    </td>
+                                }
+                                @if (ViewBag.KlubId != 0)
+                                {
+                                    <td>
+                                        @Html.ActionLink("Izaberi", "Edit", "Klub", new { idKlub = ViewBag.KlubId, idLige = item.Id, nazivLige = item.Naziv }, null)
+                                    </td>
+
+                                }
+
+                            </tr>
+                        }
+                    }
+                    @if (Model == null)
                     {
                         <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Naziv)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.LigaKategorija.Naziv)
-                            </td>
-
-                            @if (ViewBag.KlubId == 0)
-                            {
-                                <td>
-                                    @Html.ActionLink("Izaberi", "Create", "Klub", new { ligaId = item.Id, nazivLige = item.Naziv }, null)
-                                </td>
-                            }
-                            @if (ViewBag.KlubId != 0)
-                            {
-                                <td>
-                                    @Html.ActionLink("Izaberi", "Edit", "Klub", new { idKlub = ViewBag.KlubId, idLige = item.Id, nazivLige = item.Naziv }, null)
-                                </td>
-
-                            }
-
+                            <td>Uneseni podaci nis validni.</td>
                         </tr>
                     }
-                }
-                @if (Model == null)
-                {
-                    <tr>
-                        <td>Uneseni podaci nis validni.</td>
-                    </tr>
-                }
 
-            </table>
-        </td>
-    </tr>
-</table>*@
+                </table>
+            </td>
+        </tr>
+    </table>*@
 
 
 @*<script type="text/javascript">
-    $(document).ready(function () {
-        if (!Modernizr.input.placeholder) {
-            $("input").each(function () {
-                if ($(this).val() == "" && $(this).attr("placeholder") != "") {
-                    $(this).val($(this).attr("placeholder"));
-                    $(this).focus(function () {
-                        if ($(this).val() == $(this).attr("placeholder")) $(this).val("");
-                    });
-                    $(this).blur(function () {
-                        if ($(this).val() == "") $(this).val($(this).attr("placeholder"));
-                    });
-                }
-            });
-        }
-    });
-</script>*@
+        $(document).ready(function () {
+            if (!Modernizr.input.placeholder) {
+                $("input").each(function () {
+                    if ($(this).val() == "" && $(this).attr("placeholder") != "") {
+                        $(this).val($(this).attr("placeholder"));
+                        $(this).focus(function () {
+                            if ($(this).val() == $(this).attr("placeholder")) $(this).val("");
+                        });
+                        $(this).blur(function () {
+                            if ($(this).val() == "") $(this).val($(this).attr("placeholder"));
+                        });
+                    }
+                });
+            }
+        });
+    </script>*@
 
 <body>
     <div class="container-fluid">
@@ -124,20 +124,29 @@
 
                             @using (Html.BeginForm("SelectLeague", "Lige", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                             {
-                            <div class="control-group">
-                                <div class="controls">
-                                    @Html.TextBox("ligaCat", "",  new { @class = "form-control", @placeholder = "Kategorija:"})
+                                <div class="control-group">
+                                    <div class="controls">
+                                        @Html.TextBox("ligaCat", "", new { @class = "form-control", @placeholder = "Kategorija:" })
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="control-group">
-                                <div class="controls">
-                                    @Html.TextBox("nazivLige", "", new { @class = "form-control", @placeholder = "Liga:"})
+                                <div class="control-group">
+                                    <div class="controls">
+                                        @Html.TextBox("nazivLige", "", new { @class = "form-control", @placeholder = "Liga:" })
+                                    </div>
                                 </div>
-                            </div>
-                            @Html.Hidden("klubId", (int)ViewBag.KlubId)
-                            <div class="form-actions">
-                                <input type="submit" value="Pronadji" class="btn btn btn-default" />
-                            </div>
+
+                                if (ViewBag.KlubId != null)
+                                {  
+                                    @Html.Hidden("klubId", (int)ViewBag.KlubId)
+                                }
+                                if (ViewBag.SeasonId != null)
+                                {
+                                    @Html.Hidden("seasonId", (int)ViewBag.SeasonId)
+                                }
+
+                                <div class="form-actions">
+                                    <input type="submit" value="Pronadji" class="btn btn btn-default" />
+                                </div>
                             }
                         </section>
                     </div>
@@ -147,7 +156,7 @@
                                 <tr>
 
                                     <th>
-                                        <label class = "control-label">Naziv Lige</label>
+                                        <label class="control-label">Naziv Lige</label>
                                     </th>
                                     <th>
                                         <label class="control-label">Naziv kategorije</label>
@@ -168,18 +177,38 @@
                                                 @Html.DisplayFor(modelItem => item.LigaKategorija.Naziv)
                                             </td>
 
-                                            @if (ViewBag.KlubId == 0)
+                                            @if (ViewBag.KlubId != null)
                                             {
-                                                <td>
-                                                    @Html.ActionLink("Izaberi", "Create", "Klub", new { ligaId = item.Id, nazivLige = item.Naziv }, null)
-                                                </td>
-                                            }
-                                            @if (ViewBag.KlubId != 0)
-                                            {
-                                                <td>
-                                                    @Html.ActionLink("Izaberi", "Edit", "Klub", new { idKlub = ViewBag.KlubId, idLige = item.Id, nazivLige = item.Naziv }, null)
-                                                </td>
+                                                if (ViewBag.KlubId == 0)
+                                                {
+                                                    <td>
+                                                        @Html.ActionLink("Izaberi", "Create", "Klub", new { ligaId = item.Id, nazivLige = item.Naziv }, null)
+                                                    </td>
+                                                }
+                                                if (ViewBag.KlubId != 0)
+                                                {
+                                                    <td>
+                                                        @Html.ActionLink("Izaberi", "Edit", "Klub", new { idKlub = ViewBag.KlubId, idLige = item.Id, nazivLige = item.Naziv }, null)
+                                                    </td>
 
+                                                }
+                                            }
+
+                                            @if (ViewBag.SeasonId != null)
+                                            {
+                                                if (ViewBag.SeasonId == 0)
+                                                {
+                                                    <td>
+                                                        @Html.ActionLink("Izaberi", "Create", "Sezona", new { ligaId = item.Id, nazivLige = item.Naziv }, null)
+                                                    </td>
+                                                }
+                                                if (ViewBag.SeasonId != 0)
+                                                {
+                                                    <td>
+                                                        @Html.ActionLink("Izaberi", "Edit", "Sezona", new { idSezona = ViewBag.SeasonId, idLige = item.Id, nazivLige = item.Naziv }, null)
+                                                    </td>
+
+                                                }
                                             }
 
                                         </tr>

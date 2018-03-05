@@ -54,13 +54,13 @@
                                     </div>
                                 </div>
 
-                                <div class="control-group">
+                                @*<div class="control-group">
                                     @Html.LabelFor(model => model.LicencaPDF, htmlAttributes: new { @class = "control-label" })
                                     <div class="controls">
                                         @Html.TextBoxFor(m => m.LicencaPDF, new { @class = "form-control" })
                                         @Html.ValidationMessageFor(m => m.LicencaPDF)
                                     </div>
-                                </div>
+                                </div>*@
 
                                 <div class="control-group">
                                     @Html.LabelFor(model => model.KlubSport.Naziv, htmlAttributes: new { @class = "control-label" })
@@ -76,7 +76,7 @@
                                     @Html.LabelFor(m => m.LigaKlub.Naziv, htmlAttributes: new { @class = "control-label" })
                                     <div class="controls">
                                         @Html.TextBoxFor(m => m.LigaKlub.Naziv, new { @class = "form-control" })
-                                        @Html.ActionLink("Promenite Ligu", "SelectLeague", "Lige", new { klubId = 0 }, null)
+                                        @Html.ActionLink("Izaberite Ligu", "SelectLeague", "Lige", new { klubId = 0 }, null)
                                         @Html.HiddenFor(model => model.LigaKlub.Id)
                                     </div>
                                 </div>

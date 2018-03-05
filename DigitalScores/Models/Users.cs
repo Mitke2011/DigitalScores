@@ -18,10 +18,10 @@ namespace DigitalScores.Models
                 this.id = value;
             }
         }
-    
+
         public string Username { get; set; }
         public string Password { get; set; }
-        [Display(Name ="Nivo Privilegija")]
+        [Display(Name = "Nivo Privilegija")]
         public Privilege UserPrivilege { get; set; }
         public string Ime { get; set; }
         public string Prezime { get; set; }
@@ -29,6 +29,7 @@ namespace DigitalScores.Models
         public string Grad { get; set; }
         public string Telefon { get; set; }
         public string Region { get; set; }
+        public Region UserRegion { get; set; }
         public string ImeiPrezime { get; set; }
 
         public Users()
@@ -45,7 +46,7 @@ namespace DigitalScores.Models
         {
             this.Username = username;
         }
-                
+
     }
 
     public enum Privilege
