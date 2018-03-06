@@ -399,7 +399,7 @@
     <Content Include="Views\Komesari\EditKomesara.cshtml" />
     <Content Include="Views\Hala\HalaEdit.cshtml" />
     <Content Include="Views\Referee\RefereeEdit.cshtml" />
-    <Content Include="Views\Kolo\KoloEntries.cshtml" />
+    <Content Include="Views\Kolo\KoloEntry.cshtml" />
     <Content Include="Views\Kolo\KoloPreview.cshtml" />
     <Content Include="Views\User\Listing.cshtml" />
     <Content Include="Views\User\Create.cshtml" />

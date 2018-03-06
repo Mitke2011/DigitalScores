@@ -25,7 +25,7 @@ namespace DigitalScores.Controllers
         // GET: Kolo/Create
         public ActionResult Create()
         {
-            return View("KoloEntries");
+            return View("KoloEntry");
         }
 
         // POST: Kolo/Create
