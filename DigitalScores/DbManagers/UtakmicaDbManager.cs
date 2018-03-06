@@ -215,12 +215,12 @@ namespace DigitalScores.DbManagers
             return listaUtakmica;
         }
 
-        public List<Utakmice> GetGamesByLeague(int ligaId)
+        public List<Utakmice> GetGamesByLeagueDelegate(int ligaId, int delegateId)
         {
             List<Utakmice> listaUtakmica = new List<Utakmice>();
             string sql = @"select * from Utakmice u
                 join Kolo kolo on (u.Kolo_Id = kolo.Id)
-                where u.Liga_Id = @liga_id
+                where u.Liga_Id = @liga_id and Delegat_Id = @delegateId
                 and kolo.Tekuce = 1";
 
             using (connection = new SqlConnection(this.ConnectionString))
@@ -229,7 +229,11 @@ namespace DigitalScores.DbManagers
 
                 using (command = new SqlCommand(sql, connection))
                 {
-                    command.Parameters.Add(new SqlParameter() { ParameterName = "@liga_id", SqlDbType = System.Data.SqlDbType.Int, Value = ligaId });
+                    command.Parameters.AddRange(new SqlParameter[]
+                    {
+                        new SqlParameter() { ParameterName = "@liga_id", SqlDbType = System.Data.SqlDbType.Int, Value = ligaId },
+                        new SqlParameter() { ParameterName = "@delegateId", SqlDbType = System.Data.SqlDbType.Int, Value = delegateId }
+                    });
                     try
                     {
                         SqlDataReader reader = command.ExecuteReader();
@@ -241,10 +245,9 @@ namespace DigitalScores.DbManagers
                             {
                                 KlubDomacin = (Klub)KlubDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Klub_domacin_id"))),
                                 KlubGost = (Klub)KlubDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Klub_gost_id"))),
-                                KoloUtakmice = (Kolo)KoloDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Kolo_Id")))
-                                //KoloUtakmice = reader.GetInt32(reader.GetOrdinal("Kolo")),
-                                //KlubDomacin = reader.GetString(reader.GetOrdinal("KlubDomacin")),
-                                //KlubGost = reader.GetString(reader.GetOrdinal("KlubGost")),
+                                KoloUtakmice = (Kolo)KoloDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Kolo_Id"))),
+                                DelegatUtakmice = (Users)UsersDbManager.Current.GetSingle(delegateId),
+                                LigaUtakmice = (Liga)LigaDbManager.Current.GetSingle(ligaId)
                             };
                             listaUtakmica.Add(u);
                         }

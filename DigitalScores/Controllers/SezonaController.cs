@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DigitalScores.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -21,7 +22,7 @@ namespace DigitalScores.Controllers
         }
 
         // GET: Sezona/Create
-        public ActionResult Create()
+        public ActionResult Create(int ligaId=0, string nazivLige = "")
         {
             return View();
         }
@@ -84,6 +85,18 @@ namespace DigitalScores.Controllers
             {
                 return View();
             }
+        }
+
+        private Users LoginGuard()
+        {
+            Users result = null;
+            Users current = Session["currentUser"] as Users;
+            if (current != null && current.UserPrivilege == Privilege.Invalid)
+            {
+                result = current;
+            }
+
+            return result;
         }
     }
 }

@@ -23,6 +23,8 @@ namespace DigitalScores.Models
         public string Naziv { get; set; }
         public int kategorijaId { get; set; }
 
+        public Region LigaRegion { get; set; }
+
         public Liga()
         {
 

@@ -5,36 +5,49 @@
     Layout = "~/Views/Shared/_DefaultAdminLayout.cshtml";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Naziv)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ligaId)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Naziv)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ligaId)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+@section welcome
+    {
+    <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle">
+        <i class="icon icon-user">
+        </i>  <span class="text"> @ViewBag.AdminIme @ViewBag.AdminPrezime</span><b class="caret"></b>
+    </a>
 }
 
-</table>
+@Html.ActionLink("+ Dodaj Sezonu", "Create", "Sezona", null, new { @class = "button-link-class" })
+<h3>Sezone</h3>
+@if (Model != null && Model.Count() != 0)
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Naziv)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ligaId)
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Naziv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ligaId)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <h2>Nema unesenih podataka za sezone, molim unesite novu sezonu.</h2>
+    
+}
+

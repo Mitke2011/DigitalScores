@@ -1,8 +1,14 @@
-﻿namespace DigitalScores.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace DigitalScores.Models
 {
-    public class Sezona
+    public class Region
     {
         private int id;
+        private string naziv;
 
         public int Id
         {
@@ -10,28 +16,19 @@
             {
                 return this.id;
             }
-
             private set
             {
                 this.id = value;
             }
         }
-
         public string Naziv { get; set; }
-        public bool Tekuca { get; set; }
-
-        #region DbLookup fields
-        public int ligaId { get; set; }
-        #endregion
-        public Liga Liga { get; set; }
-
-        public Sezona()
+        public Region()
         {
 
         }
-        public Sezona(int id)
+        public Region(int id)
         {
-            this.Id = id;
+            this.id = id;
         }
     }
 }
