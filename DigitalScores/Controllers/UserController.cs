@@ -175,6 +175,8 @@ namespace DigitalScores.Controllers
         {
             try
             {
+                //int regionId = 0;
+                //int.TryParse(collection["region"], out regionId);
                 Users u = new Users(int.Parse(collection["id"]))
                 {
                     Username = collection["username"],
@@ -184,7 +186,7 @@ namespace DigitalScores.Controllers
                     Email = collection["email"],
                     UserPrivilege = SetPrivilege(collection["privileges"]),
                     Grad = collection["grad"],
-                    Region = collection["region"],
+                    //UserRegion = RegionDbManager.Current.GetSingle(regionId) as Region,
                     Telefon = collection["telefon"]
                 };
                 UsersDbManager.Current.Update(u);

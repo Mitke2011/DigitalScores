@@ -57,6 +57,9 @@ namespace DigitalScores.DbManagers
                         SqlDataReader reader = command.ExecuteReader();
                         while (reader.Read())
                         {
+                            int regionId = 0;
+                            int.TryParse(reader.GetString(reader.GetOrdinal("region")), out regionId);
+
                             result.Add(new Users(reader.GetInt32(reader.GetOrdinal("id")))
                             {
                                 Username = reader.GetString(reader.GetOrdinal("username")),
@@ -65,7 +68,7 @@ namespace DigitalScores.DbManagers
                                 Prezime = reader.GetString(reader.GetOrdinal("prezime")),
                                 Email = reader.GetString(reader.GetOrdinal("email")),
                                 Grad = reader.GetString(reader.GetOrdinal("grad")),
-                                Region = reader.GetString(reader.GetOrdinal("region")),
+                                UserRegion = RegionDbManager.Current.GetSingle(regionId) as Region,
                                 UserPrivilege = GetPrivilege(reader.GetInt32(reader.GetOrdinal("Privilege_Id"))),
                                 Telefon = reader.GetString(reader.GetOrdinal("telefon"))
                             });
@@ -100,6 +103,9 @@ namespace DigitalScores.DbManagers
                         SqlDataReader reader = command.ExecuteReader();
                         if (reader.Read())
                         {
+                            int regionId = 0;
+                            int.TryParse(reader.GetString(reader.GetOrdinal("region")), out regionId);
+
                             u = new Users(id)
                             {
                                 Username = reader.GetString(reader.GetOrdinal("username")),
@@ -108,7 +114,7 @@ namespace DigitalScores.DbManagers
                                 Prezime = reader.GetString(reader.GetOrdinal("prezime")),
                                 Email = reader.GetString(reader.GetOrdinal("email")),
                                 Grad = reader.GetString(reader.GetOrdinal("grad")),
-                                Region = reader.GetString(reader.GetOrdinal("region")),
+                                UserRegion = RegionDbManager.Current.GetSingle(regionId) as Region,
                                 UserPrivilege = GetPrivilege(reader.GetInt32(reader.GetOrdinal("Privilege_Id"))),
                                 Telefon = reader.GetString(reader.GetOrdinal("telefon"))
                             };
@@ -142,6 +148,54 @@ namespace DigitalScores.DbManagers
             return Privilege.Invalid;
         }
 
+        //Uncomment when Region dialog is enabled
+        //public override void Update(object carrier)
+        //{
+        //    Users user = carrier as Users;
+        //    string sql = @"update users set
+        //                    username = @username,
+        //                    password = @password,
+        //                    Privilege_Id = @privilege_id,
+        //                    Ime =@ime,
+        //                    Prezime = @prezime,
+        //                    Email = @email,
+        //                    Grad = @grad,
+        //                    Telefon = @telefon,
+        //                    Region = @region
+        //                   WHERE id = @id";
+
+        //    using (connection = new SqlConnection(this.ConnectionString))
+        //    {
+        //        connection.Open();
+
+        //        using (command = new SqlCommand(sql, connection))
+        //        {
+        //            command.Parameters.AddRange(new SqlParameter[] {
+        //            new SqlParameter(){ ParameterName = "@Id", Value = user.Id, SqlDbType = SqlDbType.Int},
+        //            new SqlParameter(){ ParameterName = "@username", Value = user.Username, SqlDbType = SqlDbType.NVarChar},
+        //            new SqlParameter(){ ParameterName = "@password", Value = user.Password, SqlDbType = SqlDbType.NVarChar},
+        //            new SqlParameter(){ ParameterName = "@privilege_id", Value = (int)user.UserPrivilege, SqlDbType = SqlDbType.Int},
+        //            new SqlParameter(){ ParameterName = "@ime", Value = user.Ime, SqlDbType = SqlDbType.NVarChar},
+        //            new SqlParameter(){ ParameterName = "@prezime", Value = user.Prezime, SqlDbType = SqlDbType.NVarChar},
+        //            new SqlParameter(){ ParameterName = "@email", Value = user.Email, SqlDbType = SqlDbType.NVarChar},
+        //            new SqlParameter(){ ParameterName = "@grad", Value = user.Grad, SqlDbType = SqlDbType.NVarChar},
+        //            new SqlParameter(){ ParameterName = "@telefon", Value = user.Telefon, SqlDbType = SqlDbType.NVarChar},
+        //            new SqlParameter(){ ParameterName = "@region", Value = user.UserRegion.Id, SqlDbType = SqlDbType.Int}
+        //            });
+
+        //            try
+        //            {
+        //                command.ExecuteNonQuery();
+        //            }
+        //            catch (SqlException e)
+        //            {
+
+        //                throw e;
+        //            }
+        //        }
+        //    }
+        //}
+
         public override void Update(object carrier)
         {
             Users user = carrier as Users;
@@ -153,8 +207,7 @@ namespace DigitalScores.DbManagers
                             Prezime = @prezime,
                             Email = @email,
                             Grad = @grad,
-                            Telefon = @telefon,
-                            Region = @region
+                            Telefon = @telefon                           
                            WHERE id = @id";
 
             using (connection = new SqlConnection(this.ConnectionString))
@@ -172,8 +225,7 @@ namespace DigitalScores.DbManagers
                     new SqlParameter(){ ParameterName = "@prezime", Value = user.Prezime, SqlDbType = SqlDbType.NVarChar},
                     new SqlParameter(){ ParameterName = "@email", Value = user.Email, SqlDbType = SqlDbType.NVarChar},
                     new SqlParameter(){ ParameterName = "@grad", Value = user.Grad, SqlDbType = SqlDbType.NVarChar},
-                    new SqlParameter(){ ParameterName = "@telefon", Value = user.Telefon, SqlDbType = SqlDbType.NVarChar},
-                    new SqlParameter(){ ParameterName = "@region", Value = user.Region, SqlDbType = SqlDbType.NVarChar}
+                    new SqlParameter(){ ParameterName = "@telefon", Value = user.Telefon, SqlDbType = SqlDbType.NVarChar}
                     });
 
                     try
@@ -207,6 +259,9 @@ namespace DigitalScores.DbManagers
                         SqlDataReader reader = command.ExecuteReader();
                         if (reader.Read())
                         {
+                            int regionId = 0;
+                            int.TryParse(reader.GetString(reader.GetOrdinal("region")), out regionId);
+
                             user = new Users(username)
 
                             {
@@ -218,7 +273,7 @@ namespace DigitalScores.DbManagers
                                 Email = reader.GetString(reader.GetOrdinal("email")),
                                 Grad = reader.GetString(reader.GetOrdinal("grad")),
                                 Telefon = reader.GetString(reader.GetOrdinal("telefon")),
-                                Region = reader.GetString(reader.GetOrdinal("region"))
+                                UserRegion = RegionDbManager.Current.GetSingle(regionId) as Region
                             };
                         }
                     }
@@ -272,7 +327,7 @@ namespace DigitalScores.DbManagers
                     new SqlParameter(){ ParameterName = "@email", Value = user.Email, SqlDbType = SqlDbType.NVarChar},
                     new SqlParameter(){ ParameterName = "@grad", Value = user.Grad, SqlDbType = SqlDbType.NVarChar},
                     new SqlParameter(){ ParameterName = "@telefon", Value = user.Telefon, SqlDbType = SqlDbType.NVarChar},
-                    new SqlParameter(){ ParameterName = "@region", Value = user.Region, SqlDbType = SqlDbType.NVarChar}
+                    new SqlParameter(){ ParameterName = "@region", Value = user.UserRegion.Id, SqlDbType = SqlDbType.Int}
                     });
                 }
 
@@ -322,7 +377,7 @@ namespace DigitalScores.DbManagers
                     new SqlParameter(){ ParameterName = "@email", Value = u.Email, SqlDbType = SqlDbType.NVarChar},
                     new SqlParameter(){ ParameterName = "@grad", Value = u.Grad, SqlDbType = SqlDbType.NVarChar},
                     new SqlParameter(){ ParameterName = "@telefon", Value = u.Telefon, SqlDbType = SqlDbType.NVarChar},
-                    new SqlParameter(){ ParameterName = "@region", Value = u.Region, SqlDbType = SqlDbType.NVarChar}
+                    new SqlParameter(){ ParameterName = "@region", Value = u.UserRegion.Id, SqlDbType = SqlDbType.Int}
                     });
 
                     try

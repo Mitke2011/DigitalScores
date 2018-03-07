@@ -46,11 +46,15 @@ namespace DigitalScores.DbManagers
             throw new NotImplementedException();
         }
 
-        public List<Liga> FindLeagueByNameAndCat(string nazivLige, string kategorijaLige)
+        public List<Liga> FindLeagueByNameAndCat(string nazivLige, string kategorijaLige, int userRegionId)
         {
             List<Liga> result = new List<Liga>();
-            string whereSection = "";
-            whereSection = GenerateWhereSection(nazivLige, kategorijaLige, whereSection);
+            string whereSection = string.Format(@" where l.regionId = {0} ", userRegionId);
+
+            if (nazivLige != string.Empty || kategorijaLige != string.Empty)
+            {
+                whereSection = GenerateWhereSection(nazivLige, kategorijaLige, userRegionId);
+            }           
 
             string sql = string.Format(@"select l.Id as LigaId, l.Naziv as LigaNaziv, k.Id as KatId, k.Naziv as katNaziv
                            from Lige l 
@@ -70,7 +74,8 @@ namespace DigitalScores.DbManagers
                         result.Add(new Liga((int)reader["LigaId"])
                         {
                             Naziv = reader["LigaNaziv"].ToString(),
-                            LigaKategorija = new Kategorija((int)reader["KatId"]) { Naziv = reader["katNaziv"].ToString() }
+                            LigaKategorija = new Kategorija((int)reader["KatId"]) { Naziv = reader["katNaziv"].ToString() },
+                            LigaRegion = (Region)RegionDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("regionId")))
                         });
                     }
                 }
@@ -78,19 +83,18 @@ namespace DigitalScores.DbManagers
             return result;
         }
 
-        private string GenerateWhereSection(string nazivLige, string kategorijaLige, string whereSection)
+        private string GenerateWhereSection(string nazivLige, string kategorijaLige, int userRegionId)
         {
-            if (nazivLige != string.Empty || kategorijaLige != string.Empty)
-            {
-                if (nazivLige != string.Empty)
+            string whereSection = "";
+              if (nazivLige != string.Empty)
                 {
                     if (kategorijaLige == string.Empty)
                     {
-                        whereSection = string.Format(@" where l.Naziv like '%{0}%'", nazivLige);
+                        whereSection = string.Format(@" where l.Naziv like '%{0}%' and l.regionId = {1}", nazivLige,userRegionId);
                     }
                     else
                     {
-                        whereSection = string.Format(@" where l.Naziv like '%{0}%' and k.Naziv like '%{1}%'", nazivLige, kategorijaLige);
+                        whereSection = string.Format(@" where l.Naziv like '%{0}%' and k.Naziv like '%{1}%' and l.regionId = {2}", nazivLige, kategorijaLige, userRegionId);
                     }
 
                 }
@@ -98,10 +102,10 @@ namespace DigitalScores.DbManagers
                 {
                     if (kategorijaLige != string.Empty)
                     {
-                        whereSection = string.Format(@" where k.Naziv like('%{0}%')", kategorijaLige);
+                        whereSection = string.Format(@" where k.Naziv like('%{0}%') and l.regionId = {1}", kategorijaLige, userRegionId);
                     }
                 }
-            }
+            
 
             return whereSection;
         }
@@ -123,10 +127,10 @@ namespace DigitalScores.DbManagers
                         result = new Liga(id)
                         {
                             Naziv = reader.GetString(reader.GetOrdinal("Naziv")),
-                            LigaKategorija = (Kategorija)KategorijaDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Kategorija")))
+                            LigaKategorija = (Kategorija)KategorijaDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Kategorija"))),
+                            LigaRegion = (Region)RegionDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("regionId")))
 
-
-                       };
+                        };
                     }
                 }
 
@@ -138,7 +142,7 @@ namespace DigitalScores.DbManagers
         public override void Insert(object liga)
         {
             Liga l = liga as Liga;
-            string sql = "insert into Lige (Naziv,Kategorija) values (@naziv, @katId)";
+            string sql = "insert into Lige (Naziv,Kategorija,regionid) values (@naziv, @katId,@region)";
 
             using (connection = new SqlConnection(this.ConnectionString))
             {
@@ -148,8 +152,9 @@ namespace DigitalScores.DbManagers
                 {
                     command.Parameters.AddRange(
                 new SqlParameter[] {
-                    new SqlParameter(){ ParameterName = "@katId", Value = l.kategorijaId, SqlDbType = System.Data.SqlDbType.Int},
-                    new SqlParameter(){ ParameterName = "@naziv", Value = l.Naziv, SqlDbType = System.Data.SqlDbType.NVarChar}
+                    new SqlParameter(){ ParameterName = "@katId", Value = l.kategorijaId, SqlDbType = SqlDbType.Int},
+                    new SqlParameter(){ ParameterName = "@naziv", Value = l.Naziv, SqlDbType = SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@region", Value = l.LigaRegion.Id, SqlDbType = SqlDbType.Int}
 
             });
 
@@ -169,7 +174,7 @@ namespace DigitalScores.DbManagers
         public override void Update(object liga)
         {
             Liga l = liga as Liga;
-            string sql = @"update Lige set Naziv=@naziv WHERE id = @ligaId";
+            string sql = @"update Lige set Naziv=@naziv, regionId = @region, kategorija=@katId WHERE id = @ligaId";
 
             using (connection = new SqlConnection(this.ConnectionString))
             {
@@ -178,9 +183,10 @@ namespace DigitalScores.DbManagers
                 {
                     command.Parameters.AddRange(new SqlParameter[]
                     {
-                        new SqlParameter() { ParameterName = "@ligaId",Value = l.Id, SqlDbType = System.Data.SqlDbType.Int},
-                        new SqlParameter() { ParameterName = "@naziv",Value = l.Naziv, SqlDbType = System.Data.SqlDbType.NVarChar},
-                        new SqlParameter() { ParameterName = "@katId",Value = l.kategorijaId, SqlDbType = System.Data.SqlDbType.Int},
+                        new SqlParameter() { ParameterName = "@ligaId",Value = l.Id, SqlDbType = SqlDbType.Int},
+                        new SqlParameter() { ParameterName = "@naziv",Value = l.Naziv, SqlDbType = SqlDbType.NVarChar},
+                        new SqlParameter() { ParameterName = "@katId",Value = l.kategorijaId, SqlDbType = SqlDbType.Int},
+                        new SqlParameter(){ ParameterName = "@region", Value = l.LigaRegion.Id, SqlDbType = SqlDbType.Int }
                     });
 
                     command.ExecuteNonQuery();
@@ -188,11 +194,11 @@ namespace DigitalScores.DbManagers
             }
         }
 
-        public List<Liga> GetLeaguesByCategory(int kategorijaId)
+        public List<Liga> GetLeaguesByCategory(int kategorijaId, int userRegionId)
         {
 
             List<Liga> listaUtakmica = new List<Liga>();
-            string sql = "select * from Lige where Kategorija = @kategorijaId";
+            string sql = "select * from Lige where Kategorija = @kategorijaId and regionId = @region";
 
             using (connection = new SqlConnection(this.ConnectionString))
             {
@@ -202,17 +208,20 @@ namespace DigitalScores.DbManagers
                 {
                     try
                     {
-                        command.Parameters.Add(new SqlParameter() { ParameterName = "@kategorijaId", SqlDbType = System.Data.SqlDbType.Int, Value = kategorijaId });
+                        command.Parameters.AddRange(
+                            new SqlParameter[] {
+                                new SqlParameter() { ParameterName = "@region", Value = userRegionId, SqlDbType = SqlDbType.Int },
+                                new SqlParameter() { ParameterName = "@kategorijaId", SqlDbType = SqlDbType.Int, Value = kategorijaId }
+                                });
+
                         SqlDataReader reader = command.ExecuteReader();
                         while (reader.Read())
                         {
-
-
                             Liga l = new Liga(reader.GetInt32(0))
                             {
                                 Naziv = reader.GetString(reader.GetOrdinal("Naziv")),
-                                LigaKategorija = (Kategorija)KategorijaDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Kategorija")))
-
+                                LigaKategorija = (Kategorija)KategorijaDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Kategorija"))),
+                                LigaRegion = (Region)RegionDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("regionId")))
                             };
                             listaUtakmica.Add(l);
                         }
@@ -230,11 +239,11 @@ namespace DigitalScores.DbManagers
 
         }
 
-        public List<Liga> GetLeagues()
+        public List<Liga> GetLeagues(int userRegionId)
         {
 
             List<Liga> listaUtakmica = new List<Liga>();
-            string sql = "select * from Lige";
+            string sql = "select * from Lige where regionId = @region";
 
             using (connection = new SqlConnection(this.ConnectionString))
             {
@@ -242,6 +251,7 @@ namespace DigitalScores.DbManagers
 
                 using (command = new SqlCommand(sql, connection))
                 {
+                    command.Parameters.Add(new SqlParameter() { ParameterName = "@region", Value = userRegionId, SqlDbType = SqlDbType.Int });
                     try
                     {
                         SqlDataReader reader = command.ExecuteReader();
@@ -252,7 +262,8 @@ namespace DigitalScores.DbManagers
                             Liga l = new Liga(reader.GetInt32(0))
                             {
                                 Naziv = reader.GetString(reader.GetOrdinal("Naziv")),
-                                LigaKategorija = (Kategorija)KategorijaDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Kategorija")))
+                                LigaKategorija = (Kategorija)KategorijaDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("Kategorija"))),
+                                LigaRegion = (Region)RegionDbManager.Current.GetSingle(reader.GetInt32(reader.GetOrdinal("regionId")))
 
                             };
                             listaUtakmica.Add(l);

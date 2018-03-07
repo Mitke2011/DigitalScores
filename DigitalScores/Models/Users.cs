@@ -28,7 +28,7 @@ namespace DigitalScores.Models
         public string Email { get; set; }
         public string Grad { get; set; }
         public string Telefon { get; set; }
-        public string Region { get; set; }
+        //public string Region { get; set; }
         public Region UserRegion { get; set; }
         public string ImeiPrezime { get; set; }
 

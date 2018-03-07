@@ -86,8 +86,8 @@ namespace DigitalScores.DbManagers
                 {
                     command.Parameters.AddRange(new SqlParameter[]
                     {
-                        new SqlParameter() { ParameterName = "@katId",Value = k.Id, SqlDbType = System.Data.SqlDbType.Int},
-                        new SqlParameter() { ParameterName = "@naziv",Value = k.Naziv, SqlDbType = System.Data.SqlDbType.NVarChar},
+                        new SqlParameter() { ParameterName = "@katId",Value = k.Id, SqlDbType = SqlDbType.Int},
+                        new SqlParameter() { ParameterName = "@naziv",Value = k.Naziv, SqlDbType = SqlDbType.NVarChar},
                       });
 
                     command.ExecuteNonQuery();
@@ -108,7 +108,7 @@ namespace DigitalScores.DbManagers
                 {
                     command.Parameters.AddRange(
                 new SqlParameter[] {
-                    new SqlParameter(){ ParameterName = "@naziv", Value = k.Naziv, SqlDbType = System.Data.SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@naziv", Value = k.Naziv, SqlDbType = SqlDbType.NVarChar},
                    
             });
 

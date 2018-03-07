@@ -66,29 +66,36 @@ namespace DigitalScores.Controllers
 
         private List<Liga> FilterLeagues(string nazivLige, string kategorijaLige)
         {
-            return LigaDbManager.Current.FindLeagueByNameAndCat(nazivLige, kategorijaLige);
+            Users currentUser = LoginGuard();
+            List<Liga> result = new List<Liga>();
+            if (currentUser!=null)
+            {
+                result = LigaDbManager.Current.FindLeagueByNameAndCat(nazivLige, kategorijaLige, currentUser.UserRegion.Id);
+            }
+
+            return result;
         }
 
         public ActionResult LeaguesForCategory(int katId)
-        {
-            ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
-            ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
-            Users current = (Users)Session["currentUser"];
+        {            
+            Users current = LoginGuard();
             if (current != null)
             {
+                ViewBag.AdminIme = current.Ime;
+                ViewBag.AdminPrezime = current.Prezime;
                 switch (current.UserPrivilege)
                 {
 
                     case Privilege.Delegate:
                         ViewBag.DelegatIme = current.Ime;
                         ViewBag.DelegatPrezime = current.Prezime;
-                        return View("LigePreviewDelegate", LigaDbManager.Current.GetLeaguesByCategory(katId));
+                        return View("LigePreviewDelegate", LigaDbManager.Current.GetLeaguesByCategory(katId, current.UserRegion.Id));
 
                     case Privilege.Admin:
                         ViewBag.KatId = katId;
                         ViewBag.AdminIme = current.Ime;
                         ViewBag.AdminPrezime = current.Prezime;
-                        return View("LigePreviewAdmin", LigaDbManager.Current.GetLeaguesByCategory(katId));
+                        return View("LigePreviewAdmin", LigaDbManager.Current.GetLeaguesByCategory(katId, current.UserRegion.Id));
                 }
             }
             return RedirectToAction("Logoff", "User");

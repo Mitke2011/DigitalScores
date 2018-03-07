@@ -95,9 +95,9 @@ namespace DigitalScores.DbManagers
                 {
                     command.Parameters.AddRange(
                 new SqlParameter[] {
-                    new SqlParameter(){ ParameterName = "@naziv", Value = k.Naziv, SqlDbType = System.Data.SqlDbType.NVarChar},
-                    new SqlParameter(){ ParameterName = "@sezona_id", Value = k.sezonaId, SqlDbType = System.Data.SqlDbType.NVarChar},
-                    new SqlParameter(){ ParameterName = "@liga_id", Value = k.ligaId, SqlDbType =System.Data.SqlDbType.NVarChar },
+                    new SqlParameter(){ ParameterName = "@naziv", Value = k.Naziv, SqlDbType = SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@sezona_id", Value = k.sezonaId, SqlDbType = SqlDbType.NVarChar},
+                    new SqlParameter(){ ParameterName = "@liga_id", Value = k.ligaId, SqlDbType =SqlDbType.NVarChar },
                   
             });
 
@@ -126,7 +126,7 @@ namespace DigitalScores.DbManagers
 
                 using (command = new SqlCommand(sql, connection))
                 {
-                    command.Parameters.Add(new SqlParameter() { ParameterName = "@liga_id", SqlDbType = System.Data.SqlDbType.Int, Value = ligaId });
+                    command.Parameters.Add(new SqlParameter() { ParameterName = "@liga_id", SqlDbType = SqlDbType.Int, Value = ligaId });
                     try
                     {
                         SqlDataReader reader = command.ExecuteReader();

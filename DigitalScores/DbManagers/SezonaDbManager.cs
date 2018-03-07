@@ -173,7 +173,7 @@ namespace DigitalScores.DbManagers
 
                 using (command = new SqlCommand(sql, connection))
                 {
-                    command.Parameters.Add(new SqlParameter() { ParameterName = "@liga_id", SqlDbType = System.Data.SqlDbType.Int, Value = ligaId });
+                    command.Parameters.Add(new SqlParameter() { ParameterName = "@liga_id", SqlDbType = SqlDbType.Int, Value = ligaId });
                     try
                     {
                         SqlDataReader reader = command.ExecuteReader();

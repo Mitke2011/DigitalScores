@@ -58,23 +58,21 @@ namespace DigitalScores.Controllers
         // GET: Komesari/Edit/5
         public ActionResult Edit(int id)
         {
-
-
-
-            ViewBag.AdminIme = (Session["currentUser"] as Users).Ime;
-            ViewBag.AdminPrezime = (Session["currentUser"] as Users).Prezime;
-            ViewBag.Lige = LigaDbManager.Current.GetLeagues();
+            Users u = LoginGuard();
+            ViewBag.AdminIme = u.Ime;
+            ViewBag.AdminPrezime = u.Prezime;
+            ViewBag.Lige = LigaDbManager.Current.GetLeagues(u.UserRegion.Id);
             Komesari k = (Komesari)KomesariDbManager.Current.GetSingle(id);
-            SetSelectedLeague(k.Liga);
+            SetSelectedLeague(k.Liga,u.UserRegion.Id);
             return View("EditKomesara", k);
         }
 
 
-        private void SetSelectedLeague(Liga liga)
+        private void SetSelectedLeague(Liga liga, int userRegionId)
         {
             List<Liga> values = new List<Liga>();
 
-            foreach (var item in LigaDbManager.Current.GetLeagues())
+            foreach (var item in LigaDbManager.Current.GetLeagues(userRegionId))
             {
                 values.Add((Liga)item);
             }

@@ -38,7 +38,7 @@
                 @Html.DisplayNameFor(model => model.Telefon)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Region)
+                @Html.DisplayNameFor(model => model.UserRegion)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.UserPrivilege)
@@ -68,7 +68,7 @@
                     @Html.DisplayFor(modelItem => item.Telefon)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Region)
+                    @Html.DisplayFor(modelItem => item.UserRegion.Naziv)
                 </td>
                 @if (item.UserPrivilege == DigitalScores.Models.Privilege.Admin)
                 {
