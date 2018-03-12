@@ -15,6 +15,7 @@
             }
         }
 
+        public Klub KlubForStat { get; set; }
         public int PrimljeniPoeni { get; set; }
         public int PostignutiPoeni { get; set; }
         public int OdigranoUtakmica { get; set; }
@@ -23,11 +24,9 @@
         public int UkupnoBodova { get; set; }
 
         #region DbLookup Fields
-        public int sportId;
         public int sezonaId;
         #endregion
-        public Sport sport { get; set; }
-        public Sezona sezona { get; set; }
+        public Sezona SezonaStats { get; set; }
 
         public KluboviStats()
         {

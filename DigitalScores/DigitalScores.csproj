@@ -218,6 +218,7 @@
     <Compile Include="Controllers\SezonaController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UtakmicaController.cs" />
+    <Compile Include="DbManagers\KlubStatsDbManager.cs" />
     <Compile Include="DbManagers\RegionDbManager.cs" />
     <Compile Include="DbManagers\HalaDbManager.cs" />
     <Compile Include="DbManagers\KategorijaDbManager.cs" />
@@ -416,6 +417,7 @@
     <Content Include="Views\Sezona\Create.cshtml" />
     <Content Include="Views\Sezona\Edit.cshtml" />
     <Content Include="Views\Sezona\Delete.cshtml" />
+    <Content Include="Views\Rezultati\IzmenaRezultata.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

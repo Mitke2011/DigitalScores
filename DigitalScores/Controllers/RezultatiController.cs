@@ -69,7 +69,8 @@ namespace DigitalScores.Controllers
         // GET: Rezultati/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Rezultati modelData = RezultatiDbManager.Current.GetSingle(id) as Rezultati;
+            return View("IzmenaRezultata",modelData);
         }
 
         // POST: Rezultati/Edit/5
